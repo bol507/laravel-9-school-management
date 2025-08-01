@@ -24,7 +24,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|min:3|max:255',
         'email' => 'required|email|unique:users',
         'password' => 'required|string|min:8',// confirmed if you want to confirm password
         ];
@@ -34,6 +34,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'Name is required.',
+            'name.min' => 'Name must be at least 3 characters.',
             'email.required' => 'Email is required.',
             'email.unique' => 'Email is already taken.',
             'password.required' => 'Password is required.',
