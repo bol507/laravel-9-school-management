@@ -33,8 +33,13 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>
-                          <a href="{{ route('user.edit',$user->id) }}" class="btn btn-info">Edit</a>
-                          <a href="" class="btn btn-danger">Delete</a>
+                          <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info">Edit</a>
+                          <a 
+                            href="javascript:void(0);"  
+                            class="btn btn-danger"
+                            data-url="{{ route('user.destroy', $user->id) }}"
+                            onclick="openModal(this)"
+                          >Delete</a>
                         </td>
                       </tr>
                     @endforeach
@@ -56,5 +61,35 @@
     <!-- /.content -->
 
   </div>
+  @include('backend.user.partials.modal')
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modalEl = document.getElementById('modal-delete');
+      const modalInstance = new bootstrap.Modal(modalEl);
+
+      
+      window.openModal = function(element) {
+          const url = element.getAttribute('data-url');
+          document.getElementById('deleteUserForm').action = url; 
+          modalInstance.show();
+      };
+
+      
+      window.closeModal = function(event) {
+        if (event) {
+          event.preventDefault(); 
+        }
+        modalInstance.hide(); 
+        return false;
+      };
+
+    
+      modalEl.addEventListener('click', function(event) {
+          if (event.target === modalEl) {
+              closeModal(); 
+          }
+      });
+  });
+  </script>
 </div>
 @endsection
