@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 
 class UserController extends Controller
@@ -39,5 +40,15 @@ class UserController extends Controller
     public function UserEdit($id){
         $editUser = User::find($id);
         return view('backend.user.edit',compact('editUser'));
+    }
+
+    public function UserUpdate(UserUpdateRequest $request, $id){
+        $user = User::findOrFail($id);
+        $user->update($request->validated());
+        $notification = [
+            'message' => 'User updated successfully',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('user.view')->with($notification);
     }
 }

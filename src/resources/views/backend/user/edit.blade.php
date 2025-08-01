@@ -22,8 +22,9 @@
           @endif
           <div class="row">
             <div class="col">
-              <form method="post" action="{{ route('user.store') }}">
+              <form method="POST" action="{{ route('user.update',$editUser->id) }}">
                 @csrf
+                @method('PUT')
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
