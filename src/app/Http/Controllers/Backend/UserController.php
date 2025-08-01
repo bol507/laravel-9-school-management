@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,5 +15,18 @@ class UserController extends Controller
 
     public function UserAdd(){
         return view('backend.user.add');
+    }
+
+    public function UserStore(UserStoreRequest $request){
+        
+        $data = new User();
+        $data->user_type = $request->user_type;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->save();
+
+        return redirect()->route('user.view');
+    
     }
 }
