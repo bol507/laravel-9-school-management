@@ -25,11 +25,11 @@ class ProfileResource extends JsonResource
             'nationality' => $this->nationality,
             'image' => $this->image,
             'status' => $this->status,
-            'user' => [
+            'user' => $this->whenLoaded('user', [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'email' => $this->user->email,
-            ],
+            ]),
         ];
     }
 }
