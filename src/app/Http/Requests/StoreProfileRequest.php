@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProfileRequest extends FormRequest
 {
@@ -13,8 +14,8 @@ class StoreProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        // Allow users to update their own profile or admins to update any profile
-        return auth()->user()->id === $this->route('profile')->user_id || auth()->user()->user_type === 'Admin';
+        // Allow authenticated users to create their own profile
+        return auth()->check(); 
     }
 
     /**
@@ -25,14 +26,14 @@ class StoreProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'nullable|string|min:6|max:11',
-            'address' => 'nullable|string|min:3|max:255',
-            'religion' => 'nullable|string|min:3|max:255',
-            'blood_group' => 'nullable|string|min:3|max:255',
-            'nationality' => 'nullable|string|min:3|max:255',
-            'gender' => ['required', 'in:male,female,other'],
-            'status' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'mobile' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'religion' => ['nullable', 'string', 'max:50'],
+            'blood_group' => ['nullable', Rule::in(['a+', 'a-', 'b+', 'b-', 'o+', 'o-', 'ab+', 'ab-'])],
+            'nationality' => ['nullable', 'string', 'max:50'],
+            'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
+            'status' => ['nullable', Rule::in(['active', 'inactive'])],
+            'image'       => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ];
     }
 }
