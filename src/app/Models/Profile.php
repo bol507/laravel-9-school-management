@@ -16,6 +16,8 @@ class Profile extends Model
     public $incrementing = false; 
 
     protected $fillable = [
+        'id',
+        'user_id',
         'mobile',
         'address',
         'gender',
@@ -23,7 +25,7 @@ class Profile extends Model
         'blood_group',
         'nationality',
         'status',
-        'user_id',
+        'image',
     ];
 
     public function user()

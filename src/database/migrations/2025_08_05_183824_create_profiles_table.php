@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('religion')->nullable();
-            $table->string('blood_group')->nullable();
+            $table->enum('blood_group', ['a+', 'a-', 'b+', 'b-', 'o+', 'o-', 'ab+', 'ab-'])->nullable();
             $table->string('nationality')->nullable();
-            $table->tinyInteger('status');
+            $table->string('image')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->SoftDeletes();

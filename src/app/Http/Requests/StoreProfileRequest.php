@@ -13,7 +13,7 @@ class StoreProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'mobile' => 'nullable|string|min:6|max:11',
+            'address' => 'nullable|string|min:3|max:255',
+            'religion' => 'nullable|string|min:3|max:255',
+            'blood_group' => 'nullable|string|min:3|max:255',
+            'nationality' => 'nullable|string|min:3|max:255',
+            'gender' => ['required', 'in:male,female,other'],
+            'status' => 'required|integer',
         ];
     }
 }

@@ -42,5 +42,7 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('profile')->group(function (){
-    Route::get('/', [ProfileController::class , 'ProfileView'])->name('profile.view');
+    Route::get('/', [ProfileController::class , 'index'])->name('profile.view');
+    Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
+    Route::put('/update/{id}', [ProfileController::class , 'update'])->name('profile.update');
 });
