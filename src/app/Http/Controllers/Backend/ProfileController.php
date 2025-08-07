@@ -19,9 +19,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
-        $user= User::find($id);
-        return view('backend.profile.view',compact('user'));
+        //
     }
 
     /**
@@ -72,8 +70,8 @@ class ProfileController extends Controller
             if ($profile->image) {
                 Storage::disk('uploads')->delete($profile->image);
             }
-            $filename = time().'.'.$request->file('image')->getClientOriginalExtension();
-            $path = $request->file('image')->storeAs('', $filename,'uploads');
+            $filename = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs('', $filename,'uploads');
             $validated['image'] = $filename;
         }
         

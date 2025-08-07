@@ -14,7 +14,8 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // Allow users to update their own profile or admins to update any profile
+        return auth()->user()->id === $this->route('profile')->user_id || auth()->user()->user_type === 'Admin';
     }
 
     /**

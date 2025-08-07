@@ -41,7 +41,12 @@ Route::prefix('users')->group(function () {
     Route::delete('/destroy/{id}', [UserController::class , 'UserDelete'])->name('user.destroy');
 });
 
-Route::prefix('profile')->group(function (){
+
+Route::prefix('profile')->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])->group(function () {
     Route::get('/', [ProfileController::class , 'index'])->name('profile.view');
     Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
     Route::put('/update/{id}', [ProfileController::class , 'update'])->name('profile.update');

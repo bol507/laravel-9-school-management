@@ -13,7 +13,8 @@ class StoreProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // Allow users to update their own profile or admins to update any profile
+        return auth()->user()->id === $this->route('profile')->user_id || auth()->user()->user_type === 'Admin';
     }
 
     /**
@@ -31,6 +32,7 @@ class StoreProfileRequest extends FormRequest
             'nationality' => 'nullable|string|min:3|max:255',
             'gender' => ['required', 'in:male,female,other'],
             'status' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 }

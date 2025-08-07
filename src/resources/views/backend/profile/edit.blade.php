@@ -200,12 +200,22 @@
                     <div class="form-group">
                       <label for="status" class="control-label">Status</label>
                       <div class="controls">
-                        <input
-                          type="text"
+                        <select
                           name="status"
-                          class="form-control"
+                          id="status"
                           required
-                          value="{{$editUser->profile_data->status}}">
+                          class="form-control"
+                          aria-invalid="false"
+                        >
+                          <option
+                            value=""
+                            @if(empty($editUser->profile_data->status)) selected disabled @endif
+                            >
+                            Select status
+                          </option>
+                          <option value="active" @if($editUser->profile_data->status == 'active') selected @endif>Active</option>
+                          <option value="inactive" @if($editUser->profile_data->status == 'inactive') selected @endif>Inactive</option>
+                        </select>
                       </div>
                       @error('status')
                       <div class="text-danger">{{ $message }}</div>
