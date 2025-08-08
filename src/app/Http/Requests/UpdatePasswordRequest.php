@@ -24,9 +24,9 @@ class UpdatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string|min:8',
+            'old_password' => 'required|string|current_password:web',
             'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|same:password',
+            'password_confirmation' => 'required|confirmed',
         ];
     }
 
@@ -34,8 +34,9 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'old_password.required' => 'Old password is required.',
+            'old_password.current_password' => 'The provided password does not match your current password.',
             'password.required' => 'Password is required.',
-            'password_confirmation.required' => 'Password confirmation is required.',
+            'password.confirmed' => 'The password confirmation does not match.',
             'password.min' => 'Password must be at least 8 characters.',
         ];
     }

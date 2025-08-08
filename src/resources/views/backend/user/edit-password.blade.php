@@ -14,7 +14,7 @@
           
           <div class="row">
             <div class="col">
-              <form method="POST" action="{{ route('user.password.update',$user->id) }}">
+              <form method="POST" action="{{ route('user.password.update') }}">
                 @csrf
                 @method('PUT')
                 <div class="row">

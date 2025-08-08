@@ -71,8 +71,8 @@ class UserController extends Controller
         return view('backend.user.edit-password',compact('user'));
     }
 
-    public function passwordUpdate(UpdatePasswordRequest $request, $id){
-        $user = User::findOrFail($id);
+    public function passwordUpdate(UpdatePasswordRequest $request){
+        $user = User::findOrFail(Auth::user()->id);
         $validated = $request->validated();
         $hashedPassword = $user->password;
         if (!Hash::check($validated['old_password'], $hashedPassword)) {
@@ -84,7 +84,7 @@ class UserController extends Controller
         }
         else {
             
-            $validated['password'] = Hash::make($request->password);
+            $validated['password'] = Hash::make($validated['password']);
             $user->update($validated);
             $notification = [
                 'message' => 'Password updated successfully',
