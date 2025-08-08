@@ -47,7 +47,7 @@ Route::prefix('profile')->middleware([
         config('jetstream.auth_session'),
         'verified'
     ])->group(function () {
-    Route::get('/', [ProfileController::class , 'index'])->name('profile.view');
+    Route::get('/', [ProfileController::class , 'show'])->name('profile.view');
     Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
     Route::put('/update/{id}', [ProfileController::class , 'update'])->name('profile.update');
 });

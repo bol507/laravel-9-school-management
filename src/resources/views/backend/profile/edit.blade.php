@@ -24,7 +24,7 @@
             <div class="col">
               <form 
                 method="POST" 
-                action="{{ route('profile.update', $editUser->profile_data->id) }}"
+                action="{{ route('profile.update', $user->profile_data->id) }}"
                 enctype="multipart/form-data"
               >
                 @csrf
@@ -42,14 +42,14 @@
                           aria-invalid="false">
                           <option
                             value=""
-                            @if(empty($editUser->user_type)) selected disabled @endif
+                            @if(empty($user->user_type)) selected disabled @endif
                             >
                             Select user type
                           </option>
-                          <option value="Admin" @if($editUser->user_type == 'Admin') selected @endif>
+                          <option value="Admin" @if($user->user_type == 'Admin') selected @endif>
                             Admin
                           </option>
-                          <option value="User" @if($editUser->user_type == 'User') selected @endif>
+                          <option value="User" @if($user->user_type == 'User') selected @endif>
                             User
                           </option>
                         </select>
@@ -66,7 +66,7 @@
                           name="name"
                           class="form-control"
                           required
-                          value="{{$editUser->name}}">
+                          value="{{$user->name}}">
                       </div>
                       @error('name')
                       <div class="text-danger">{{ $message }}</div>
@@ -83,7 +83,7 @@
                           name="email"
                           class="form-control"
                           required
-                          value="{{$editUser->email}}">
+                          value="{{$user->email}}">
                       </div>
                       @error('email')
                       <div class="text-danger">{{ $message }}</div>
@@ -100,7 +100,7 @@
                           name="mobile"
                           class="form-control"
                           required
-                          value="{{$editUser->profile_data->mobile}}">
+                          value="{{$user->profile_data->mobile}}">
                       </div>
                       @error('mobile')
                       <div class="text-danger">{{ $message }}</div>
@@ -118,7 +118,7 @@
                           name="address"
                           class="form-control"
                           required
-                          value="{{$editUser->profile_data->address}}">
+                          value="{{$user->profile_data->address}}">
                       </div>
                       @error('address')
                       <div class="text-danger">{{ $message }}</div>
@@ -136,7 +136,7 @@
                           name="religion"
                           class="form-control"
                           required
-                          value="{{$editUser->profile_data->religion}}">
+                          value="{{$user->profile_data->religion}}">
                       </div>
                       @error('religion')
                       <div class="text-danger">{{ $message }}</div>
@@ -158,18 +158,18 @@
                         >
                           <option 
                              value=""
-                            @if(empty($editUser->profile_data->blood_group)) selected disabled @endif
+                            @if(empty($user->profile_data->blood_group)) selected disabled @endif
                             >
                             Select blood group
                           </option>
-                          <option value="a+" @if($editUser->profile_data->blood_group == 'a+') selected @endif>A+</option>
-                          <option value="a-" @if($editUser->profile_data->blood_group == 'a-') selected @endif>A-</option>
-                          <option value="b+" @if($editUser->profile_data->blood_group == 'b+') selected @endif>B+</option>
-                          <option value="b-" @if($editUser->profile_data->blood_group == 'b-') selected @endif>B-</option>
-                          <option value="o+" @if($editUser->profile_data->blood_group == 'o+') selected @endif>O+</option>
-                          <option value="o-" @if($editUser->profile_data->blood_group == 'o-') selected @endif>O-</option>
-                          <option value="ab+" @if($editUser->profile_data->blood_group == 'ab+') selected @endif>AB+</option>
-                          <option value="ab-" @if($editUser->profile_data->blood_group == 'ab-') selected @endif>AB-</option>
+                          <option value="a+" @if($user->profile_data->blood_group == 'a+') selected @endif>A+</option>
+                          <option value="a-" @if($user->profile_data->blood_group == 'a-') selected @endif>A-</option>
+                          <option value="b+" @if($user->profile_data->blood_group == 'b+') selected @endif>B+</option>
+                          <option value="b-" @if($user->profile_data->blood_group == 'b-') selected @endif>B-</option>
+                          <option value="o+" @if($user->profile_data->blood_group == 'o+') selected @endif>O+</option>
+                          <option value="o-" @if($user->profile_data->blood_group == 'o-') selected @endif>O-</option>
+                          <option value="ab+" @if($user->profile_data->blood_group == 'ab+') selected @endif>AB+</option>
+                          <option value="ab-" @if($user->profile_data->blood_group == 'ab-') selected @endif>AB-</option>
                         </select>
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                           name="nationality"
                           class="form-control"
                           required
-                          value="{{$editUser->profile_data->nationality}}">
+                          value="{{$user->profile_data->nationality}}">
                       </div>
                       @error('nationality')
                       <div class="text-danger">{{ $message }}</div>
@@ -209,12 +209,12 @@
                         >
                           <option
                             value=""
-                            @if(empty($editUser->profile_data->status)) selected disabled @endif
+                            @if(empty($user->profile_data->status)) selected disabled @endif
                             >
                             Select status
                           </option>
-                          <option value="active" @if($editUser->profile_data->status == 'active') selected @endif>Active</option>
-                          <option value="inactive" @if($editUser->profile_data->status == 'inactive') selected @endif>Inactive</option>
+                          <option value="active" @if($user->profile_data->status == 'active') selected @endif>Active</option>
+                          <option value="inactive" @if($user->profile_data->status == 'inactive') selected @endif>Inactive</option>
                         </select>
                       </div>
                       @error('status')
@@ -237,13 +237,13 @@
                         >
                           <option 
                             value=""
-                            @if(empty($editUser->profile_data->gender)) selected disabled @endif
+                            @if(empty($user->profile_data->gender)) selected disabled @endif
                             >
                             Select gender
                           </option>
-                          <option value="male" @if($editUser->profile_data->gender == 'male') selected @endif>Male</option>
-                          <option value="female" @if($editUser->profile_data->gender == 'female') selected @endif>Female</option>
-                          <option value="other" @if($editUser->profile_data->gender == 'other') selected @endif>Other</option>
+                          <option value="male" @if($user->profile_data->gender == 'male') selected @endif>Male</option>
+                          <option value="female" @if($user->profile_data->gender == 'female') selected @endif>Female</option>
+                          <option value="other" @if($user->profile_data->gender == 'other') selected @endif>Other</option>
                         </select>
                       </div>
                     </div>
@@ -270,7 +270,7 @@
                         <picture>
                           <img 
                             id="show-image" 
-                            src="{{ (!empty($editUser->profile_data->image) ? url('upload/user_images/'.$editUser->profile_data->image ) : url('upload/no_image.jpg')) }}" 
+                            src="{{ (!empty($user->profile_data->image) ? url('upload/user_images/'.$user->profile_data->image ) : url('upload/no_image.jpg')) }}" 
                             alt="User Avatar"
                             style="width:100px; height:100px; border:1px solid #ddd"
                           >

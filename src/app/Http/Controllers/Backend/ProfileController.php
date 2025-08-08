@@ -36,21 +36,19 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  void
      * @return \Illuminate\Http\Response
      */
     public function show()
     {
-        $id = Auth::user()->id;
-        $user= User::find($id);
+        $user = Auth::user();
         return view('backend.profile.view',compact('user'));
     }
 
     public function edit()
     {
-        $id = Auth::user()->id;
-        $editUser = User::find($id);
-        return view('backend.profile.edit',compact('editUser'));
+        $user = Auth::user();
+        return view('backend.profile.edit',compact('user'));
     }
 
     /**

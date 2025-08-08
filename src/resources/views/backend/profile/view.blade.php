@@ -9,7 +9,7 @@
         <div class="col-12">
           <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-black text-center">
+            <div class="widget-user-header bg-black">
               <h3 class="widget-user-username">{{ $user->name }}</h3>
               <a href="{{route('profile.edit')}}" class="btn btn-success pull-right">Edit profile</a>
               <h6 class="widget-user-desc">{{ $user->user_type}}</h6>
