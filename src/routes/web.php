@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\UserController;
 
 /*
@@ -38,4 +39,15 @@ Route::prefix('users')->group(function () {
     Route::get('/edit/{id}', [UserController::class , 'UserEdit'])->name('user.edit');
     Route::put('/update/{id}', [UserController::class , 'UserUpdate'])->name('user.update');
     Route::delete('/destroy/{id}', [UserController::class , 'UserDelete'])->name('user.destroy');
+});
+
+
+Route::prefix('profile')->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])->group(function () {
+    Route::get('/', [ProfileController::class , 'show'])->name('profile.view');
+    Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
+    Route::put('/update/{id}', [ProfileController::class , 'update'])->name('profile.update');
 });
