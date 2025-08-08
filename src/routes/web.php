@@ -36,7 +36,10 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class , 'UserView'])->name('user.view');
     Route::get('/add', [UserController::class , 'UserAdd'])->name('user.add');
     Route::post('/store', [UserController::class , 'UserStore'])->name('user.store');
+    Route::get('/password/edit', [UserController::class , 'passwordView'])->name('user.password');
+    Route::put('/password/update', [UserController::class , 'passwordUpdate'])->name('user.password.update');
     Route::get('/edit/{id}', [UserController::class , 'UserEdit'])->name('user.edit');
+
     Route::put('/update/{id}', [UserController::class , 'UserUpdate'])->name('user.update');
     Route::delete('/destroy/{id}', [UserController::class , 'UserDelete'])->name('user.destroy');
 });

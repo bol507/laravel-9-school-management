@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -61,5 +64,35 @@ class UserController extends Controller
             'alert-type' => 'success'
         ];
         return redirect()->route('user.view')->with($notification);
+    }
+
+    public function passwordView(){
+        $user = Auth::user();
+        return view('backend.user.edit-password',compact('user'));
+    }
+
+    public function passwordUpdate(UpdatePasswordRequest $request){
+        $user = User::findOrFail(Auth::user()->id);
+        $validated = $request->validated();
+        $hashedPassword = $user->password;
+        if (!Hash::check($validated['old_password'], $hashedPassword)) {
+            $notification = [
+                'message' => 'Old password is incorrect',
+                'alert-type' => 'danger'
+            ];
+            return redirect()->route('user.password')->with($notification);
+        }
+        else {
+            
+            $validated['password'] = Hash::make($validated['password']);
+            $user->update($validated);
+            $notification = [
+                'message' => 'Password updated successfully',
+                'alert-type' => 'success'
+            ];
+            Auth::logout();
+            return redirect()->route('login')->with($notification);
+        }
+        
     }
 }

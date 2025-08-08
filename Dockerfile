@@ -23,9 +23,9 @@ RUN echo 'source $NVM_DIR/nvm.sh' >> /root/.bashrc
 
 # Iinstall nodejs
 RUN bash -c "source $NVM_DIR/nvm.sh && \
-             nvm install 22 && \
-             nvm use 22 && \
-             nvm alias default 22"
+             nvm install 20 && \
+             nvm use 20 && \
+             nvm alias default 20"
 
 
 ENV PATH="$NVM_DIR/versions/node/v20/bin:$PATH"
