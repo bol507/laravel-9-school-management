@@ -14,7 +14,7 @@ class StoreStudentClassRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreStudentClassRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:student_classes|min:3|max:255',
+            'name' => 'bail|required|string|min:3|max:255|unique:student_classes,name',
         ];
     }
 
@@ -38,5 +38,13 @@ class StoreStudentClassRequest extends FormRequest
             'name.max' => 'Name must be at most 255 characters.',
             'name.unique' => 'Name is already taken.',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if (is_string($this->input('name'))) {
+            $normalized = trim(preg_replace('/\s+/', ' ', $this->input('name')));
+            $this->merge(['name' => $normalized]);
+        }
     }
 }
