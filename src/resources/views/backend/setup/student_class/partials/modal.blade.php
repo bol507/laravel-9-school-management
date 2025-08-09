@@ -1,76 +1,50 @@
-<div id="modal-delete" class="modal fade" style="display: none;"> 
+<dialog id="dialog" class="modal fade" closedby="any"> 
 
   <div class="modal-dialog" role="document"> 
 
     <div class="modal-content"> 
 
-      <div class="modal-header"> 
+      <header class="modal-header"> 
 
-        <h4 class="modal-title">Delete user</h4> 
+        <h4 class="modal-title"></h4> 
 
-        <a 
-
-          type="button" 
-
+        <a
           class="close" 
-
-          onclick="closeModal(event)" 
-
-          data-dismiss="modal" 
-
-          aria-label="Close"> 
+          aria-label="Close"
+          onClick="closeModal(event)"
+          > 
 
           <span aria-hidden="true">&times;</span> 
 
         </a> 
 
-      </div> 
+      </header> 
 
       <div class="modal-body"> 
 
-        <p>Are you sure you want to delete this user?</p> 
+        <p></p> 
 
         <a 
-
-          type="button" 
-
           class="btn" 
-
-          data-dismiss="modal" 
-
-          onclick="closeModal(event)"> 
-
+          onClick="closeModal(event)"
+        > 
           Close 
-
         </a> 
 
         <form  
-
           id="deleteUserForm"  
-
           action=""  
-
           method="POST"  
-
           style="display: inline;" 
-
         > 
 
           @csrf 
-
           @method('DELETE') 
-
           <input 
-
             type="submit" 
-
             class="btn btn-danger float-right" 
-
             value="Delete" 
-
           /> 
-
-           
 
         </form> 
 
@@ -84,6 +58,5 @@
 
   <!-- /.modal-dialog --> 
 
-</div> 
-
-<!-- /.modal --> 
+</dialog> 
+<!-- /.modal -->

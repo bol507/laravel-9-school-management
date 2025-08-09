@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\UserController;
 
 /*
@@ -53,4 +54,17 @@ Route::prefix('profile')->middleware([
     Route::get('/', [ProfileController::class , 'show'])->name('profile.view');
     Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
     Route::put('/update/{id}', [ProfileController::class , 'update'])->name('profile.update');
+});
+
+Route::prefix('setups')->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])->group(function () {
+    Route::get('/student/class/view', [StudentClassController::class , 'ViewStudentClass'])->name('student.class.view');
+    Route::get('/student/class/add', [StudentClassController::class, 'AddStudentClass'])->name('student.class.add');
+    Route::post('/student/class/store', [StudentClassController::class, 'StoreStudentClass'])->name('student.class.store');
+    Route::get('/student/class/edit/{id}', [StudentClassController::class , 'EditStudentClass'])->name('student.class.edit');
+    Route::put('/student/class/update/{id}', [StudentClassController::class , 'UpdateStudentClass'])->name('student.class.update');
+    Route::delete('/student/class/destroy/{id}', [StudentClassController::class , 'DeleteStudentClass'])->name('student.class.destroy');
 });
