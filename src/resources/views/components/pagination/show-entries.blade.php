@@ -1,5 +1,8 @@
 <div class="col-sm-12 col-md-6">
   <form method="GET" action="{{ route('student.class.view') }}">
+    @foreach(request()->except('limit','page') as $key => $value)
+      <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+    @endforeach
     <div class="d-flex align-items-center float-left py-2">
       <span class="mr-2">
         Show

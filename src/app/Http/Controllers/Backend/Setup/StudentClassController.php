@@ -7,12 +7,19 @@ use App\Http\Requests\StoreStudentClassRequest;
 use App\Http\Requests\UpdateStudentClassRequest;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StudentClassController extends Controller
 {
     public function ViewStudentClass(Request $request){
-        $perPage = $request->input('limit', 10);
-        $docs = StudentClass::paginate($perPage);
+        $perPage = (int) $request->input('limit', 10);
+        $perPage = max(1,min($perPage,100));
+        $q = trim((string) $request->input('q',''));
+        $query = StudentClass::query();
+        if($q){
+            $query->where('name','like','%{$q}%');
+        }
+        $docs = $query->orderBy('name','asc')->paginate($perPage)->appends($request->query());
         return view('backend.setup.student_class.view-class',compact('docs'));
     }
 
@@ -45,7 +52,11 @@ class StudentClassController extends Controller
                 'alert-type' => 'success'
             ];
             return redirect()->route('student.class.view')->with($notification);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Log::error('Failed to update student class', [
+                'id' => $id,
+                'error' => $e->getMessage(),
+            ]);
             $notification = [
                 'message' => 'An error occurred while updating the student class',
                 'alert-type' => 'danger'
@@ -55,12 +66,24 @@ class StudentClassController extends Controller
     }
 
     public function DeleteStudentClass($id){
-        $doc = StudentClass::findOrFail($id);
-        $doc->delete();
-        $notification = [
-            'message' => 'Student class deleted successfully',
-            'alert-type' => 'success'
-        ];
-        return redirect()->route('student.class.view')->with($notification);
+        try {
+            $doc = StudentClass::findOrFail($id);
+            $doc->delete();
+            $notification = [
+                'message' => 'Student class deleted successfully',
+                'alert-type' => 'success'
+            ];
+            return redirect()->route('student.class.view')->with($notification);
+        }catch (\Throwable $e) {
+            Log::warning('Failed to delete student class', [
+                'id' => $id,
+                'error' => $e->getMessage(),
+            ]);
+            $notification = [
+                'message' => 'An error occurred while deleting the student class',
+                'alert-type' => 'danger'
+            ];
+            return redirect()->route('student.class.view')->with($notification);
+        }
     }
 }

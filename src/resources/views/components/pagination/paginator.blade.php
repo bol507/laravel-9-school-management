@@ -2,16 +2,14 @@
 <div class="col-sm-12 col-md-7">
     <div class="dataTables_paginate paging_simple_numbers float-right" id="paginate">
         <ul class="pagination">
-            <li class="paginate_button page-item previous {{ ($docs->currentPage() == 1) ? ' disabled' : '' }}" id="previous">
-                <a 
-                  href="{{ $docs->previousPageUrl() }}" 
-                  aria-controls="table" 
-                  class="page-link" 
-                  role="button"
-                  {{ ($docs->currentPage() == 1) ? 'aria-disabled="true"' : '' }}
-                >
+            <li class="paginate_button page-item previous {{ $docs->currentPage() == 1 ? ' disabled' : '' }}" id="previous">
+                @if ($docs->currentPage() == 1)
+                <span class="page-link" aria-controls="table" aria-disabled="true" tabindex="-1" role="button">
+                @else
+                <a href="{{ $docs->previousPageUrl() }}" aria-controls="table" class="page-link" role="button" rel="prev">
+                @endif
                     Previous
-                </a>
+                @if ($docs->currentPage() == 1)</span>@else</a>@endif
             </li>
             @php
                 $currentPage = $docs->currentPage();
@@ -47,16 +45,14 @@
                     <a href="{{ $docs->url($lastPage) }}" class="page-link">{{ $lastPage }}</a>
                 </li>
             @endif
-            <li class="paginate_button page-item next {{ ($docs->currentPage() == $docs->lastPage()) ? ' disabled' : '' }}" id="next">
-                <a 
-                  href="{{ $docs->nextPageUrl() }}" 
-                  aria-controls="table" 
-                  class="page-link" 
-                  role="button"
-                  {{ ($docs->currentPage() == $docs->lastPage()) ? 'aria-disabled="true"' : '' }}
-                >
+            <li class="paginate_button page-item next {{ $docs->currentPage() == $docs->lastPage() ? ' disabled' : '' }}" id="next">
+                @if ($docs->currentPage() == $docs->lastPage())
+                <span class="page-link" aria-controls="table" aria-disabled="true" tabindex="-1" role="button">
+                @else
+                <a href="{{ $docs->nextPageUrl() }}" aria-controls="table" class="page-link" role="button" rel="next">
+                @endif
                     Next
-                </a>
+                @if ($docs->currentPage() == $docs->lastPage())</span>@else</a>@endif
             </li>
         </ul>
     </div>
