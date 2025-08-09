@@ -100,7 +100,9 @@
             </li>
           </ul>
         </li>
-
+@php
+  $user = Auth::user();
+@endphp
         <!-- User Account-->
         <li class="dropdown user user-menu">
           <a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown" title="User">
