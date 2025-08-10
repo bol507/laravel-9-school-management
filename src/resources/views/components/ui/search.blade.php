@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-6">
-  <form method="GET" action="{{ route('student.year.index') }}" id="searchForm">
+  <form method="GET" action="{{ $action }}" id="searchForm">
     <div class="d-flex align-items-center float-right py-2">
       <span class="mr-2">
         Search:
@@ -9,7 +9,7 @@
         name="search" 
         class="form-control form-control-sm"
         id="searchInput"
-        value="{{$search}}"
+        value="{{$search ?? '' }}"
       >
 
     </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\StudentClassController;
+use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\UserController;
 
 /*
@@ -61,10 +62,13 @@ Route::prefix('setups')->middleware([
         config('jetstream.auth_session'),
         'verified'
     ])->group(function () {
+    //class
     Route::get('/student/class/view', [StudentClassController::class , 'ViewStudentClass'])->name('student.class.view');
     Route::get('/student/class/add', [StudentClassController::class, 'AddStudentClass'])->name('student.class.add');
     Route::post('/student/class/store', [StudentClassController::class, 'StoreStudentClass'])->name('student.class.store');
     Route::get('/student/class/edit/{id}', [StudentClassController::class , 'EditStudentClass'])->name('student.class.edit');
     Route::put('/student/class/update/{id}', [StudentClassController::class , 'UpdateStudentClass'])->name('student.class.update');
     Route::delete('/student/class/destroy/{id}', [StudentClassController::class , 'DeleteStudentClass'])->name('student.class.destroy');
+    //year
+    Route::get('/student/year/view', [StudentYearController::class , 'ViewStudentYear'])->name('student.year.view');
 });

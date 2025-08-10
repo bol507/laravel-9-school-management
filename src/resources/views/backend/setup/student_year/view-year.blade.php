@@ -23,9 +23,7 @@
                   class="container-fluid">
                   <div class="row">
                     @include('components.pagination.show-entries')
-                    <x-ui.search
-                      :action="route('student.class.view')"
-                      :search="$search" />
+                    <x-search :action="route('student.class.view')" />
                   </div>
                   <table
                     id="table"
@@ -61,7 +59,7 @@
                   </table>
 
                   <div class="row">
-                    <x-ui.pagination-info :docs="$docs" class="text-muted" />
+                    @include('components.pagination.showing')
                     @include('components.pagination.paginator')
                   </div>
 
@@ -82,16 +80,18 @@
   </div>
   @include('backend.setup.student_class.partials.modal')
   <script>
+    
+
     document.addEventListener('DOMContentLoaded', function() {
       const dialog = document.querySelector('dialog');
       const modalInstance = new bootstrap.Modal(dialog);
 
       window.openModal = function(element) {
         const url = element.getAttribute('data-url');
-        const title = element.getAttribute('data-title')
+        const title = element.getAttribute('data-title') 
         const message = element.getAttribute('data-message')
 
-
+        
         document.getElementById('deleteUserForm').action = url;
         dialog.querySelector('.modal-title').textContent = title;
         dialog.querySelector('.modal-body p').textContent = message;
