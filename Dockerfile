@@ -31,3 +31,5 @@ RUN bash -c "source $NVM_DIR/nvm.sh && \
 ENV PATH="$NVM_DIR/versions/node/v20/bin:$PATH"
 
 WORKDIR /var/www/html
+
+CMD ["php-fpm"]

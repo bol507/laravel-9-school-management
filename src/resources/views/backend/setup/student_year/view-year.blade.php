@@ -43,12 +43,15 @@
                         <td>
                           <a href="{{ route('student.year.edit', $doc->id) }}" class="btn btn-info">Edit</a>
                           <a
+                            
                             href="javascript:void(0);"
                             class="btn btn-danger"
+                            data-modal-confirm="deleteYear"
                             data-url="{{ route('student.year.destroy', $doc->id) }}"
-                            data-title="Delete student year"
-                            data-message="Are you sure you want to delete this year?"
-                            onclick="openModal(this)">Delete</a>
+                            onclick="openModal(this)"
+                          >
+                            Delete
+                          </a>
                         </td>
                       </tr>
                       @endforeach
@@ -79,44 +82,14 @@
 
   </div>
   <x-ui.dialog
+    id="deleteYear"
     method="DELETE"
-    submit="Delete"
-  />
-  <script>
+    submitText="Delete"
+    title="Delete student year"
+    message="Are you sure you want to delete this year?"
     
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const dialog = document.querySelector('dialog');
-      const modalInstance = new bootstrap.Modal(dialog);
-
-      window.openModal = function(element) {
-        const url = element.getAttribute('data-url');
-        const title = element.getAttribute('data-title') 
-        const message = element.getAttribute('data-message')
-
-        
-        document.getElementById('dialogForm').action = url;
-        dialog.querySelector('.modal-title').textContent = title;
-        dialog.querySelector('.modal-body p').textContent = message;
-
-        modalInstance.show();
-      };
-
-      window.closeModal = function(event) {
-        if (event) {
-          event.preventDefault();
-        }
-        modalInstance.hide();
-        //dialog.close();
-        return false;
-      };
-
-      dialog.addEventListener('click', function(event) {
-        if (event.target === dialog) {
-          closeModal();
-        }
-      });
-    });
-  </script>
+   
+  />
+  
 </div>
 @endsection
