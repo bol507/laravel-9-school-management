@@ -14,13 +14,17 @@ class StudentClassController extends Controller
     public function ViewStudentClass(Request $request){
         $perPage = (int) $request->input('limit', 10);
         $perPage = max(1,min($perPage,100));
-        $q = trim((string) $request->input('q',''));
+        $search = trim((string) $request->input('search',''));
         $query = StudentClass::query();
-        if($q){
-            $query->where('name','like','%{$q}%');
+        if($search){
+            $query->where('name','like',"%{$search}%");
         }
-        $docs = $query->orderBy('name','asc')->paginate($perPage)->appends($request->query());
-        return view('backend.setup.student_class.view-class',compact('docs'));
+        $docs = $query
+            ->orderBy('name','asc')
+            ->paginate($perPage)
+            ->appends($request->query());
+
+        return view('backend.setup.student_class.view-class',compact('docs','search'));
     }
 
     public function AddStudentClass(){

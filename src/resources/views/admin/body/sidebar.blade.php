@@ -91,7 +91,12 @@
               Student class
             </a>
           </li>
-           
+          <li>
+            <a href="{{ route('student.year.view') }}">
+              <i class="ti-more"></i>
+              Student year
+            </a>
+          </li> 
         </ul>
       </li>
 
