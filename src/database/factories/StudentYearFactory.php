@@ -17,7 +17,8 @@ class StudentYearFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => fake()->unique()->uuid(),
+            'name' => fake()->unique()->name(),
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Dialog extends Component
 {
     public string $id;
-    public ?string $method;
+    public string $method;
     public ?string $submitText;
     public ?string $title;
     public ?string $message;

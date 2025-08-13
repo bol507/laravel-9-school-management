@@ -3,8 +3,7 @@
     'method' => 'POST',
     'submitText' => 'Submit',
     'title' => '',
-    'message' => '',
-    'action' => '',
+    'message' => ''
 ])
 
 <dialog id="{{ $id }}" class="modal fade" closedby="any">

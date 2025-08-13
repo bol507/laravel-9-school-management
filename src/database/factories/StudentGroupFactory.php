@@ -17,7 +17,9 @@ class StudentGroupFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => fake()->unique()->uuid(),
+            'name' => fake()->words(2, true),
+            'description' => fake()->sentence(),
         ];
     }
 }

@@ -21,7 +21,7 @@ document.addEventListener('click', (e) => {
     if (event) {
       event.preventDefault();
     }
-    smodalInstance.hide();
+    modalInstance.hide();
     return false;
   };
 
