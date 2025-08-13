@@ -9,11 +9,11 @@
         <div class="col-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Student class list</h3>
+              <h3 class="box-title">Student year list</h3>
               <a
-                href="{{route('student.class.add')}}"
+                href="{{route('student.year.add')}}"
                 class="btn btn-success pull-right">
-                Add student class
+                Add student year
               </a>
             </div>
             <!-- /.box-header -->
@@ -23,7 +23,7 @@
                   class="container-fluid">
                   <div class="row">
                     @include('components.pagination.show-entries')
-                    <x-search :action="route('student.class.view')" />
+                    <x-ui.search :action="route('student.year.view')" />
                   </div>
                   <table
                     id="table"
@@ -36,18 +36,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($docs as $key => $class)
+                      @foreach($docs as $key => $doc)
                       <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$class->name}}</td>
+                        <td>{{$doc->name}}</td>
                         <td>
-                          <a href="{{ route('student.class.edit', $class->id) }}" class="btn btn-info">Edit</a>
+                          <a href="{{ route('student.year.edit', $doc->id) }}" class="btn btn-info">Edit</a>
                           <a
                             href="javascript:void(0);"
                             class="btn btn-danger"
-                            data-url="{{ route('student.class.destroy', $class->id) }}"
-                            data-title="Delete student class"
-                            data-message="Are you sure you want to delete this class?"
+                            data-url="{{ route('student.year.destroy', $doc->id) }}"
+                            data-title="Delete student year"
+                            data-message="Are you sure you want to delete this year?"
                             onclick="openModal(this)">Delete</a>
                         </td>
                       </tr>
@@ -59,7 +59,7 @@
                   </table>
 
                   <div class="row">
-                    @include('components.pagination.showing')
+                    <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     @include('components.pagination.paginator')
                   </div>
 
@@ -78,7 +78,10 @@
     <!-- /.content -->
 
   </div>
-  @include('backend.setup.student_class.partials.modal')
+  <x-ui.dialog
+    method="DELETE"
+    submit="Delete"
+  />
   <script>
     
 
@@ -92,7 +95,7 @@
         const message = element.getAttribute('data-message')
 
         
-        document.getElementById('deleteUserForm').action = url;
+        document.getElementById('dialogForm').action = url;
         dialog.querySelector('.modal-title').textContent = title;
         dialog.querySelector('.modal-body p').textContent = message;
 

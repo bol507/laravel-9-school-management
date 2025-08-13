@@ -71,4 +71,9 @@ Route::prefix('setups')->middleware([
     Route::delete('/student/class/destroy/{id}', [StudentClassController::class , 'DeleteStudentClass'])->name('student.class.destroy');
     //year
     Route::get('/student/year/view', [StudentYearController::class , 'ViewStudentYear'])->name('student.year.view');
+    Route::get('/student/year/add', [StudentYearController::class , 'AddStudentYear'])->name('student.year.add');
+    Route::post('/student/year/store', [StudentYearController::class , 'StoreStudentYear'])->name('student.year.store');
+    Route::get('/student/year/edit/{id}', [StudentYearController::class , 'EditStudentYear'])->name('student.year.edit');
+    Route::put('/student/year/update/{id}', [StudentYearController::class , 'UpdateStudentYear'])->name('student.year.update');
+    Route::delete('/student/year/destroy/{id}', [StudentYearController::class , 'DeleteStudentYear'])->name('student.year.destroy');
 });

@@ -25,7 +25,8 @@
                     @include('components.pagination.show-entries')
                     <x-ui.search
                       :action="route('student.class.view')"
-                      :search="$search" />
+                      :search="$search" 
+                    />
                   </div>
                   <table
                     id="table"
