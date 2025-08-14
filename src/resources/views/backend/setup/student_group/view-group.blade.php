@@ -9,11 +9,11 @@
         <div class="col-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Student year list</h3>
+              <h3 class="box-title">Student group list</h3>
               <a
-                href="{{route('student.year.add')}}"
+                href="{{route('student.group.add')}}"
                 class="btn btn-success pull-right">
-                Add student year
+                Add student group
               </a>
             </div>
             <!-- /.box-header -->
@@ -23,10 +23,12 @@
                   class="container-fluid">
                   <div class="row">
                     <x-ui.show-entries 
-                      :action="route('student.year.view')" 
-                      :docs="$docs"
+                      :action="route('student.group.view')" 
+                      :docs="$docs" 
                     />
-                    <x-ui.search :action="route('student.year.view')" />
+                    <x-ui.search 
+                      :action="route('student.group.view')" 
+                    />
                   </div>
                   <table
                     id="table"
@@ -35,6 +37,7 @@
                       <tr>
                         <th>SL</th>
                         <th>Name</th>
+                        <th>Description</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -43,14 +46,15 @@
                       <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$doc->name}}</td>
+                        <td>{{$doc->description}}</td>
                         <td>
-                          <a href="{{ route('student.year.edit', $doc->id) }}" class="btn btn-info">Edit</a>
+                          <a href="{{ route('student.group.edit', $doc->id) }}" class="btn btn-info">Edit</a>
                           <a
 
                             href="javascript:void(0);"
                             class="btn btn-danger"
-                            data-modal-confirm="deleteYear"
-                            data-url="{{ route('student.year.destroy', $doc->id) }}"
+                            data-modal-confirm="deleteGroup"
+                            data-url="{{ route('student.group.destroy', $doc->id) }}"
                             onclick="openModal(this)">
                             Delete
                           </a>
@@ -80,11 +84,11 @@
       </div>
       <!-- /.row -->
       <x-ui.dialog
-        id="deleteYear"
+        id="deleteGroup"
         method="DELETE"
         submitText="Delete"
-        title="Delete student year"
-        message="Are you sure you want to delete this year?" 
+        title="Delete student group"
+        message="Are you sure you want to delete this group?" 
       />
     </section>
     <!-- /.content -->

@@ -97,6 +97,12 @@
               Student year
             </a>
           </li> 
+          <li>
+            <a href="{{ route('student.group.view') }}">
+              <i class="ti-more"></i>
+              Student group
+            </a>
+          </li> 
         </ul>
       </li>
 

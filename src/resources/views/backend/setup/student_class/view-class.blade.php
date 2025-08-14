@@ -22,7 +22,10 @@
                 <div
                   class="container-fluid">
                   <div class="row">
-                    @include('components.pagination.show-entries')
+                    <x-ui.show-entries 
+                      :action="route('student.class.view')" 
+                      :docs="$docs" 
+                    />
                     <x-ui.search
                       :action="route('student.class.view')"
                       :search="$search" 
@@ -48,9 +51,8 @@
                           <a
                             href="javascript:void(0);"
                             class="btn btn-danger"
+                            data-modal-confirm="deleteClass"
                             data-url="{{ route('student.class.destroy', $class->id) }}"
-                            data-title="Delete student class"
-                            data-message="Are you sure you want to delete this class?"
                             onclick="openModal(this)">Delete</a>
                         </td>
                       </tr>
@@ -63,7 +65,7 @@
 
                   <div class="row">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
-                    @include('components.pagination.paginator')
+                    <x-ui.paginator :docs="$docs" />
                   </div>
 
                 </div>
@@ -77,44 +79,17 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+       <x-ui.dialog
+        id="deleteClass"
+        method="DELETE"
+        submitText="Delete"
+        title="Delete student class"
+        message="Are you sure you want to delete this class?" 
+      />
     </section>
     <!-- /.content -->
 
   </div>
-  @include('backend.setup.student_class.partials.modal')
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const dialog = document.querySelector('dialog');
-      const modalInstance = new bootstrap.Modal(dialog);
-
-      window.openModal = function(element) {
-        const url = element.getAttribute('data-url');
-        const title = element.getAttribute('data-title')
-        const message = element.getAttribute('data-message')
-
-
-        document.getElementById('deleteUserForm').action = url;
-        dialog.querySelector('.modal-title').textContent = title;
-        dialog.querySelector('.modal-body p').textContent = message;
-
-        modalInstance.show();
-      };
-
-      window.closeModal = function(event) {
-        if (event) {
-          event.preventDefault();
-        }
-        modalInstance.hide();
-        //dialog.close();
-        return false;
-      };
-
-      dialog.addEventListener('click', function(event) {
-        if (event.target === dialog) {
-          closeModal();
-        }
-      });
-    });
-  </script>
+  
 </div>
 @endsection
