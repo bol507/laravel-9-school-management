@@ -103,6 +103,12 @@
               Student group
             </a>
           </li> 
+          <li>
+            <a href="{{ route('student.shift.view') }}">
+              <i class="ti-more"></i>
+              Student shift
+            </a>
+          </li> 
         </ul>
       </li>
 
