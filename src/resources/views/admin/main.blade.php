@@ -17,14 +17,14 @@
   @vite(['resources/css/app.css']) 
 </head>
 <body class="dark-skin m-0">
+  <div class="wrapper">
+    @include('admin.body.header')
+    @include('admin.body.sidebar')
+    <!-- content page -->
+    @yield('admin')
 
-  @include('admin.body.header')
-  @include('admin.body.sidebar')
-  <!-- content page -->
-  @yield('admin')
-
-  @include('admin.body.footer')
-
+    @include('admin.body.footer')
+  </div>
   <!-- Vendor JS -->
 	<script src="{{asset('backend/js/vendors.min.js')}}"></script>
   <script src="{{asset('assets/icons/feather-icons/feather.min.js')}}"></script>	

@@ -1,0 +1,37 @@
+.main-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 0px;
+  min-height: 100%;
+  width: 280px;
+  background-color: var(--bg-dark-body);
+  z-index: 810;
+  /* Prevent the content from becoming unclickable */
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .3s ease-in-out, width .3s ease-in-out;
+}
+
+.slimScrollDiv {
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  height: 419px;
+}
+
+.sidebar{
+  height: 668px;
+  width:auto;
+  padding-top: 10px;
+  overflow:hidden;
+}
+
+.sidebar-footer {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  transition: .2s ease-out;
+  width: 280px;
+  background-color: var(--background-dark);
+}

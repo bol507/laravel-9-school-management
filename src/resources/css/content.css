@@ -1,0 +1,7 @@
+.content-wrapper{
+  padding-top: 70px;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  margin-left: 280px  ;
+}

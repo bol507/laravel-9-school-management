@@ -1,5 +1,7 @@
 
 @import 'header.css';
+@import 'sidebar.css';
+@import 'content.css';
 
 @tailwind base;
 @tailwind components;
@@ -11,8 +13,13 @@
   --color-light: #ffffff;
   --background-dark: #272e48;
   --background-light: #ffffff;
+  --bg-dark-body: #1a233a;
 
 }
+* {
+  box-sizing: border-box;
+}
+
 body {
   display:block;
   box-sizing: border-box;
@@ -30,7 +37,16 @@ a {
   background-color: transparent;
 }
 .dark-skin {
-  background-color: var(--background-dark);
+  background-color: #1a233a;
   color: var(--color-dark);
 }
 
+.bg-dark-body {
+  background-color: #1a233a;
+}
+
+.wrapper{
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+}

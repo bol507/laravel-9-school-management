@@ -1,6 +1,9 @@
+@php
+  $user = Auth::user();
+@endphp
 <header class="main-header">
   <!-- Header Navbar -->
-  <nav class="navbar  ">
+  <nav class="navbar pl-8 ">
     <!-- Sidebar toggle button-->
     <div>
       <ul class="nav mb-0 pl-0">
@@ -20,18 +23,26 @@
     </div>
 
     <div class="navbar-custom-menu">
-      <ul class="nav navbar-vertical mb-0 pl-0">
+      <ul class="nav navbar-nav mb-0 pl-0">
         <!-- full Screen -->
         <li class="search-bar">
-          <div class="lookup lookup-circle lookup-right">
-            <input type="text" name="s">
+          <div class="search-group">
+            <input 
+              type="text" 
+              name="search" 
+              class="search-input" 
+              style="background-color: transparent;">
+            <svg 
+              width="24"
+              height="24" 
+              aria-hidden="true">
+              <use xlink:href="{{ asset('assets/icons/icons.svg#search' ) }}"></use>
+            </svg>
           </div>
         </li>
         <!-- Notifications -->
-        <li class="dropdown notifications-menu">
-          <a href="#" class="waves-effect waves-light rounded dropdown-toggle" data-toggle="dropdown" title="Notifications">
-            <i class="ti-bell"></i>
-          </a>
+        <li class="dropdown">
+          <x-ui.header.icon icon="bell" href="#" />
           <ul class="dropdown-menu animated bounceIn">
 
             <li class="header">
@@ -92,11 +103,9 @@
             </li>
           </ul>
         </li>
-@php
-  $user = Auth::user();
-@endphp
+
         <!-- User Account-->
-        <li class="dropdown user user-menu">
+        <li class="dropdown user-menu">
           <a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown" title="User">
             <picture>
               <img 
@@ -117,9 +126,7 @@
           </ul>
         </li>
         <li>
-          <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light">
-            <i class="ti-settings"></i>
-          </a>
+          <x-ui.header.icon icon="setting" href="#" />
         </li>
 
       </ul>
