@@ -1,0 +1,72 @@
+/****************************/
+/** HEADER **/
+/****************************/
+.main-header{
+  position: fixed;
+  display: block;
+  z-index: 810;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-height: 120px;
+}
+
+.navbar { 
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+
+}
+
+.nav{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.btn-group{
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    transition: .3s ease-out;
+}
+
+.bt-icon {
+  height: 45px;
+  width: 45px;
+  text-align: center;
+  line-height: 1.75rem; /* 28px*/
+  font-size: 1.286rem; /* 21px*/
+  padding: 0.625rem; /* 10px*/
+}
+
+
+
+.nav-link-icon {
+  color: var(--color-dark);
+}
+
+.navbar-custom-menu{
+  float: right;
+  padding-right: 30px;
+}
+
+.navbar-vertical{
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}

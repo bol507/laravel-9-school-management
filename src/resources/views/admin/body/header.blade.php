@@ -1,34 +1,26 @@
 <header class="main-header">
   <!-- Header Navbar -->
-  <nav class="navbar navbar-static-top pl-30">
+  <nav class="navbar  ">
     <!-- Sidebar toggle button-->
     <div>
-      <ul class="nav">
-        <li class="btn-group nav-item">
-          <a href="#" class="waves-effect waves-light nav-link rounded svg-bt-icon" data-toggle="push-menu" role="button">
-            <i class="nav-link-icon mdi mdi-menu"></i>
-          </a>
+      <ul class="nav mb-0 pl-0">
+        <li class="relative inline-flex align-middle">
+            <x-ui.header.icon icon="menu" href="#" />
         </li>
-        <li class="btn-group nav-item">
-          <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="Full Screen">
-            <i class="nav-link-icon mdi mdi-crop-free"></i>
-          </a>
+        <li class="relative inline-flex align-middle">
+            <x-ui.header.icon icon="crop-free" href="#" title="Full Screen" />
         </li>
-        <li class="btn-group nav-item d-none d-xl-inline-block">
-          <a href="#" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="">
-            <i class="ti-check-box"></i>
-          </a>
+        <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
+            <x-ui.header.icon icon="check-square" href="#"  />
         </li>
-        <li class="btn-group nav-item d-none d-xl-inline-block">
-          <a href="calendar.html" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="">
-            <i class="ti-calendar"></i>
-          </a>
+        <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
+            <x-ui.header.icon icon="calendar" href="#"  />
         </li>
       </ul>
     </div>
 
-    <div class="navbar-custom-menu r-side">
-      <ul class="nav navbar-nav">
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-vertical mb-0 pl-0">
         <!-- full Screen -->
         <li class="search-bar">
           <div class="lookup lookup-circle lookup-right">

@@ -1,4 +1,36 @@
-/*@tailwind base;
+
+@import 'header.css';
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-*/
+
+
+:root{
+  --color-dark: #8a99b5;
+  --color-light: #ffffff;
+  --background-dark: #272e48;
+  --background-light: #ffffff;
+
+}
+body {
+  display:block;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+a {
+  text-decoration: none;
+  background-color: transparent;
+}
+.dark-skin {
+  background-color: var(--background-dark);
+  color: var(--color-dark);
+}
+
