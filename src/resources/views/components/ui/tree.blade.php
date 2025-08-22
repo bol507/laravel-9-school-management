@@ -11,9 +11,7 @@
             });
         }
     }"
-  @reset-active.window="$event.target.querySelectorAll('.treeview-item').forEach(li => {
-        Alpine.$data(li).active = false;
-    })"
+  
 >
   {{ $slot }}
 </ul>

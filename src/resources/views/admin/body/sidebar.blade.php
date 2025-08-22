@@ -23,11 +23,11 @@
     <x-ui.tree  >
       <x-ui.tree-item label="Dashboard" icon="pie-chart" href="{{ route('dashboard') }}" class="{{ ($route == 'dashboard') ? 'active' : '' }}" />
       
-      <x-ui.tree-item label="Manage user xtree" icon="message-circle" href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
+      <x-ui.tree-item label="Manage user" icon="message-circle" href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
         <li>
-            <a href="{{route('user.view')}}">
-              <i class="ti-more"></i>
-              View user
+            <a class="flex items-center" href="{{route('user.view')}}">
+              <x-ui.buttons.more-right />
+              <span>View user</span>
             </a>
           </li>
           <li>
@@ -44,37 +44,7 @@
           </li>
       </x-ui.tree-item>
 
-      <li class="treeview {{ ($prefix == '/users') ? 'active' : '' }}">
-        
-
-          <x-ui.buttons.icon-with-slot icon="message-circle" href="#"  >
-            <span>Manage user</span>
-            <x-ui.buttons.angle-right/>
-          </x-ui.buttons.icon-with-slot>
-          
-          
-        
-        <ul class="treeview-menu">
-          <li>
-            <a href="{{route('user.view')}}">
-              <i class="ti-more"></i>
-              View user
-            </a>
-          </li>
-          <li>
-            <a href="{{route('user.add')}}">
-              <i class="ti-more"></i>
-              Add user
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('user.password') }}">
-              <i class="ti-more"></i>
-              change password
-            </a>
-          </li>
-        </ul>
-      </li>
+      
 
       <li class="treeview {{  ($prefix == '/profile') ? 'active' : '' }}">
         <a href="#">
