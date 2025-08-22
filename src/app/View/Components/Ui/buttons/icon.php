@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\ui\buttons;
+namespace App\View\Components\Ui\Buttons;
 
 use Illuminate\View\Component;
 
-class icon extends Component
+class Icon extends Component
 {   
     public string $icon;
     public ?string $href;

@@ -20,7 +20,7 @@
     left: 0;
     transition: .2s ease-out;
     width: var(--sidebar-width);
-    background-color: #ffffff;
+    background-color: var(--dark3);
 
     :is(a) {
         padding: 12px;

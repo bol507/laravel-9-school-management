@@ -1,19 +1,20 @@
 <?php
 
-namespace App\View\Components\Ui\Buttons;
+namespace App\View\Components\Ui;
 
 use Illuminate\View\Component;
 
-class AngleRight extends Component
-{
-    /**
+class Tree extends Component
+{   
+    public bool $accordion;
+    /**s
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $accordion = false)
     {
-        //
+        $this->accordion = $accordion;
     }
 
     /**
@@ -23,6 +24,6 @@ class AngleRight extends Component
      */
     public function render()
     {
-        return view('components.ui.buttons.angle-right');
+        return view('components.ui.tree');
     }
 }

@@ -13,10 +13,7 @@
             <use xlink:href="{{ asset('assets/icons/icons.svg#' . $icon) }}"></use>
         </svg>
     @endif
-
     
     {{ $slot }}
-    
 
-    
 </a>

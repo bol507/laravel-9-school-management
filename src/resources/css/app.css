@@ -18,14 +18,16 @@
   --black: #000000;
   --white: #ffffff;
 
-  --dark-text: #8a99b5;
+  
   --color-light: #ffffff;
   --background-dark: #272e48;
   --background-light: #ffffff;
+  /*Theme Colors For Dark*/
   --dark-body: #1a233a;
-  /*Sidebar*/
-  --sidebar-width: 280px;
+  --dark-text: #8a99b5;
   --dark: #475f7b;
+  --dark2:#566f9e;
+  --dark3:#272e48;
   --light: #d5dfea;
   --light2: #fafafa;
   --default-border-radius: 15px; 
@@ -44,6 +46,8 @@
 
   --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info))
   --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
+   /*Sidebar*/
+  --sidebar-width: 280px;
 }
 * {
   box-sizing: border-box;

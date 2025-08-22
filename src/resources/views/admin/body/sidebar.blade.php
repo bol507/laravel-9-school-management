@@ -20,14 +20,29 @@
     </div>
 
     <!-- sidebar menu-->
-    <ul class="sidebar-menu tree" data-widget="tree">
-
-      <li class="  {{ ($route == 'dashboard') ? 'active' : '' }}">
-        
-        <x-ui.buttons.icon-with-slot icon="pie-chart" href="{{ route('dashboard')}}" >
-          Dashboard
-        </x-ui.buttons.icon-with-slot>
-      </li>
+    <x-ui.tree  >
+      <x-ui.tree-item label="Dashboard" icon="pie-chart" href="{{ route('dashboard') }}" class="{{ ($route == 'dashboard') ? 'active' : '' }}" />
+      
+      <x-ui.tree-item label="Manage user xtree" icon="message-circle" href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
+        <li>
+            <a href="{{route('user.view')}}">
+              <i class="ti-more"></i>
+              View user
+            </a>
+          </li>
+          <li>
+            <a href="{{route('user.add')}}">
+              <i class="ti-more"></i>
+              Add user
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('user.password') }}">
+              <i class="ti-more"></i>
+              change password
+            </a>
+          </li>
+      </x-ui.tree-item>
 
       <li class="treeview {{ ($prefix == '/users') ? 'active' : '' }}">
         
@@ -142,7 +157,7 @@
 
       
 
-    </ul>
+    </x-ui.tree>
     <!-- sidebar menu-->
   </section>
 
