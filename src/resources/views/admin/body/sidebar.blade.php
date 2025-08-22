@@ -11,7 +11,7 @@
       <div class="ulogo">
         <a href="{{ route('dashboard') }}">
           <!-- logo for regular state and mobile devices -->
-          <div class="d-flex align-items-center justify-content-center">
+          <div class="flex align-center justify-center">
             <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo">
             <h3><b>School</b> admin</h3>
           </div>
@@ -20,23 +20,25 @@
     </div>
 
     <!-- sidebar menu-->
-    <ul class="sidebar-menu" data-widget="tree">
+    <ul class="sidebar-menu tree" data-widget="tree">
 
-      <li class="treeview {{ ($route == 'dashboard') ? 'active' : '' }}">
-        <a href="{{ route('dashboard')}}">
-          <i data-feather="pie-chart"></i>
-          <span>Dashboard</span>
-        </a>
+      <li class="  {{ ($route == 'dashboard') ? 'active' : '' }}">
+        
+        <x-ui.buttons.icon-with-slot icon="pie-chart" href="{{ route('dashboard')}}" >
+          Dashboard
+        </x-ui.buttons.icon-with-slot>
       </li>
 
       <li class="treeview {{ ($prefix == '/users') ? 'active' : '' }}">
-        <a href="#">
-          <i data-feather="message-circle"></i>
-          <span>Manage user</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
+        
+
+          <x-ui.buttons.icon-with-slot icon="message-circle" href="#"  >
+            <span>Manage user</span>
+            <x-ui.buttons.angle-right/>
+          </x-ui.buttons.icon-with-slot>
+          
+          
+        
         <ul class="treeview-menu">
           <li>
             <a href="{{route('user.view')}}">

@@ -8,16 +8,16 @@
     <div>
       <ul class="nav mb-0 pl-0">
         <li class="relative inline-flex align-middle">
-            <x-ui.header.icon icon="menu" href="#" />
+            <x-ui.buttons.icon icon="menu" href="#" />
         </li>
         <li class="relative inline-flex align-middle">
-            <x-ui.header.icon icon="crop-free" href="#" title="Full Screen" />
+            <x-ui.buttons.icon icon="crop-free" href="#" title="Full Screen" />
         </li>
         <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
-            <x-ui.header.icon icon="check-square" href="#"  />
+            <x-ui.buttons.icon icon="check-square" href="#"  />
         </li>
         <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
-            <x-ui.header.icon icon="calendar" href="#"  />
+            <x-ui.buttons.icon icon="calendar" href="#"  />
         </li>
       </ul>
     </div>
@@ -42,7 +42,7 @@
         </li>
         <!-- Notifications -->
         <li class="dropdown">
-          <x-ui.header.icon icon="bell" href="#" />
+          <x-ui.buttons.icon icon="bell" href="#" />
           <ul class="dropdown-menu animated bounceIn">
 
             <li class="header">
@@ -126,7 +126,7 @@
           </ul>
         </li>
         <li>
-          <x-ui.header.icon icon="setting" href="#" />
+          <x-ui.buttons.icon icon="setting" href="#" />
         </li>
 
       </ul>

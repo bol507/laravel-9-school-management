@@ -1,11 +1,11 @@
 <?php
 
-namespace App\View\Components\ui\header;
+namespace App\View\Components\ui\buttons;
 
 use Illuminate\View\Component;
 
-class icon extends Component
-{   
+class iconWithSlot extends Component
+{
     public string $icon;
     public ?string $href;
     public ?string $title;
@@ -28,6 +28,6 @@ class icon extends Component
      */
     public function render()
     {
-        return view('components.ui.header.icon');
+        return view('components.ui.buttons.icon-with-slot');
     }
 }
