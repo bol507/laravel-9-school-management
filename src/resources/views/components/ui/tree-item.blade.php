@@ -12,7 +12,7 @@
 
 
   @if($slot->isNotEmpty())
-    
+    @if($icon)
       <x-ui.buttons.icon-with-slot 
         icon="{{ $icon }}" 
         href="{{ $href }}"
@@ -32,16 +32,48 @@
     <ul x-show="open" x-ref="menu" x-transition class="treeview-menu">
       {{ $slot }}
     </ul>
+    @else
+      <a 
+        href="{{ $href }}" 
+        @click.prevent="
+          open = !open;
+          active = open;
+          if ($el.closest('[x-data]').accordion && open) {
+              $el.closest('[x-data]').collapseAll();
+              open = true;
+          }
+        "
+      >
+       <span>{{ $label }}</span>
+        <x-ui.buttons.angle-right />
+      </a>
+      <ul x-show="open" x-ref="menu" x-transition class="treeview-menu">
+      {{ $slot }}
+      </ul>
+    @endif
+
   @else
-    <x-ui.buttons.icon-with-slot
-      icon="{{ $icon }}" 
-      href="{{ $href }}"
-      @click.prevent="
-                active = true;
-                $dispatch('reset-active');
-            "
-    >
-      {{ $label }}
-    </x-ui.buttons.icon-with-slot>
+    @if($icon)
+      <x-ui.buttons.icon-with-slot
+        icon="{{ $icon }}" 
+        href="{{ $href }}"
+        @click.prevent="
+                  active = true;
+                  $dispatch('reset-active');
+              "
+      >
+        {{ $label }}
+      </x-ui.buttons.icon-with-slot>
+    @else
+      <a 
+        href="{{ $href }}" 
+        @click.prevent="
+          active = true;
+          $dispatch('reset-active');
+        "
+      >
+       <span>{{ $label }}</span>
+      </a>
+    @endif
   @endif
 </li>

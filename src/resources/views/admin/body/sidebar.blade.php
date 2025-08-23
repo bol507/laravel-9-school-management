@@ -21,89 +21,27 @@
 
     <!-- sidebar menu-->
     <x-ui.tree  >
-      <x-ui.tree-item label="Dashboard" icon="pie-chart" href="{{ route('dashboard') }}" class="{{ ($route == 'dashboard') ? 'active' : '' }}" />
+      <x-ui.menus.icon-menu-item icon="pie-chart" label="Dashboard"  href="{{ route('dashboard') }}" class="{{ ($route == 'dashboard') ? 'active' : '' }}" />
       
-      <x-ui.tree-item label="Manage user" icon="message-circle" href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
-        <li>
-            <a href="{{route('user.view')}}">
-              <x-ui.buttons.more-right >
-                View user
-              </x-ui.buttons.more-right>
-              
-            </a>
-          </li>
-          <li>
-            <a href="{{route('user.add')}}">
-              <x-ui.buttons.more-right >
-                Add user
-              </x-ui.buttons.more-right>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('user.password') }}">
-              <x-ui.buttons.more-right >
-              change password
-              </x-ui.buttons.more-right>
-            </a>
-          </li>
-      </x-ui.tree-item>
+      <x-ui.menus.icon-menu-item icon="message-circle" label="Manage user"  href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
+        
+            <x-ui.menus.icon-sub-menu-item label="View user" href="{{route('user.view')}}"/>
+            <x-ui.menus.icon-sub-menu-item label="Add user" href="{{route('user.add')}}"/>
+            <x-ui.menus.icon-sub-menu-item label="Change password" href="{{ route('user.password') }}"/>
+        
+      </x-ui.menus.icon-menu-item>
 
       
-
-      <li class="treeview {{  ($prefix == '/profile') ? 'active' : '' }}">
-        <a href="#">
-          <i data-feather="mail"></i> <span>Manage profile</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li>
-            <a href="{{ route('profile.view') }}">
-              <i class="ti-more"></i>
-              view profile
-            </a>
-          </li>
-           
-        </ul>
-      </li>
-
-       <li class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
-        <a href="#">
-          <i data-feather="mail"></i> <span>Setup management</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li>
-            <a href="{{ route('student.class.view') }}">
-              <i class="ti-more"></i>
-              Student class
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('student.year.view') }}">
-              <i class="ti-more"></i>
-              Student year
-            </a>
-          </li> 
-          <li>
-            <a href="{{ route('student.group.view') }}">
-              <i class="ti-more"></i>
-              Student group
-            </a>
-          </li> 
-          <li>
-            <a href="{{ route('student.shift.view') }}">
-              <i class="ti-more"></i>
-              Student shift
-            </a>
-          </li> 
-        </ul>
-      </li>
-
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Manage profile" href="#" class="treeview {{  ($prefix == '/profile') ? 'active' : '' }}">
+        <x-ui.menus.icon-sub-menu-item label="View profile" href="{{ route('profile.view') }}"/>
+      </x-ui.menus.icon-menu-item>
       
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setup management" href="#" class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
+        <x-ui.menus.icon-sub-menu-item label="Student class" href="{{ route('student.class.view') }}"/>
+        <x-ui.menus.icon-sub-menu-item label="Student year" href="{{ route('student.year.view') }}"/>
+        <x-ui.menus.icon-sub-menu-item label="Student group" href="{{ route('student.group.view') }}"/>
+        <x-ui.menus.icon-sub-menu-item label="Student shift" href="{{ route('student.shift.view') }}"/>
+      </x-ui.menus.icon-menu-item>
 
       <li class="header nav-small-cap">User Interface</li>
 
