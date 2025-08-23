@@ -35,7 +35,7 @@
   @else
     <x-ui.buttons.icon-with-slot
       icon="{{ $icon }}" 
-      href="{{ $href}}"
+      href="{{ $href }}"
       @click.prevent="
                 active = true;
                 $dispatch('reset-active');

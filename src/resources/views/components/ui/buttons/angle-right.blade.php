@@ -1,6 +1,6 @@
 <span class="pull-right-container">
   <svg class="angle-right" >
-    <use xlink:href="{{ asset('assets/icons/icons.svg#angle-right') }}"></use>
+    <use href="{{ asset('assets/icons/icons.svg#angle-right') }}"></use>
   </svg>
 </span>
 

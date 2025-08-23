@@ -25,21 +25,25 @@
       
       <x-ui.tree-item label="Manage user" icon="message-circle" href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
         <li>
-            <a class="flex items-center" href="{{route('user.view')}}">
-              <x-ui.buttons.more-right />
-              <span>View user</span>
+            <a href="{{route('user.view')}}">
+              <x-ui.buttons.more-right >
+                View user
+              </x-ui.buttons.more-right>
+              
             </a>
           </li>
           <li>
             <a href="{{route('user.add')}}">
-              <i class="ti-more"></i>
-              Add user
+              <x-ui.buttons.more-right >
+                Add user
+              </x-ui.buttons.more-right>
             </a>
           </li>
           <li>
             <a href="{{ route('user.password') }}">
-              <i class="ti-more"></i>
+              <x-ui.buttons.more-right >
               change password
+              </x-ui.buttons.more-right>
             </a>
           </li>
       </x-ui.tree-item>
