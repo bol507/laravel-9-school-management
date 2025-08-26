@@ -1,22 +1,19 @@
 <?php
 
-namespace App\View\Components\Ui;
+namespace App\View\Components\Ui\Buttons;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
 
-class PaginationInfo extends Component
+class AngleRight extends Component
 {
-    public LengthAwarePaginator $docs;
-    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(LengthAwarePaginator $docs)
+    public function __construct()
     {
-        $this->docs = $docs;
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ class PaginationInfo extends Component
      */
     public function render()
     {
-        return view('components.ui.pagination-info');
+        return view('components.ui.buttons.angle-right');
     }
 }

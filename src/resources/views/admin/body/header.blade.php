@@ -1,45 +1,48 @@
+@php
+  $user = Auth::user();
+@endphp
 <header class="main-header">
   <!-- Header Navbar -->
-  <nav class="navbar navbar-static-top pl-30">
+  <nav class="navbar pl-8 ">
     <!-- Sidebar toggle button-->
     <div>
-      <ul class="nav">
-        <li class="btn-group nav-item">
-          <a href="#" class="waves-effect waves-light nav-link rounded svg-bt-icon" data-toggle="push-menu" role="button">
-            <i class="nav-link-icon mdi mdi-menu"></i>
-          </a>
+      <ul class="nav mb-0 pl-0">
+        <li class="relative inline-flex align-middle">
+            <x-ui.buttons.icon icon="menu" href="#" />
         </li>
-        <li class="btn-group nav-item">
-          <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="Full Screen">
-            <i class="nav-link-icon mdi mdi-crop-free"></i>
-          </a>
+        <li class="relative inline-flex align-middle">
+            <x-ui.buttons.icon icon="crop-free" href="#" title="Full Screen" />
         </li>
-        <li class="btn-group nav-item d-none d-xl-inline-block">
-          <a href="#" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="">
-            <i class="ti-check-box"></i>
-          </a>
+        <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
+            <x-ui.buttons.icon icon="check-square" href="#"  />
         </li>
-        <li class="btn-group nav-item d-none d-xl-inline-block">
-          <a href="calendar.html" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="">
-            <i class="ti-calendar"></i>
-          </a>
+        <li class="relative inline-flex align-middle  d-none d-xl-inline-block">
+            <x-ui.buttons.icon icon="calendar" href="#"  />
         </li>
       </ul>
     </div>
 
-    <div class="navbar-custom-menu r-side">
-      <ul class="nav navbar-nav">
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav mb-0 pl-0">
         <!-- full Screen -->
         <li class="search-bar">
-          <div class="lookup lookup-circle lookup-right">
-            <input type="text" name="s">
+          <div class="search-group">
+            <input 
+              type="text" 
+              name="search" 
+              class="search-input" 
+              style="background-color: transparent;">
+            <svg 
+              width="24"
+              height="24" 
+              aria-hidden="true">
+              <use xlink:href="{{ asset('assets/icons/icons.svg#search' ) }}"></use>
+            </svg>
           </div>
         </li>
         <!-- Notifications -->
-        <li class="dropdown notifications-menu">
-          <a href="#" class="waves-effect waves-light rounded dropdown-toggle" data-toggle="dropdown" title="Notifications">
-            <i class="ti-bell"></i>
-          </a>
+        <li class="dropdown">
+          <x-ui.buttons.icon icon="bell" href="#" />
           <ul class="dropdown-menu animated bounceIn">
 
             <li class="header">
@@ -100,11 +103,9 @@
             </li>
           </ul>
         </li>
-@php
-  $user = Auth::user();
-@endphp
+
         <!-- User Account-->
-        <li class="dropdown user user-menu">
+        <li class="dropdown user-menu">
           <a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown" title="User">
             <picture>
               <img 
@@ -125,9 +126,7 @@
           </ul>
         </li>
         <li>
-          <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light">
-            <i class="ti-settings"></i>
-          </a>
+          <x-ui.buttons.icon icon="setting" href="#" />
         </li>
 
       </ul>

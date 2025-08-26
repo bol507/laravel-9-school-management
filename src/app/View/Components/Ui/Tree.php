@@ -2,21 +2,19 @@
 
 namespace App\View\Components\Ui;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
 
-class PaginationInfo extends Component
-{
-    public LengthAwarePaginator $docs;
-    
-    /**
+class Tree extends Component
+{   
+    public bool $accordion;
+    /**s
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(LengthAwarePaginator $docs)
+    public function __construct(bool $accordion = false)
     {
-        $this->docs = $docs;
+        $this->accordion = $accordion;
     }
 
     /**
@@ -26,6 +24,6 @@ class PaginationInfo extends Component
      */
     public function render()
     {
-        return view('components.ui.pagination-info');
+        return view('components.ui.tree');
     }
 }

@@ -1,4 +1,117 @@
-/*@tailwind base;
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
+
+@import 'header.css';
+@import 'sidebar.css';
+@import 'content.css';
+@import 'sidebar-menu.css';
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-*/
+
+
+:root {
+
+  --bodyfont: 'IBM Plex Sans', sans-serif;
+  --headingfont: 'Rubik', sans-serif;
+
+  --black: #000000;
+  --white: #ffffff;
+
+
+  --color-light: #ffffff;
+  --background-dark: #272e48;
+  --background-light: #ffffff;
+  /*Theme Colors For Dark*/
+  --dark-body: #1a233a;
+  --dark-text: #8a99b5;
+  --dark: #475f7b;
+  --dark2: #566f9e;
+  --dark3: #272e48;
+  --light: #d5dfea;
+  --light2: #fafafa;
+  --default-border-radius: 15px;
+
+  --dx-blue: #485e90;
+
+  --theme-primary-primary: #0F5EF7;
+  --theme-primary-secondary: #475F7B;
+  --theme-primary-info: #7a15f7;
+  --theme-primary-success: #00BC8B;
+  --theme-primary-danger: #EF3737;
+  --theme-primary-warning: #FFB800;
+
+  --theme-primary-primary-dark: hsl(210, 100%, 39%);
+  /* 20% darker */
+  --theme-primary-info-dark: hsl(240, 90%, 40%);
+  /* 20% darker*/
+
+  --lighten-body-dark: hsl(223, 38%, 42%)
+  /* 30% */
+
+  --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)) --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
+  /*Sidebar*/
+  --sidebar-width: 280px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: block;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  font-family: var(--bodyfont);
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.dark-skin {
+  background-color: var(--dark-body);
+  color: var(--dark-text);
+}
+
+.bg-dark-body {
+  background-color: var(--dark-body);
+}
+
+.wrapper {
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+
+.content {
+  min-height: 250px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 30px 30px 0px;
+}
+
+.content-header {
+  position: relative;
+  padding: 30px 30px 0px;
+}
+
+
+
+.main-footer {
+  position: relative;
+  background-color: var(--dark-body);
+  color: var(--white);
+  border-color: rgba(--white, 0.12);
+  margin-left: var(--sidebar-width);
+  padding: 15px 30px;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+}

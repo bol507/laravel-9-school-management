@@ -1,0 +1,84 @@
+.box {
+  background-color: var(--dark3);
+  box-shadow: -7.829px 11.607px 21px 0px rgba(25, 42, 70, 0.13);
+}
+
+.box.box-solid .box-title {
+  color: var(--white);
+}
+
+.box .box-header{
+  color: var(--dark-text);
+  border-color: rgba(var(--white), 0.12);
+}
+
+.box-header {
+  color: var(--dark-text);
+  display: block;
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 1.5rem;
+}
+
+.box .box-header .box-subtitle {
+  color: var(--dark-text);
+}
+
+.box-header.with-border {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.box .box-footer {
+  background-color: var(--dark3);
+  border-color: rgba(var(--white), 0.12);
+}
+
+.box .box-transparent {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.box.box-solid .box-body {
+  background-color: var(--dark) !important;
+  color: var(--dark-text);
+}
+
+.box.box-solid.box-default > .box-header {
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+.box.box-solid.box-default > .box-header .btn {
+  color: var(--dark);
+}
+
+.box.box-solid.box-default > .box-header a {
+  color: var(--dark);
+}
+
+.box.box-solid.box-default > .box-header > .box-tools .btn {
+  border: 0;
+  box-shadow: none;
+}
+
+.box .border-right {
+  border-right: 1px solid rgba(var(--white), 0.12) !important;
+}
+
+.box .border-left {
+  border-left: 1px solid rgba(var(--white), 0.12) !important;
+}
+
+.box .overlay {
+  background: rgba(var(--white), 0.7);
+}
+
+.box .flex-column > li {
+  border-color: rgba(var(--white), 0.12);
+}
+
+.box .knob-label {
+  color: rgb(var(--lighten-body-dark));/* 45% */
+}
