@@ -10,35 +10,35 @@
   -webkit-tap-highlight-color: transparent;
   transition: transform .3s ease-in-out, width .3s ease-in-out;
 
-  
+
 }
 
-.sidebar-footer{
-    position: fixed;
-    z-index: 10;
-    bottom: 0;
-    left: 0;
-    transition: .2s ease-out;
-    width: var(--sidebar-width);
-    background-color: var(--dark3);
+.sidebar-footer {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  transition: .2s ease-out;
+  width: var(--sidebar-width);
+  background-color: var(--dark3);
 
-    :is(a) {
-        padding: 12px;
-        width: 33.333337%;
-        float: left;
-        text-align: center;
-        font-size: 18px;
-    }
+  :is(a) {
+    padding: 12px;
+    width: 33.333337%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+  }
 }
 
 
 .sidebar-collapse .sidebar-menu .tree {
-    padding: 10px 0 0 0;
-    margin: 0;
+  padding: 10px 0 0 0;
+  margin: 0;
 }
 
-.sidebar-collapse .sidebar-menu > li .menu-open > a {
-    border-radius: 0;
+.sidebar-collapse .sidebar-menu>li .menu-open>a {
+  border-radius: 0;
 }
 
 .slimScrollDiv {
@@ -48,27 +48,29 @@
   height: 419px;
 }
 
-.sidebar{
-  display:block;
+.sidebar {
+  display: block;
   height: 668px;
-  width:auto;
+  width: auto;
   padding-top: 10px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 
 
-.user-profile{
-  .ulogo{
-        text-align: center;
-        padding: 10px 0 12px;
-        font-size: 1.286rem;
-        min-height: 70px;
-        :is(h3){
-            color: var(--dark);
-        }
-    }
+.user-profile .ulogo {
+
+  text-align: center;
+  padding: 10px 0 12px;
+  font-size: var(--fs-18);
+
+  :is(h3) {
+    color: var(--dark);
+  }
 }
 
+.user-profile img {
 
+  margin: 5px;
 
+}

@@ -1,0 +1,136 @@
+/* dark skin */
+.dark-skin .table {
+    color: var(--dark-text);
+}
+
+.dark-skin .table>thead.thead-light th {
+
+    background-color: var(--body-dark);
+    color: var(--dark-title);
+
+}
+
+.dark-skin .table>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .table>tr>td {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .table>tbody>tr>td {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .table>tbody>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .table>tfoot>tr>td {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .table>tfoot>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+
+/*  table responsive */
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive>.table-bordered {
+    border: 0;
+}
+
+.table-responsive>.table tr td,
+.table-responsive>.table tr th {
+    white-space: normal;
+}
+
+/* table */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead.thead-light th {
+    background-color: var(--body-dark);
+    color: var(--dark-title)    ;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody+tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+/* table striped */
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* table bordered */
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+    border-color: rgba(var(--white), 0.12);
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+
+}
+
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody+tbody {
+    border: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
