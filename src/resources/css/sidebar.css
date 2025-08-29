@@ -56,6 +56,16 @@
   overflow: hidden;
 }
 
+.sidebar .user-profile .ulogo a {
+  background-color: transparent;
+}
+
+.sidebar .user-profile > a img {
+  width: 45px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
 
 
 .user-profile .ulogo {
@@ -63,10 +73,16 @@
   text-align: center;
   padding: 10px 0 12px;
   font-size: var(--fs-18);
+  min-height: 70px;
 
   :is(h3) {
     color: var(--dark);
   }
+}
+
+.user-profile .ulogo > a div img {
+  width:30px;
+  height: 30px;
 }
 
 .user-profile img {

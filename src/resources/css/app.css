@@ -7,6 +7,7 @@
 @import 'box.css';
 @import 'button.css';
 @import 'table.css';
+@import 'form.css';
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +20,7 @@
   --headingfont: 'Rubik', sans-serif;
 
   --black: #000000;
-  --white: #ffffff;
+  --white: 255, 255, 255;
 
 
   --color-light: #ffffff;
@@ -30,11 +31,14 @@
   --dark-text: #8a99b5;
   --dark-title: #bdd1f8;
   --dark: #475f7b;
+  --dark-l-40: #b8c6d6;
   --dark2: #566f9e;
   --dark3: #272e48;
   --light: #d5dfea;
+  --light-d-10: #b3c5d9; 
   --light2: #fafafa;
   --default-border-radius: 15px;
+  --fct-border-radius: 10px;
 
   --dx-blue: #485e90;
 
@@ -479,6 +483,3 @@ a.btn {
   max-width: 100%;
 }
 
-.form-group {
-  margin-bottom: 1rem; 
-}

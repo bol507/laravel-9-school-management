@@ -1,0 +1,105 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-weight: 500;
+}
+
+.form-group.has-success .help-block {
+  color: var(--success);
+}
+
+.form-group.has-success label {
+  color: var(--success);
+}
+
+.form-control.has-success .form-control {
+  border-color: var(--success);
+  box-shadow: none;
+}
+
+.form-control.form-group.has-success .input-group-addon {
+  border-color: var(--success);
+  box-shadow: none;
+}
+
+/*--- danger ---*/
+
+.form-group.has-error .help-block {
+  color: var(--danger);
+}
+
+.form-group.has-error label {
+  color: var(--danger);
+}
+
+.form-group.has-error .form-control {
+  border-color: var(--danger);
+  box-shadow: none;
+}
+
+.form-gorup.has-error .input-group-addon {
+  border-color: var(--danger);
+  box-shadow: none;
+}
+
+/*--- warning ---*/
+.form-group.has-warning .help-block {
+  color: var(--warning);
+}
+
+.form-group.has-warning label {
+  color: var(--warning);
+}
+
+.form-group.has-warning .form-control {
+  border-color: var(--warning);
+  box-shadow: none;
+}
+
+.form-group.has-warning .input-group-addon {
+  border-color: var(--warning);
+  box-shadow: none;
+}
+
+.dark-skin .form-control {
+  border-color: rgba(var(--white), 0.12);
+  background-color: var(--dark3);
+  color: var(--dark-text);
+}
+
+.dark-skin .form-element .form-control:focus {
+  background-image: linear-gradient(#FFB800, #FFB800), linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12));
+}
+
+.form-control:not(select) {
+  appearance: none;
+}
+
+
+
+.form-control {
+  display: block;
+  box-shadow: none;
+  width:100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem !important;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control {
+    border-radius: var(--fct-border-radius) !important;
+    box-shadow: none;
+    border-color: var(--light-d-10);
+    height: auto;
+}
+
+.form-control::placeholder {
+    color: #6c757d;
+    opacity: 1; 
+}

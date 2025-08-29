@@ -36,15 +36,15 @@
   color: var(--white);
 }
 
-.box .box-header {
+.dark-skin .box .box-header {
   color: var(--dark-text);
   border-color: rgba(var(--white), 0.12);
 }
 
-
-.box .box-header .box-subtitle {
+.dark-skin .box .box-header .box-subtitle {
   color: var(--dark-text);
-  /*lighten --dark 40%*/
+}
+.box .box-header .box-subtitle {
   font-weight: var(--fw-300);
   margin-bottom: 0px;
   margin-top: 5px;

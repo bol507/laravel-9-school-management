@@ -11,7 +11,7 @@
       <div class="ulogo">
         <a href="{{ route('dashboard') }}">
           <!-- logo for regular state and mobile devices -->
-          <div class="flex align-center justify-center">
+          <div class="flex items-center justify-center">
             <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo">
             <h3><b>School</b> admin</h3>
           </div>
