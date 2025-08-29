@@ -28,6 +28,7 @@
   /*Theme Colors For Dark*/
   --dark-body: #1a233a;
   --dark-text: #8a99b5;
+  --dark-title: #bdd1f8;
   --dark: #475f7b;
   --dark2: #566f9e;
   --dark3: #272e48;
@@ -237,6 +238,19 @@ a {
 .dark-skin {
   background-color: var(--dark-body);
   color: var(--dark-text);
+}
+
+.dark-skin h1, 
+.dark-skin h2, 
+.dark-skin h3,
+.dark-skin h4,
+.dark-skin h5,
+.dark-skin h6 {
+    color: var(--dark-title);
+}
+
+.dark-skin label{
+    color: var(--dark-title);
 }
 
 .bg-dark-body {
@@ -463,4 +477,8 @@ a.btn {
 .col-12 {
   flex: 0 0 100%;
   max-width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1rem; 
 }
