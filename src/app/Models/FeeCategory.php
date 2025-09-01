@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeeCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasUuids;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'id',
+        'name',
+        'description'
+    ]
 }

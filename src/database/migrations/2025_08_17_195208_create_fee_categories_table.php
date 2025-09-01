@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('fee_categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

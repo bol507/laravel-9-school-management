@@ -44,6 +44,7 @@
 .dark-skin .box .box-header .box-subtitle {
   color: var(--dark-text);
 }
+
 .box .box-header .box-subtitle {
   font-weight: var(--fw-300);
   margin-bottom: 0px;

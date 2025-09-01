@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentYear extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $keyType = 'string'; 
     public $incrementing = false;
