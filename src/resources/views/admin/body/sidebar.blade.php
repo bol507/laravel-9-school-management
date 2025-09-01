@@ -23,20 +23,20 @@
     <x-ui.tree  >
       <x-ui.menus.icon-menu-item icon="pie-chart" label="Dashboard"  href="{{ route('dashboard') }}" class="{{ ($route == 'dashboard') ? 'active' : '' }}" />
       
-      <x-ui.menus.icon-menu-item icon="message-circle" label="Manage user"  href="#" class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
+      <x-ui.menus.icon-menu-item icon="message-circle" label="Manage user"  class="treeview {{  ($prefix == '/users') ? 'active' : '' }}">
         
-            <x-ui.menus.icon-sub-menu-item label="View user" href="{{route('user.view')}}"/>
+            <x-ui.menus.icon-sub-menu-item label="View user" href="{{route('user.view')}}" />
             <x-ui.menus.icon-sub-menu-item label="Add user" href="{{route('user.add')}}"/>
             <x-ui.menus.icon-sub-menu-item label="Change password" href="{{ route('user.password') }}"/>
         
       </x-ui.menus.icon-menu-item>
 
       
-      <x-ui.menus.icon-menu-item  icon="message-circle" label="Manage profile" href="#" class="treeview {{  ($prefix == '/profile') ? 'active' : '' }}">
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Manage profile"  class="treeview {{  ($prefix == '/profile') ? 'active' : '' }}">
         <x-ui.menus.icon-sub-menu-item label="View profile" href="{{ route('profile.view') }}"/>
       </x-ui.menus.icon-menu-item>
       
-      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setups" href="#" class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setups"  class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
         <x-ui.menus.icon-sub-menu-item label="Student class" href="{{ route('student.class.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student year" href="{{ route('student.year.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student group" href="{{ route('student.group.view') }}"/>
