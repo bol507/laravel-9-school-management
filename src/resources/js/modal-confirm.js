@@ -1,29 +1,19 @@
-document.addEventListener('click', (e) => {
-  const trigger = e.target.closest('[data-modal-confirm]');
- 
-  if (!trigger) return;
+document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-modal-confirm]');
 
-  const dialogId = trigger.dataset.modalConfirm;
-  const dialog = document.getElementById(dialogId);
-  const modalInstance = new bootstrap.Modal(dialog);
+    if (!trigger) return;
 
-  
-
-  window.openModal = function (element) {
+    const dialogId = trigger.dataset.modalConfirm;
+    const dialog = document.getElementById(dialogId);
     const form = document.getElementById(`${dialogId}Form`);
-    form.action = element.getAttribute('data-url');
 
-    modalInstance.show();
-  };
+    if (!dialog || !form) return;
 
-  window.closeModal = function (event) {
-    
-    if (event) {
-      event.preventDefault();
-    }
-    modalInstance.hide();
-    return false;
-  };
+    form.action = trigger.dataset.url;
+    dialog.showModal();
+  });
+
 
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) {
@@ -31,3 +21,9 @@ document.addEventListener('click', (e) => {
     }
   });
 });
+
+window.closeModal = function (event) {
+  if (event) event.preventDefault();
+  const dialog = event.target.closest('dialog');
+  if (dialog) dialog.close();
+};

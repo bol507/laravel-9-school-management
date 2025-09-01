@@ -41,9 +41,9 @@
                         'href' => 'javascript:void(0);',
                         'class' => 'btn-danger',
                         'attrs' => [
-                          'data-model-confirm' => 'deleteFeeCategory',
+                          'data-modal-confirm' => 'deleteFeeCategory',
                           'data-url' => route('fee.category.destroy',$doc),
-                          'onclick' => 'openmodal(this)',
+                          'onclick' => 'openModal(this)',
                         ],  
                       ]  
                     ] "
