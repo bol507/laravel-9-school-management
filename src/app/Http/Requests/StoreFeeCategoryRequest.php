@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentGroupRequest extends FormRequest
+class StoreFeeCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +21,10 @@ class StoreStudentGroupRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(){
+    public function rules()
+    {
         return [
-            'name' => 'required|string|min:3|max:255|unique:student_groups',
+            'name' => 'required|string|min:3|max:255|unique:fee_categories',
             'description' => 'nullable|string|max:255',
         ];
     }

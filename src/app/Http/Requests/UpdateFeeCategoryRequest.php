@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentGroupRequest extends FormRequest
+class UpdateFeeCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,21 +21,22 @@ class StoreStudentGroupRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(){
+    public function rules()
+    {
         return [
-            'name' => 'required|string|min:3|max:255|unique:student_groups',
+            'name' => 'bail|required|string|min:3|max:255|unique:fee_categories,name,'.$this->route('id'),
             'description' => 'nullable|string|max:255',
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
-            'name.required' => 'Name is required',
-            'name.string' => 'Name must be a string',
-            'name.min' => 'Name must be at least 3 characters',
-            'name.max' => 'Name must be less than 255 characters',
-            'name.unique' => 'Name must be unique',
-            'description.nullable' => 'Description is required',
+            'name.required' => 'Name is required.',
+            'name.min' => 'Name must be at least 3 characters.',
+            'name.max' => 'Name must be at most 255 characters.',
+            'name.unique' => 'Name is already taken.',
+            'description.nullable' => 'Description is required.',
             'description.string' => 'Description must be a string',
             'description.max' => 'Description must be less than 255 characters',
         ];

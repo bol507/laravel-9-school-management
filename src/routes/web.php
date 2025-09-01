@@ -97,4 +97,8 @@ Route::prefix('setups')->middleware([
     //Fee Category
     Route::get('/fee/category/view', [FeeCategoryController::class , 'ViewFeeCategory'])->name('fee.category.view');
     Route::get('/fee/category/add', [FeeCategoryController::class, 'AddFeeCategory'])->name('fee.category.add');
+    Route::post('/fee/categry/store', [FeeCategoryController::class , 'StoreFeeCategory'])->name('fee.category.store');
+    Route::get('/fee/category/edit/{id}', [FeeCategoryController::class , 'EditFeeCategory'])->name('fee.category.edit');
+    Route::put('/fee/category/update/{id}', [FeeCategoryController::class , 'UpdateFeeCategory'])->name('fee.category.update');
+    Route::delete('/fee/category/destroy/{id}', [FeeCategoryController::class , 'DeleteFeeCategory'])->name('fee.category.destroy');
 });

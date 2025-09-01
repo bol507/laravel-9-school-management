@@ -19,13 +19,12 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="table-responsive">
-                <div
-                  class="container-fluid">
-                  <div class="row">
+                
+                  <div class="row justify-between">
                     <x-ui.show-entries
                       :action="route('fee.category.view')"
                       :docs="$docs" />
-                    <x-ui.search :action="route('student.year.view')" />
+                    <x-ui.search :action="route('fee.category.view')" />
                   </div>
                   <x-ui.data-table
                     :items="$docs"
@@ -35,7 +34,7 @@
                     ]"
                     :actions="[
                       'Edit' => fn($doc) => [
-                        'href' => route('',$doc),
+                        'href' => route('fee.category.edit',$doc),
                         'class' => 'btn-info',  
                       ],
                       'Delete' => fn($doc) => [
@@ -43,21 +42,21 @@
                         'class' => 'btn-danger',
                         'attrs' => [
                           'data-model-confirm' => 'deleteFeeCategory',
-                          'data-url' => route('#',$doc),
+                          'data-url' => route('fee.category.destroy',$doc),
                           'onclick' => 'openmodal(this)',
                         ],  
                       ]  
                     ] "
                   />
 
-                  <div class="row">
+                  <div class="row justify-between">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     <x-ui.paginator :docs="$docs" />
                   </div>
 
-                </div>
-                <!-- table-responsive -->
+                   
               </div>
+               <!-- table-responsive -->
             </div>
             <!-- /.box-body -->
           </div>

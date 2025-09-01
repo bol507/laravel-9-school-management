@@ -3,19 +3,19 @@
     'docs' => null,
 ])
 
-<div class="col-sm-12 col-md-6">
+
   <form method="GET" action="{{ $action }}">
     @foreach(request()->except('limit','page') as $key => $value)
       <input type="hidden" name="{{ $key }}" value="{{ $value }}">
     @endforeach
-    <div class="d-flex align-items-center float-left py-2">
+    <div class="flex items-center py-2">
       <span class="mr-2">
         Show
       </span>
       <select
         name="limit"
         aria-controls="table"
-        class="form-control form-control-sm"
+        class="form-select appearence-none"
         onchange="this.form.submit()"
       >
         <option value="10" @if( $docs->perPage() == '10' ) selected @endif>10</option>
@@ -28,4 +28,3 @@
       </span>
     </div>
   </form>
-</div>
