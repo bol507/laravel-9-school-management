@@ -36,11 +36,12 @@
         <x-ui.menus.icon-sub-menu-item label="View profile" href="{{ route('profile.view') }}"/>
       </x-ui.menus.icon-menu-item>
       
-      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setup management" href="#" class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setups" href="#" class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
         <x-ui.menus.icon-sub-menu-item label="Student class" href="{{ route('student.class.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student year" href="{{ route('student.year.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student group" href="{{ route('student.group.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student shift" href="{{ route('student.shift.view') }}"/>
+        <x-ui.menus.icon-sub-menu-item label="Fee Category" href="{{ route('fee.category.view') }}" />
       </x-ui.menus.icon-menu-item>
 
       <li class="header nav-small-cap">User Interface</li>
