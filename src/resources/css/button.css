@@ -86,7 +86,7 @@ a.btn {
 .btn-primary {
     background-color: var(--theme-primary-primary);
     border-color: var(--theme-primary-primary);
-    color: var(--white);
+    color: white;
 }
 
 .btn-primary:disabled {
@@ -117,13 +117,13 @@ a.btn {
 .show>.btn-primary.dropdown-toogle {
     background-color: var(--theme-primary-primary-d-20) !important;
     border-color: var(--theme-primary-primary-d-20) !important;
-    color: var(--white);
+    color: white;
 }
 
 .show .btn-outline.btn-primary.dropdown-toogle {
     background-color: var(--theme-primary-primary-d-10) !important;
     border-color: var(--theme-primary-primary-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-flat.btn-primary {
@@ -136,21 +136,21 @@ a.btn {
 .btn-flat.btn-primary:active {
     background-color: var(--theme-primary-primary-d-10) !important;
     border-color: var(--theme-primary-primary-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 /*---info Button---*/
 .btn-info {
     background-color: var(--theme-primary-info);
     border-color: var(--theme-primary-info);
-    color: var(--white);
+    color: white;
 }
 
 btn-info:hover,
 btn-info:active {
     background-color: var(t--heme-primary-info-d-10) !important;
     border-color: var(--theme-primary-info-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 btn-info:disabled {
@@ -168,7 +168,7 @@ btn-info.disabled {
 .show>.btn-info.dropdown-toggle {
     background-color: var(--theme-primary-info-d-10) !important;
     border-color: var(--theme-primary-info-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-outline.btn-info {
@@ -181,14 +181,14 @@ btn-info.disabled {
 .btn-outline.btn-info:active {
     background-color: var(--theme-primary-info-d-10) !important;
     border-color: var(--theme-primary-info-d-10) !important;
-    color: var(--white);
+    color: white;
 
 }
 
 .show>.btn-outline.btn-info.dropdown-toggle {
     background-color: var(--theme-primary-info-d-10) !important;
     border-color: ar(--theme-primary-info-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-flat.btn-info {
@@ -209,14 +209,14 @@ btn-info.disabled {
 .btn-success {
     background-color: var(--theme-primary-success);
     border-color: var(--theme-primary-success);
-    color: var(--white);
+    color: white;
 }
 
 .btn-success:hover,
 .btn-success:active {
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-    color: var(--white);
+     color: white;
 }
 
 .button-success:disabled {
@@ -229,7 +229,7 @@ btn-info.disabled {
 
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-    color: var(--white);
+     color: white;
 
 }
 
@@ -244,14 +244,14 @@ btn-info.disabled {
 .btn-outline.btn-success:active {
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .show>.btn-outline.btn-success.dropdown-toggle {
 
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-    color: var(--white);
+    color: white;
 
 }
 
@@ -265,7 +265,7 @@ btn-info.disabled {
 .btn-flat.btn-success:active {
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 /* Danger Button */
@@ -273,7 +273,7 @@ btn-info.disabled {
 .btn-danger {
     background-color: var(--theme-primary-danger);
     border-color: var(--theme-primary-danger);
-    color: var(--white);
+    color: white;
 }
 
 .btn-danger:hover,
@@ -281,7 +281,7 @@ btn-info.disabled {
 
     background-color: var(--theme-primary-danger-d-10) !important;
     border-color: var(--theme-primary-danger-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-danger:disabled {
@@ -299,7 +299,7 @@ btn-info.disabled {
 .show>.btn-danger.dropdown-toggle {
     background-color: var(--theme-primary-danger-d-10) !important;
     border-color: var(--theme-primary-danger-d-10) !important;
-    color: var(--white);
+    color: white;
 
 
 }
@@ -314,13 +314,13 @@ btn-info.disabled {
 .btn-outline:active {
     background-color: var(--theme-primary-danger-d-10) !important;
     border-color: var(--theme-primary-danger-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .show>.btn-outline.btn-danger.dropdown-toggle {
     background-color: var(--theme-primary-danger-d-10) !important;
     border-color: var(--theme-primary-danger-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-flat.btn-danger {
@@ -333,21 +333,21 @@ btn-info.disabled {
 .btn-flat.btn-danger:active {
     background-color: var(--theme-primary-danger-d-10) !important;
     border-color: var(--theme-primary-danger-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 /*---Warning Button---*/
 .btn-warning {
     background-color: var(--theme-primary-warning);
     border-color: var(--theme-primary-warning);
-    color: var(--white);
+    color: white;
 }
 
 .btn-warning:hover,
 .btn-warning:active {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-warning:disabled {
@@ -365,7 +365,7 @@ btn-info.disabled {
 .show>.btn-warning.dropdown-toggle {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .btn-outline.btn-warning {
@@ -378,14 +378,14 @@ btn-info.disabled {
 .btn-outline.btn-warning:active {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
-    color: var(--white);
+    color: white;
 }
 
 .show>.btn-outline.btn-warning.dropdown-toggle {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
     ;
-    color: var(--white);
+    color: white;
 
 }
 
@@ -399,5 +399,5 @@ btn-info.disabled {
 .btn-flat.btn-warning:active {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
-    color: var(--white);
+    color: white;
 }

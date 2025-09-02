@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dialogId = trigger.dataset.modalConfirm;
     const dialog = document.getElementById(dialogId);
     const form = document.getElementById(`${dialogId}Form`);
-
+    
     if (!dialog || !form) return;
 
     form.action = trigger.dataset.url;
@@ -15,12 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  dialog.addEventListener('click', function (event) {
-    if (event.target === dialog) {
-      closeModal();
+  document.addEventListener('click', (e) => {
+    const dialog = e.target.closest('dialog[open]');
+    if (dialog && e.target === dialog) {
+      dialog.close();
     }
   });
-});
+
+})
 
 window.closeModal = function (event) {
   if (event) event.preventDefault();

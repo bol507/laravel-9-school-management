@@ -43,7 +43,7 @@
                         'attrs' => [
                           'data-modal-confirm' => 'deleteFeeCategory',
                           'data-url' => route('fee.category.destroy',$doc),
-                          'onclick' => 'openModal(this)',
+                          
                         ],  
                       ]  
                     ] "

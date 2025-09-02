@@ -46,7 +46,7 @@
                           'attrs' => [
                               'data-modal-confirm' => 'deleteShift',
                               'data-url'           => route('student.shift.destroy', $doc),
-                              'onclick'            => 'openModal(this)',
+                              
                           ],
                       ],
                     

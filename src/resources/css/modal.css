@@ -1,0 +1,148 @@
+.dark-skin .modal-header {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .modal-footer {
+    border-color: rgba(var(--white), 0.12);
+}
+
+.dark-skin .media-body>p:last-child {
+
+    color: var(--dark-text);
+
+}
+
+.dark-skin .modal-fill .modal-content {
+
+    background-color: var(--dark);
+
+}
+
+.dark-skin.modal.modal-fill {
+
+    background-color: var(--dark);
+
+}
+
+.dark-skin .media-list-divided>.media:not(.media-list-header):not(.media-list-footer) {
+
+    border-bottom-color: rgba(var(--white), 0.2);
+}
+
+.dark-skin .media-list-divided .media-list-body>.media {
+
+    border-bottom-color: rgba(var(--white), 0.2);
+}
+
+
+.dark-skin .close {
+    color: var(--body-dark-l-60);
+    text-shadow: none;
+}
+
+.dark-skin .flex-column>li>a {
+
+
+    color: var(--body-dark-l-60);
+}
+
+.dark-skin .modal-content {
+    background-color: var(--body-dark-l-30);
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.fade {
+    transition: opacity 0.15s linear;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+
+
+
+
+.modal-dialog {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: 0;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    pointer-events: auto;
+    background-clip: padding-box;
+    outline: 0;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.modal-body > p {
+	color: var(--dark-text);  
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; 
+}
+
+.modal-footer {
+    border-top-color: var(--light);
+    display: inline-block;
+}
+.modal-footer {
+    display: inline-block;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    }
+}

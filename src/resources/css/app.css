@@ -9,6 +9,7 @@
 @import 'table.css';
 @import 'form.css';
 @import 'grid.css';
+@import 'modal.css';
 
 @tailwind base;
 @tailwind components;
@@ -21,13 +22,17 @@
   --headingfont: 'Rubik', sans-serif;
 
   --black: #000000;
-  --white: rgb(255, 255, 255);
+  --white: 255,255,255;
 
 
   --color-light: #ffffff;
   --background-dark: #272e48;
   --background-light: #ffffff;
   /*Theme Colors For Dark*/
+  --body-dark: #1a233a;
+  --body-dark-l-30: #4963a4;
+  --body-dark-l-40: #667eba;
+  --body-dark-l-60: #acb9da;
   --dark-body: #1a233a;
   --dark-text: #8a99b5;
   --dark-title: #bdd1f8;
