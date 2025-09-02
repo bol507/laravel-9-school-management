@@ -1,6 +1,6 @@
-<div class="col-sm-12 col-md-6">
+
   <form method="GET" action="{{ $action }}" id="searchForm">
-    <div class="d-flex align-items-center float-right py-2">
+    <div class="flex items-center py-2">
       <span class="mr-2">
         Search:
       </span>
@@ -14,7 +14,7 @@
 
     </div>
   </form>
-</div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

@@ -6,7 +6,7 @@
 <li
   {{ $attributes->merge(['class' => '']) }}
   x-data="{ open: false, active: false }"
-  :class="{ 'menu-open': active }">
+  :class="{ 'menu-open': open }">
 
   <x-ui.buttons.icon-with-slot
     icon="{{ $icon }}"

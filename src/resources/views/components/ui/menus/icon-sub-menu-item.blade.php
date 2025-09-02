@@ -5,19 +5,12 @@
 ])
 <li
   {{ $attributes->merge(['class' => '']) }}
-  x-data=" { isHovered: false } "
-  @mouseenter="isHovered = true"
-  @mouseleave="isHovered = false"
+  x-data="{ active: window.location.href === '{{ rtrim($href, '#') }}' }"
+  :class="{ 'active': active }"
   @click.prevent="
-          open = !open;
-          active = open;
-          if ($el.closest('[x-data]').accordion && open) {
-              $el.closest('[x-data]').collapseAll();
-              open = true;
-          }else {
-            window.location.href = '{{ $href }}'; 
-        }
-        ">
+       window.location.href = '{{ $href }}';
+  "
+>
 
   <a
     href="{{ $href }}">
@@ -27,7 +20,7 @@
         class="more-right"
         aria-hidden="true">
         <use
-          :href=" isHovered ? '{{ asset('assets/icons/icons.svg#arrow-right') }}'  : '{{ asset('assets/icons/icons.svg#more') }} ' ">
+          :href=" active ? '{{ asset('assets/icons/icons.svg#arrow-right') }}'  : '{{ asset('assets/icons/icons.svg#more') }} ' ">
         </use>
       </svg>
       <span>{{ $label }}</span>

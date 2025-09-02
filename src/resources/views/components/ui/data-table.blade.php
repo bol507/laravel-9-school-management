@@ -5,7 +5,7 @@
         <tr>
             <th>SL</th>
             @foreach ($columns as $label)
-                <th>{{ $label }}</th>
+            <th>{{ $label }}</th>
             @endforeach
             <th>Actions</th>
         </tr>
@@ -24,18 +24,18 @@
             {{-- Actions --}}
             <td>
                 @foreach($actions as $label => $callback)
-                    @php
-                        $action = $callback($row);
-                        $attrs  = $action['attrs'] ?? [];
-                    @endphp
-                
-                    <a href="{{ $action['href'] ?? '#' }}"
-                       class="btn {{ $action['class'] ?? '' }}"
-                       @foreach($attrs as $k => $v)
-                           {{ $k }}="{{ $v }}"
-                       @endforeach>
-                       {{ $label }}
-                    </a>
+                @php
+                $action = $callback($row);
+                $attrs = $action['attrs'] ?? [];
+                @endphp
+
+                <a href="{{ $action['href'] ?? '#' }}"
+                    class="btn {{ $action['class'] ?? '' }}"
+                    @foreach($attrs as $k=> $v)
+                    {{ $k }}="{{ $v }}"
+                    @endforeach>
+                    {{ $label }}
+                </a>
                 @endforeach
             </td>
         </tr>
@@ -43,6 +43,6 @@
     </tbody>
 
     <tfoot>
-       
+
     </tfoot>
 </table>

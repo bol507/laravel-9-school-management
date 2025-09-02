@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\Setup\FeeCategoryController;
 use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\UserController;
+use App\Models\FeeCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,4 +94,11 @@ Route::prefix('setups')->middleware([
     Route::get('/student/shift/edit/{id}', [StudentShiftController::class , 'EditStudentShift'])->name('student.shift.edit');
     Route::put('/student/shift/update/{id}', [StudentShiftController::class , 'UpdateStudentShift'])->name('student.shift.update');
     Route::delete('/student/shift/destroy/{id}', [StudentShiftController::class , 'DeleteStudentShift'])->name('student.shift.destroy');
+    //Fee Category
+    Route::get('/fee/category/view', [FeeCategoryController::class , 'ViewFeeCategory'])->name('fee.category.view');
+    Route::get('/fee/category/add', [FeeCategoryController::class, 'AddFeeCategory'])->name('fee.category.add');
+    Route::post('/fee/categry/store', [FeeCategoryController::class , 'StoreFeeCategory'])->name('fee.category.store');
+    Route::get('/fee/category/edit/{id}', [FeeCategoryController::class , 'EditFeeCategory'])->name('fee.category.edit');
+    Route::put('/fee/category/update/{id}', [FeeCategoryController::class , 'UpdateFeeCategory'])->name('fee.category.update');
+    Route::delete('/fee/category/destroy/{id}', [FeeCategoryController::class , 'DeleteFeeCategory'])->name('fee.category.destroy');
 });
