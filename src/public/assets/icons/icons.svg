@@ -75,6 +75,35 @@
       <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> 
     </g>
   </symbol>
+  <!-- circle-plus-success -->
+  
+
+  <symbol id="circle-plus-success" fill="#fff" xmlns="http://www.w3.org/2000/svg" stroke="#00BC8B" viewBox="0 0 24 24" >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g>
+        <g>
+          <rect width="24" height="24" opacity="0"></rect>
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm3 11h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2z"></path>
+        </g>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- circle-minus-danger -->
+
+
+  <symbol id="circle-minus-danger" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H15C15.4142 11.25 15.75 11.5858 15.75 12Z" fill="#fff"></path>
+    </g>
+  </symbol>
+
+
+
 
 
 

@@ -19,9 +19,8 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="table-responsive">
-                <div
-                  class="container-fluid">
-                  <div class="row">
+                <div class="container-fluid">
+                  <div class="row justify-between">
                     <x-ui.show-entries
                       :action="route('student.shift.view')"
                       :docs="$docs" />
@@ -29,6 +28,7 @@
                       :action="route('student.shift.view')" />
                   </div>
                   <x-ui.data-table
+                    class="table-bordered table-striped my-2"
                     :items="$docs"
                     :columns="[
                       'name'        => 'Name',
@@ -57,7 +57,7 @@
                     <x-ui.paginator :docs="$docs" />
                   </div>
 
-                </div>
+                </div><!-- container-fluid-->
                 <!-- table-responsive -->
               </div>
             </div>

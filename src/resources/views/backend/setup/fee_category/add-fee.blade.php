@@ -42,7 +42,6 @@
                           type="text"
                           name="description"
                           class="form-control"
-                          required
                         >
                         @error('description')
                         <div class="text-danger">{{ $message }}</div>

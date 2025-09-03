@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FeeCategory>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FeeCategoryAmount>
  */
-class FeeCategoryFactory extends Factory
+class FeeCategoryAmountFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class FeeCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'id' => fake()->unique()->uuid(),
-            'name' => fake()->words(2, true),
-            'description' => fake()->sentence(),
+            //
         ];
     }
 }

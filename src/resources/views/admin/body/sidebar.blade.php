@@ -41,7 +41,8 @@
         <x-ui.menus.icon-sub-menu-item label="Student year" href="{{ route('student.year.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student group" href="{{ route('student.group.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student shift" href="{{ route('student.shift.view') }}"/>
-        <x-ui.menus.icon-sub-menu-item label="Fee Category" href="{{ route('fee.category.view') }}" />
+        <x-ui.menus.icon-sub-menu-item label="Fee category" href="{{ route('fee.category.view') }}" />
+        <x-ui.menus.icon-sub-menu-item label="Fee amount" href="{{ route('fee.amount.view') }}" />
       </x-ui.menus.icon-menu-item>
 
       <li class="header nav-small-cap">User Interface</li>

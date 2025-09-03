@@ -57,10 +57,17 @@
     width: 100%;
     margin-bottom: 1rem;
     color: #212529;
+    clear: both;
+    max-width: none;
+}
+
+.table.nowrap {
+    white-space: nowrap;
 }
 
 .table th,
 .table td {
+    box-sizing: content-box;
     padding: 0.75rem;
     vertical-align: top;
     border-top: 1px solid #dee2e6;
@@ -68,7 +75,7 @@
 
 .table thead.thead-light th {
     background-color: var(--body-dark);
-    color: var(--dark-title)    ;
+    color: var(--dark-title);
 }
 
 .table thead th {
@@ -133,4 +140,204 @@
 .table-hover tbody tr:hover {
     color: #212529;
     background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/*---pagination---*/
+
+.pagination-wrapper {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+    padding-top: .25em;
+}
+
+.pagination-wrapper .paginate-button{
+            box-sizing: border-box;
+            display: inline-block;
+            min-width: 1.5em;
+            padding: .5em 1em;
+            margin-left: 2px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--black-l-45);
+            border: 1px solid transparent;
+            border-radius: 2px;
+}
+
+.pagination-wrapper ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: flex-end
+}
+
+
+
+.pagination-wrapper .paginate-button.current,
+.pagination-wrapper .paginate-button.current:hover {
+    color: #ffffff;
+}
+
+.pagination-wrapper .paginate-button.disabled,
+.pagination-wrapper .paginate-button.disabled:active,
+.pagination-wrapper .paginate-button.disabled:hover {
+    cursor: not-allowed;
+    color: var(--dark-l-45);
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+.pagination-wrapper .paginate-button:hover {
+    color: #ffffff;
+    background-color: var(--theme-primary-primary);
+}
+
+.pagination-wrapper .paginate-button:active {
+    outline: 0;
+    background-color: var(--black-l-45);
+}
+
+.pagination-wrapper .ellipsis {
+    padding: 0 1em;
+}
+
+.pagination-wrapper.paging_simple_numbers .pagination .paginate-button a {
+    padding: .5em 1em;
+    border-radius: 2px;
+    border: 0;
+    margin: 0;
+    min-width: 1.5em;
+}
+
+/* paging_simple_numbers*/
+
+.paging_simple_numbers .pagination .paginate-button {
+    padding: 0;
+}
+
+.paging_simple_numbers .pagination .paginate-button:hover { 
+    background-color: transparent;
+}
+
+.paging_simple_numbers .pagination .paginate-button:hover a {
+    color: #ffffff;
+}
+
+.paging_simple_numbers .pagination .paginate-button a {
+    padding: .5em 1em;
+    border-radius: 2px;
+    border: 0 ;
+    margin: 0;
+	min-width: 1.5em;
+}
+
+.paging_simple_numbers .pagination .paginate-button.active a {
+    color: white; 
+}
+
+/* .pagination */
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.pagination li a{
+        box-sizing: border-box;
+        display: inline-block;
+        min-width: 50px;
+        padding: 1rem;
+        margin: 0 3px;
+        text-decoration: none;
+        cursor: pointer;
+        color: var(--black-l-45);
+        border: 1px solid transparent;
+        border-radius: 2px;
+        text-align: center;
+}
+.pagination li a.current {
+    color: white !important; 
+}
+
+.pagination li a.current:hover {
+    color: white !important; 
+}
+
+.pagination li a:hover {
+    color: white !important; 
+}
+
+
+.page-link{
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+/* colors*/
+
+
+.pagination li a.current {
+    border: 1px solid #0F5EF7;
+    background-color: #0F5EF7;
+}
+
+.dark-skin .pagination > li > a {
+    background-color: var(--dark); 
+    color: var(--dark-text);
+}
+
+.dark-skin .paging_simple_numbers .pagination .paginate-button { 
+    background-color: transparent;
+}
+
+.dark-skin .paging_simple_numbers .pagination .paginate-button:hover { 
+    background-color: transparent;
+}
+
+.dark-skin .page-item.disabled .page-link{
+                color: var(--dark-text);
+                background-color: var(--body-dark);
+                border-color: rgba(255,255,255, 0.12);
+
+}
+
+.dark-skin .pagination li a.current:hover {
+    border: 1px solid #0F5EF7;
+    background-color: #0F5EF7;
+}
+
+.dark-skin .pagination li a:hover {
+    border: 1px solid #074acc;
+    background-color: #074acc !important;
+}
+
+.dark-skin .pagination-wrapper .paginate-button.current {
+    border: 1px solid #0F5EF7;
+    background-color: #0F5EF7;
+}
+
+.dark-skin .pagination-wrapper .paginate-button.current:hover {
+    border: 1px solid #0F5EF7;
+    background-color: #0F5EF7;
+}
+
+.dark-skin .paging_simple_numbers .pagination .paginate-button.active a {
+    background-color: #0F5EF7;
+}
+
+.dark-skin .paging_simple_numbers .pagination .paginate-button:hover a {
+    background-color: #0F5EF7;
 }

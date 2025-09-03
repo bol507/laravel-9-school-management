@@ -1,13 +1,20 @@
 @props(['items', 'columns', 'actions'])
+@php
+$totalColumns = count($columns) + 2;
+$actionWidth = 100 / $totalColumns;
+@endphp
 
-<table {{ $attributes->merge(['class' => 'table table-bordered table-striped my-2']) }}>
+<table {{ $attributes->merge(['class' => 'table']) }}>
+
     <thead>
-        <tr>
-            <th>SL</th>
+        <tr >
+            <th >SL</th>
             @foreach ($columns as $label)
-            <th>{{ $label }}</th>
+            <th >{{ $label }}</th>
             @endforeach
-            <th>Actions</th>
+            @if($actions)
+                <th >Actions</th>
+            @endif
         </tr>
     </thead>
 
@@ -22,7 +29,8 @@
             @endforeach
 
             {{-- Actions --}}
-            <td>
+            @if($actions)
+            <td >
                 @foreach($actions as $label => $callback)
                 @php
                 $action = $callback($row);
@@ -30,7 +38,7 @@
                 @endphp
 
                 <a href="{{ $action['href'] ?? '#' }}"
-                    class="btn {{ $action['class'] ?? '' }}"
+                    class="btn btn-sm mx-1.5 {{ $action['class'] ?? '' }}"
                     @foreach($attrs as $k=> $v)
                     {{ $k }}="{{ $v }}"
                     @endforeach>
@@ -38,6 +46,7 @@
                 </a>
                 @endforeach
             </td>
+            @endif
         </tr>
         @endforeach
     </tbody>
