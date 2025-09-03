@@ -87,7 +87,7 @@
   padding: 0.375rem 0.75rem !important;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.5;
   background-clip: padding-box;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -124,10 +124,22 @@
   box-shadow: none;
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
-  
   font-size: 1rem;
   font-weight: 400;
   line-height: 1;
   background-clip: padding-box;
-  
+
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.form-row>.col,
+.form-row>[class*="col-"] {
+  padding-right: 5px;
+  padding-left: 5px;
 }
