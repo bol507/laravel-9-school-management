@@ -6,7 +6,7 @@
   list-style: none;
   margin: 10px 10px 0;
   padding: 10px;
-  background-color: var(--dark-body);
+  background-color: var(--body-dark);
 }
 .sidebar-menu > li {
     position: relative;
@@ -158,7 +158,7 @@
 
 
 .sidebar-menu > li.treeview.menu-open > ul.treeview-menu {            
-    background-color: rgba(var(--dark-body,0));
+    background-color: rgba(var(--body-dark,0));
     border-radius: var(--default-border-radius); 
 }
 

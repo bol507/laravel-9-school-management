@@ -86,8 +86,7 @@ class FeeAmountController extends Controller
         }
     }
 
-    public function EditFeeAmount($id)
-    {
+    public function EditFeeAmount($id){
         $doc = new stdClass();
         $doc = FeeCategoryAmount::where('fee_category_id', $id)->orderBy('class_id', 'asc')->get();
         $doc->fee_categories = FeeCategory::all();
@@ -156,5 +155,27 @@ class FeeAmountController extends Controller
     public function DeleteFeeAmount($id)
     {
         return redirect()->route('fee.amount.view');
+    }
+
+    public function DetailsFeeAmount(Request $request, $id){
+        $perPage = (int) $request->input('limit', 10);
+        $perPage = max(1, min($perPage, 100));
+
+        $search = trim((string) $request->input('search', ''));
+        $query = FeeCategoryAmount::with(['studentClass']); //loading relationship
+
+        if ($search) {
+            $query->where('fee_category_id', 'like', "%{$search}%");
+        }
+
+       
+
+        $doc = new stdClass();
+        $doc = $query->where('fee_category_id', $id)
+            ->orderBy('class_id', 'asc')
+            ->paginate($perPage)
+            ->appends($request->query());
+
+        return view('backend.setup.fee_amount.details-fee',  ['doc' => $doc, 'search'=>$search]);
     }
 }

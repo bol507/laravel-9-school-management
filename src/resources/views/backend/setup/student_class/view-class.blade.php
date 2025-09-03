@@ -63,7 +63,7 @@
                     </tfoot>
                   </table>
 
-                  <div class="row">
+                  <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     <x-ui.paginator :docs="$docs" />
                   </div>

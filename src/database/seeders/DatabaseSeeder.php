@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             ProfileSeeder::class,
+            StudentClassSeeder::class
         ]);
     }
 }

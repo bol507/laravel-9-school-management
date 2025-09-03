@@ -22,6 +22,7 @@
   --headingfont: 'Rubik', sans-serif;
 
   --black: #000000;
+  --black-l-45: #737373;
   --white: 255,255,255;
 
 
@@ -33,10 +34,11 @@
   --body-dark-l-30: #4963a4;
   --body-dark-l-40: #667eba;
   --body-dark-l-60: #acb9da;
-  --dark-body: #1a233a;
   --dark-text: #8a99b5;
   --dark-title: #bdd1f8;
   --dark: #475f7b;
+  --dark-l-10:#536e8f;
+  --dark-l-35: #7d96b4;
   --dark-l-40: #b8c6d6;
   --dark2: #566f9e;
   --dark3: #272e48;
@@ -83,7 +85,7 @@
   --lighten-body-dark: hsl(223, 38%, 42%)
     /* 30% */
 
-    --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)) --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
+  --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)) --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
   /*Sidebar*/
   --sidebar-width: 280px;
 
@@ -247,7 +249,7 @@ a {
 }
 
 .dark-skin {
-  background-color: var(--dark-body);
+  background-color: var(--body-dark);
   color: var(--dark-text);
 }
 
@@ -265,7 +267,7 @@ a {
 }
 
 .bg-dark-body {
-  background-color: var(--dark-body);
+  background-color: var(--body-dark);
 }
 
 .wrapper {
@@ -291,7 +293,7 @@ a {
 
 .main-footer {
   position: relative;
-  background-color: var(--dark-body);
+  background-color: var(--body-dark);
   color: var(--white);
   border-color: rgba(--white, 0.12);
   margin-left: var(--sidebar-width);

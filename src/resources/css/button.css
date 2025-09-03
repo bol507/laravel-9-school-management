@@ -216,7 +216,7 @@ btn-info.disabled {
 .btn-success:active {
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-     color: white;
+    color: white;
 }
 
 .button-success:disabled {
@@ -229,7 +229,7 @@ btn-info.disabled {
 
     background-color: var(--theme-primary-success-d-10) !important;
     border-color: var(--theme-primary-success-d-10) !important;
-     color: white;
+    color: white;
 
 }
 
@@ -400,4 +400,55 @@ btn-info.disabled {
     background-color: var(--theme-primary-warning-d-10) !important;
     border-color: var(--theme-primary-warning-d-10) !important;
     color: white;
+}
+
+/*---Secondary Button---*/
+.btn-secondary {
+    background-color: var(--dark-l-35);
+    border-color: var(--dark-l-35);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-l-10);
+    border-color: var(--dark-l-10);
+    color: white;
+}
+
+.btn-secondary:active {
+    background-color: var(--dark-l-10);
+    border-color: var(--dark-l-10);
+    color: white;
+}
+
+.btn-secondary:disabled {
+    background-color: var(--dark-l-35);
+    border-color: var(--dark-l-35);
+    opacity: 0.5;
+}
+
+.btn-secondary.disabled {
+    background-color: var(--dark-l-35);
+    border-color: var(--dark-l-35);
+    opacity: 0.5;
+}
+
+
+
+
+
+
+
+
+
+
+/* -- Size --*/
+.btn-group-sm>.btn {
+    font-size: var(--fs-10);
+    padding: 4px 12px;
+}
+
+.btn-sm {
+    font-size: var(--fs-10);
+    padding: 4px 12px;
 }

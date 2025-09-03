@@ -108,5 +108,5 @@ Route::prefix('setups')->middleware([
     Route::post('/fee/amount/store', [FeeAmountController::class , 'StoreFeeAmount'])->name('fee.amount.store');
     Route::get('/fee/amount/edit/{id}', [FeeAmountController::class , 'EditFeeAmount'])->name('fee.amount.edit');
     Route::put('/fee/amount/update/{id}', [FeeAmountController::class , 'UpdateFeeAmount'])->name('fee.amount.update');
-    Route::delete('/fee/amount/destroy/{id}', [FeeAmountController::class , 'DeleteFeeAmount'])->name('fee.amount.destroy');
+     Route::get('/fee/amount/details/{id}', [FeeAmountController::class , 'DetailsFeeAmount'])->name('fee.amount.details');
 });
