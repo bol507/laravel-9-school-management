@@ -17,7 +17,9 @@ class ExamTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => fake()->unique()->uuid(),
+            'name' => fake()->unique()->words(2, true),
+            'description' => fake()->sentence(),
         ];
     }
 }

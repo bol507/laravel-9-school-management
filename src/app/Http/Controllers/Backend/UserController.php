@@ -62,8 +62,8 @@ class UserController extends Controller
 
             Log::error('Error adding user: ' . $e->getMessage());
             $notification = [
-                'message' => 'An error occurred while adding the user: ' . $e->getMessage(),
-                'alert-type' => 'error'
+                'message' => 'An unexpected error occurred while adding the user. Please try again.',
++                'alert-type' => 'error'
             ];
             return redirect()->route('user.view')->with($notification);
         }

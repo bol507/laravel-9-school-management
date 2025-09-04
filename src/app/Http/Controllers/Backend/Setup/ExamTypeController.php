@@ -45,8 +45,8 @@ class ExamTypeController extends Controller
 
         try {
             $examType = DB::transaction(function () use ($validated) {
-                ExamType::UpdateOrCreate(
-                    ['name' => $validated['name']], // find attribute
+                return ExamType::UpdateOrCreate(
+                    ['name' => $validated['name']], // match attribute
                     $validated // create or update data
                 );
             });
@@ -67,9 +67,9 @@ class ExamTypeController extends Controller
             Log::error('Error occurred while saving exam type:', [
                 'error' => $e->getMessage()
             ]);
-            return redirect()->route('backend.setup.exam_type.add-exam')->withInput()->with($notification);
+            return redirect()->route('exam.type.add')->withInput()->with($notification);
         }
-    }
+    }   
 
     public function EditExamType($id){
          $doc = ExamType::findOrFail($id);
@@ -79,7 +79,7 @@ class ExamTypeController extends Controller
     public function UpdateExamType(UpdateExamTypeRequest $request, $id){
         $notification = [
                 'message' => 'An error occurred while updating exam type',
-                'alert-type' => 'danger'
+                'alert-type' => 'error'
             ];
         try {
              DB::transaction(function () use ($request, $id) {
@@ -87,12 +87,12 @@ class ExamTypeController extends Controller
                 $examType->update($request->validated());
             });
             $notification = [
-                'message' => 'User updated successfully',
+                'message' => 'Exam type updated successfully',
                 'alert-type' => 'success'
             ];
             return redirect()->route('exam.type.view')->with($notification);
         }catch(Throwable $e){
-            Log::error('An error ocurred while updating exam type',[
+            Log::error('An error occurred while updating exam type',[
                 'error' => $e->getMessage()
             ]);
             return redirect()->route('exam.type.edit', $id)

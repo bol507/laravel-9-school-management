@@ -67,7 +67,8 @@
         method="DELETE"
         submitText="Delete"
         title="Delete fee category"
-        message="Are you sure you want to delete this fee?" />
+        message="Are you sure you want to delete this fee category?"
+      />
     </section>
   </div><!-- container-full -->        
 </div>
