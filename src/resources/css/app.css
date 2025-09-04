@@ -142,6 +142,11 @@
   box-sizing: border-box;
 }
 
+html{
+  height:100%;
+  font-size: 14px;
+}
+
 body {
   display: block;
   box-sizing: border-box;

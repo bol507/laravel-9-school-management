@@ -36,40 +36,15 @@
         <x-ui.menus.icon-sub-menu-item label="View profile" href="{{ route('profile.view') }}"/>
       </x-ui.menus.icon-menu-item>
       
-      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setups"  class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
+      <x-ui.menus.icon-menu-item  icon="message-circle" label="Setup management"  class="treeview {{  ($prefix == '/setups') ? 'active' : '' }}">
         <x-ui.menus.icon-sub-menu-item label="Student class" href="{{ route('student.class.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student year" href="{{ route('student.year.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student group" href="{{ route('student.group.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Student shift" href="{{ route('student.shift.view') }}"/>
         <x-ui.menus.icon-sub-menu-item label="Fee category" href="{{ route('fee.category.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Fee amount" href="{{ route('fee.amount.view') }}" />
-      </x-ui.menus.icon-menu-item>
-
-      <li class="header nav-small-cap">User Interface</li>
-
-      <li class="treeview">
-        <a href="#">
-          <i data-feather="grid"></i>
-          <span>Components</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="components_alerts.html"><i class="ti-more"></i>Alerts</a></li>
-          <li><a href="components_badges.html"><i class="ti-more"></i>Badge</a></li>
-          <li><a href="components_buttons.html"><i class="ti-more"></i>Buttons</a></li>
-          <li><a href="components_sliders.html"><i class="ti-more"></i>Sliders</a></li>
-          <li><a href="components_dropdown.html"><i class="ti-more"></i>Dropdown</a></li>
-          <li><a href="components_modals.html"><i class="ti-more"></i>Modal</a></li>
-          <li><a href="components_nestable.html"><i class="ti-more"></i>Nestable</a></li>
-          <li><a href="components_progress_bars.html"><i class="ti-more"></i>Progress Bars</a></li>
-        </ul>
-      </li>
-
-     
-
-      
+        <x-ui.menus.icon-sub-menu-item label="Exam type" href="{{ route('exam.type.view') }}" />
+      </x-ui.menus.icon-menu-item>     
 
     </x-ui.tree>
     <!-- sidebar menu-->
