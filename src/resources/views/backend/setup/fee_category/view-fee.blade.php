@@ -19,7 +19,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="table-responsive">
-                
+                <div class="container-fluid">
                   <div class="row justify-between">
                     <x-ui.show-entries
                       :action="route('fee.category.view')"
@@ -28,6 +28,7 @@
                   </div>
                   
                   <x-ui.data-table
+                    class="table-bordered table-striped my-2"
                     :items="$docs"
                     :columns="[
                       'name' => 'name',
@@ -55,17 +56,12 @@
                     <x-ui.paginator :docs="$docs" />
                   </div>
 
-                   
-              </div>
-               <!-- table-responsive -->
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+                </div>   
+              </div><!-- table-responsive -->
+            </div> <!-- /.box-body -->
+          </div><!-- /.box -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
       <x-ui.dialog
         id="deleteFeeCategory"
         method="DELETE"
@@ -73,10 +69,6 @@
         title="Delete fee category"
         message="Are you sure you want to delete this fee?" />
     </section>
-    <!-- /.content -->
-
-  </div>
-  <!-- container-full -->                   
-
+  </div><!-- container-full -->        
 </div>
 @endsection

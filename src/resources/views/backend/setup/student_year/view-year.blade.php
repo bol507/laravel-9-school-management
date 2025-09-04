@@ -21,7 +21,7 @@
               <div class="table-responsive">
                 <div
                   class="container-fluid">
-                  <div class="row">
+                  <div class="row justify-between">
                     <x-ui.show-entries 
                       :action="route('student.year.view')" 
                       :docs="$docs"
