@@ -19,12 +19,14 @@
             <div class="box-body">
               <div class="table-responsive">
                 <div class="container-fluid">
+
                   <div class="row justify-between">
                     <x-ui.show-entries
                       :action="route('fee.amount.view')"
                       :docs="$docs" />
                     <x-ui.search :action="route('fee.amount.view')" />
                   </div>
+                  
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs"
@@ -43,7 +45,7 @@
                       ]  
                     ] "
                   />
-                  <div class="row justify-between">
+                  <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     <x-ui.paginator :docs="$docs" />
                   </div>

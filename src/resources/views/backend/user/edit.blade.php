@@ -4,10 +4,8 @@
   <div class="container-full">
     <section class="content">
       <div class="box">
-
         <div class="box-header with-border">
           <h4 class="box-title">Update user</h4>
-
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -22,7 +20,7 @@
           @endif
           <div class="row">
             <div class="col">
-              <form method="POST" action="{{ route('user.update',$editUser->id) }}">
+              <form method="POST" action="{{ route('user.update',$doc->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -38,14 +36,14 @@
                           aria-invalid="false">
                           <option
                             value=""
-                            @if(empty($editUser->user_type)) selected disabled @endif
+                            @if(empty($doc->user_type)) selected disabled @endif
                             >
                             Select user type
                           </option>
-                          <option value="Admin" @if($editUser->user_type == 'Admin') selected @endif>
+                          <option value="Admin" @if($doc->user_type == 'Admin') selected @endif>
                             Admin
                           </option>
-                          <option value="User" @if($editUser->user_type == 'User') selected @endif>
+                          <option value="User" @if($doc->user_type == 'User') selected @endif>
                             User
                           </option>
                         </select>
@@ -62,7 +60,7 @@
                           name="name"
                           class="form-control"
                           required
-                          value="{{$editUser->name}}">
+                          value="{{$doc->name}}">
                       </div>
                       @error('name')
                       <div class="text-danger">{{ $message }}</div>
@@ -79,7 +77,7 @@
                           name="email"
                           class="form-control"
                           required
-                          value="{{$editUser->email}}">
+                          value="{{$doc->email}}">
                       </div>
                       @error('email')
                       <div class="text-danger">{{ $message }}</div>

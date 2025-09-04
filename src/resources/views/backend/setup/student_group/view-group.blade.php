@@ -30,44 +30,33 @@
                       :action="route('student.group.view')" 
                     />
                   </div>
-                  <table
-                    id="table"
-                    class="table table-bordered table-striped my-2">
-                    <thead>
-                      <tr>
-                        <th>SL</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($docs as $key => $doc)
-                      <tr>
-                        <td>{{$key+1}}</td>
-                        <td>{{$doc->name}}</td>
-                        <td>{{$doc->description}}</td>
-                        <td>
-                          <a href="{{ route('student.group.edit', $doc->id) }}" class="btn btn-info">Edit</a>
-                          <a
+                  
+                  <x-ui.data-table
+                    class="table-bordered table-striped my-2"
+                    :items="$docs"
+                    :columns="[
+                      'name'        => 'Name',
+                      'description' => 'Description',
+                    ]"
+                    :actions="[
+                      
+                      'Edit' => fn($doc) => [
+                        'href'  => route('student.group.edit', $doc),
+                        'class' => 'btn-info',
+                      ],
+                      'Delete' => fn($doc) => [
+                          'href'  => 'javascript:void(0);',
+                          'class' => 'btn-danger',
+                          'attrs' => [
+                              'data-modal-confirm' => 'deleteGroup',
+                              'data-url'           => route('student.group.destroy', $doc),
+                              
+                          ],
+                      ],
+                    
+                    ]" />
 
-                            href="javascript:void(0);"
-                            class="btn btn-danger"
-                            data-modal-confirm="deleteGroup"
-                            data-url="{{ route('student.group.destroy', $doc->id) }}"
-                            onclick="openModal(this)">
-                            Delete
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                    <tfoot>
-
-                    </tfoot>
-                  </table>
-
-                  <div class="row">
+                  <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     <x-ui.paginator :docs="$docs" />
                   </div>

@@ -26,6 +26,7 @@
                       :docs="$docs" />
                     <x-ui.search :action="route('fee.category.view')" />
                   </div>
+                  
                   <x-ui.data-table
                     :items="$docs"
                     :columns="[
@@ -49,7 +50,7 @@
                     ] "
                   />
 
-                  <div class="row justify-between">
+                  <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs" class="text-muted" />
                     <x-ui.paginator :docs="$docs" />
                   </div>
