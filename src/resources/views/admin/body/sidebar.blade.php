@@ -44,6 +44,7 @@
         <x-ui.menus.icon-sub-menu-item label="Fee category" href="{{ route('fee.category.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Fee amount" href="{{ route('fee.amount.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Exam type" href="{{ route('exam.type.view') }}" />
+        <x-ui.menus.icon-sub-menu-item label="School subject" href="{{ route('school.subject.view') }}" />
       </x-ui.menus.icon-menu-item>     
 
     </x-ui.tree>

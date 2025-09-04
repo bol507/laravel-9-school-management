@@ -32,7 +32,7 @@
                     class="table-bordered table-striped my-2"
                     :items="$docs"
                     :columns="[
-                      'role' => 'Role',
+                      'user_type' => 'Role',
                       'name' => 'Name',
                       'email' => 'Email',
                     ]"

@@ -6,12 +6,12 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\ExamTypeController;
 use App\Http\Controllers\Backend\Setup\FeeAmountController;
 use App\Http\Controllers\Backend\Setup\FeeCategoryController;
+use App\Http\Controllers\Backend\Setup\SchoolSubjectController;
 use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\UserController;
-use App\Models\FeeCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,4 +117,11 @@ Route::prefix('setups')->middleware([
     Route::get('/exam/type/edit/{id}', [ExamTypeController::class, 'EditExamType'])->name('exam.type.edit');
     Route::put('/exam/type/update/{id}', [ExamTypeController::class,'UpdateExamType'])->name('exam.type.update');
     Route::delete('/exam/type/destroy/{id}', [ExamTypeController::class, 'DeleteExamType'] )->name('exam.type.destroy');
+    //school subject
+    Route::get('/school/subject/view', [SchoolSubjectController::class, 'ViewSchoolSubject'])->name('school.subject.view');
+    Route::get('/school/subject/add', [SchoolSubjectController::class,'AddSchoolSubject'])->name('school.subject.add');
+    Route::post('/school/subject/store', [SchoolSubjectController::class,'StoreSchoolSubject'])->name('school.subject.store');
+    Route::get('/school/subject/edit/{id}', [SchoolSubjectController::class, 'EditSchoolSubject'])->name('school.subject.edit');
+    Route::put('/school/subject/update/{id}', [SchoolSubjectController::class,'UpdateSchoolSubject'])->name('school.subject.update');
+    Route::delete('/school/subject/destroy/{id}', [SchoolSubjectController::class, 'DeleteSchoolSubject'] )->name('school.subject.destroy');
 });
