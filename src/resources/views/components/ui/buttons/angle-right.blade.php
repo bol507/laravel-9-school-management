@@ -23,7 +23,7 @@
   .angle-right {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 0;
     margin-top: -8px;
   }
 

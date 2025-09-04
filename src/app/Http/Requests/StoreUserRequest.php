@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,16 @@ class UserStoreRequest extends FormRequest
         'name' => 'required|string|min:3|max:255',
         'email' => 'required|email|unique:users',
         'password' => 'required|string|min:8',// confirmed if you want to confirm password
+        'user_type' => 'required|string'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        
+        if (!$this->input('user_type')) {
+            $this->merge(['user_type' => 'User']);
+        }
     }
 
     public function messages()
