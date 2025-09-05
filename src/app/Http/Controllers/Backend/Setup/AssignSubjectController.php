@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAssignSubjectRequest;
 use App\Models\AssignSubject;
 use App\Models\SchoolSubject;
 use App\Models\StudentClass;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -154,10 +155,19 @@ class AssignSubjectController extends Controller
 
             });
 
-        }catch(Throwable $e){
+            return redirect()
+            ->route('assign.subject.view')
+            ->with([
+                'message' => 'Assign subjects updated successfully.',
+                'alert-type' => 'success'
+            ]);
+
+
+        }catch(Exception $e){
             Log::error('An error ocurred while updating subjects: '. $e->getMessage(),[
                 'request' => $request->all()
             ]);
+            dd(session()->all());
             return redirect()
                 ->route('assign.subject.edit', $id)
                 ->withInput()
@@ -166,13 +176,28 @@ class AssignSubjectController extends Controller
                     'alert-type' => 'error'
                 ]);
         }
+    }
 
-        return redirect()
-            ->route('assign.subject.view')
-            ->with([
-                'message' => 'Assign subjects updated successfully.',
-                'alert-type' => 'success'
-            ]);
+    public function DetailsAssignSubject(Request $request, $id){
+        $perPage = (int) $request->input('limit',10);
+        $perPage = max(1,min($perPage, 100));
 
+        $search = trim((string) $request->input('search',''));
+        $query = AssignSubject::with(['schoolSubject']);
+
+        if($search){
+            $query->whereHas('schoolSubject', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
+
+        $doc = new stdClass();
+        $doc = $query
+            ->where('class_id', $id)
+            ->orderBy('subject_id','asc')
+            ->paginate($perPage)
+            ->appends($request->query());
+            
+        return view('backend.setup.assign_subject.details-subject',['doc' => $doc, 'search' => $search]);
     }
 }
