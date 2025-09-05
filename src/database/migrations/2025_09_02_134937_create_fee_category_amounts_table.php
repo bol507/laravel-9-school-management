@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('fee_category_amounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('fee_category_id')->constrained('fee_categories')->onDelete('cascade');
-            $table->foreignUuid('class_id')->constrained('student_classes')->onDelete('cascade');
+            $table->uuid('fee_category_id');
+            $table->uuid('class_id');
             $table->double('amount');
             $table->timestamps();
             $table->softDeletes();
