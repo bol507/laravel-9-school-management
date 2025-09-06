@@ -79,7 +79,10 @@ class FeeAmountController extends Controller
 
             Log::error('Error occurred while saving fee amounts: ' . $e->getMessage());
 
-            return redirect()->route('fee.amount.view')->with([
+            return redirect()
+                ->route('fee.amount.add')
+                ->withInput()
+                ->with([
                 'message' => 'An error occurred while saving fee amounts. Please try again.',
                 'alert-type' => 'error'
             ]);

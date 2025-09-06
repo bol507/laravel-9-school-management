@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fee_category_amounts', function (Blueprint $table) {
+        Schema::create('school_subjects', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('fee_category_id');
-            $table->uuid('class_id');
-            $table->double('amount');
+            $table->string('name')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee_category_amounts');
+        Schema::dropIfExists('school_subjects');
     }
 };

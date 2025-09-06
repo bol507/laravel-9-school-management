@@ -77,14 +77,15 @@ class ExamTypeController extends Controller
     }
 
     public function UpdateExamType(UpdateExamTypeRequest $request, $id){
+        $validated = $request->validated();
         $notification = [
                 'message' => 'An error occurred while updating exam type',
                 'alert-type' => 'error'
             ];
         try {
-             DB::transaction(function () use ($request, $id) {
+             DB::transaction(function () use ($validated, $id) {
                 $examType = ExamType::findOrFail($id);
-                $examType->update($request->validated());
+                $examType->update($validated);
             });
             $notification = [
                 'message' => 'Exam type updated successfully',
