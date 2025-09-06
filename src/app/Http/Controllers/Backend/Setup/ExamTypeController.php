@@ -74,7 +74,8 @@ class ExamTypeController extends Controller
         try {
             $examType = DB::transaction(function () use ($validated, $id) {
                 $founded = ExamType::findOrFail($id);
-                $founded ->update($validated);
+                $founded->update($validated);
+                return $founded->refresh();
             });
             $notification = $this->createNotification($examType);
             return redirect()->route('exam.type.view')->with($notification);

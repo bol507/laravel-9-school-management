@@ -51,7 +51,7 @@ class DesignationController extends Controller
         } catch (Exception $e) {
             Log::error('Error occurred while saving designation: ', [
                 'error' => $e->getMessage(),
-                'request' => $request
+                'request' => $request->only('name')
             ]);
             return redirect()
                 ->route('designation.add')
@@ -72,10 +72,9 @@ class DesignationController extends Controller
         $validated = $request->validated();
         try{
            $designation = DB::transaction(function() use($validated, $id){
-                return Designation::updateOrCreate(
-                    ['id' => $id], //match
-                    $validated
-                );
+                $founded = Designation::findOrFail($id);
+                $founded->update($validated);
+                return $founded->refresh();
             });
             $notification = $this->createNotification($designation);
             return redirect()
@@ -83,7 +82,7 @@ class DesignationController extends Controller
                 ->with($notification);
         }catch(Exception $e){
             Log::error('An error occurred while updating designation',[
-                "request" => $request,
+                "request" => $request->only('name'),
                 "error" => $e->getMessage()
             ]);
             return redirect()
