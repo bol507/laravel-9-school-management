@@ -46,6 +46,7 @@
         <x-ui.menus.icon-sub-menu-item label="Exam type" href="{{ route('exam.type.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="School subject" href="{{ route('school.subject.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Asign subject" href="{{ route('assign.subject.view') }}" />
+        <x-ui.menus.icon-sub-menu-item label="Designation" href="{{ route('designation.view') }}" />
       </x-ui.menus.icon-menu-item>     
 
     </x-ui.tree>

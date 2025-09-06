@@ -30,6 +30,9 @@
                     :items="$doc"
                     :columns="[
                       'schoolSubject.name' => 'Subject name',
+                      'full_mark' => 'Full mark',
+                      'pass_mark' => 'Pass mark',
+                      'subjective_mark' => 'Subjective mark'
                     ]"
                     
                   />

@@ -13,8 +13,7 @@ use Throwable;
 
 class ExamTypeController extends Controller
 {
-    public function ViewExamType(Request $request)
-    {
+    public function ViewExamType(Request $request){
         $perPage = (int) $request->input('limit', 10);
         $perPage = max(1, min($perPage, 100));
 
@@ -51,17 +50,7 @@ class ExamTypeController extends Controller
                 );
             });
 
-            if ($examType->wasRecentlyCreated) {
-                $notification = [
-                    'message' => 'Exam type created successfully',
-                    'alert-type' => 'success'
-                ];
-            } else {
-                $notification = [
-                    'message' => 'Exam type updated successfully',
-                    'alert-type' => 'warning'
-                ];
-            }
+            $notification = $this->createNotification($examType);
             return redirect()->route('exam.type.view')->with($notification);
         } catch (Throwable $e) {
             Log::error('Error occurred while saving exam type:', [
@@ -83,14 +72,11 @@ class ExamTypeController extends Controller
                 'alert-type' => 'error'
             ];
         try {
-             DB::transaction(function () use ($validated, $id) {
-                $examType = ExamType::findOrFail($id);
-                $examType->update($validated);
+            $examType = DB::transaction(function () use ($validated, $id) {
+                $founded = ExamType::findOrFail($id);
+                $founded ->update($validated);
             });
-            $notification = [
-                'message' => 'Exam type updated successfully',
-                'alert-type' => 'success'
-            ];
+            $notification = $this->createNotification($examType);
             return redirect()->route('exam.type.view')->with($notification);
         }catch(Throwable $e){
             Log::error('An error occurred while updating exam type',[
@@ -103,23 +89,35 @@ class ExamTypeController extends Controller
     }
 
     public function DeleteExamType($id){
-        $notification = [
-            'message' => 'An error occurred while deleting exam',
-            'alert-type' => 'danger',
-        ];
         try{
             $examType = ExamType::findOrFail($id);
             $examType->delete();
-            $notification = [
+            return redirect()->route('exam.type.view')->with([
                 'message' => 'Exam type deleted successfully',
                 'alert-type' => 'success'
-            ];
-            return redirect()->route('exam.type.view')->with($notification);
+            ]);
         }catch(Throwable $e){
             Log::error('An error ocurred while deleting exam type',[
                 'error' => $e->getMessage()
             ]);
-            return redirect()->route('exam.type.view')->with($notification);
+            return redirect()->route('exam.type.view')->with([
+            'message' => 'An error occurred while deleting exam',
+            'alert-type' => 'danger',
+        ]);
         }
     }
+
+    private function createNotification($examType) {
+    if ($examType->wasRecentlyCreated) {
+        return [
+            'message' => 'Exam type created successfully',
+            'alert-type' => 'success'
+        ];
+    } else {
+        return [
+            'message' => 'Exam type updated successfully',
+            'alert-type' => 'warning'
+        ];
+    }
+}
 }
