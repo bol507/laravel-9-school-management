@@ -124,9 +124,9 @@ class AssignSubjectController extends Controller
 
     public function UpdateAssignSubject(UpdateAssignSubjectRequest $request, $id){
         $validated = $request->validated();
-        if (empty($validated['subject_id'])){
+        if ($id !== empty($validated['subject_id'])){
             return redirect()->route('assgin.subject.edit',$id)->with([
-                'message' => 'Sorry, you have not selected any subject.',
+                'message' => 'Mismatched class identifier.',
                 'alert-type' => 'error',
             ]);
         }
@@ -157,7 +157,7 @@ class AssignSubjectController extends Controller
                     ->delete();
 
                 foreach ($data as $row){
-                    AssignSubject::updateOrCreate(
+                     $model = AssignSubject::withTrashed()->updateOrCreate(
                         [
                             'class_id' => $row['class_id'],
                             'subject_id' => $row['subject_id']
@@ -168,6 +168,9 @@ class AssignSubjectController extends Controller
                             'subjective_mark' => $row['subjective_mark']
                         ]
                     );
+                    if ($model->trashed()) {
+                        $model->restore();
+                    }
                 }
 
             });
