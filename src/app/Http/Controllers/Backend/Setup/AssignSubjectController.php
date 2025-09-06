@@ -114,7 +114,9 @@ class AssignSubjectController extends Controller
 
     public function EditAssignSubject($id){
         $docs = new stdClass();
-        $docs = AssignSubject::where('class_id',$id)->orderBy('subject_id','asc')->get();
+        $docs = AssignSubject::where('class_id',$id)
+            ->orderBy('subject_id','asc')
+            ->get();
         $docs->classes = StudentClass::all();
         $docs->subjects = SchoolSubject::all();
         return view('backend.setup.assign_subject.edit-subject',['docs' => $docs]);
