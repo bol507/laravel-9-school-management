@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
+use App\Http\Controllers\Backend\Setup\DesignationController;
 use App\Http\Controllers\Backend\Setup\ExamTypeController;
 use App\Http\Controllers\Backend\Setup\FeeAmountController;
 use App\Http\Controllers\Backend\Setup\FeeCategoryController;
@@ -132,4 +133,11 @@ Route::prefix('setups')->middleware([
     Route::get('/assign/subject/edit/{id}', [AssignSubjectController::class , 'EditAssignSubject'])->name('assign.subject.edit');
     Route::put('/assign/subject/update/{id}', [AssignSubjectController::class , 'UpdateAssignSubject'])->name('assign.subject.update');
     Route::get('/assign/subject/details/{id}', [AssignSubjectController::class , 'DetailsAssignSubject'])->name('assign.subject.details');
+    //Designation
+    Route::get('/designation/view', [DesignationController::class, 'ViewDesignation'])->name('designation.view');
+    Route::get('/designation/add', [DesignationController::class,'AddDesignation'])->name('designation.add');
+    Route::post('/designation/store', [DesignationController::class,'StoreDesignation'])->name('designation.store');
+    Route::get('/designation/edit/{id}', [DesignationController::class, 'EditDesignation'])->name('designation.edit');
+    Route::put('/designation/update/{id}', [DesignationController::class,'UpdateDesignation'])->name('designation.update');
+    Route::delete('/designation/destroy/{id}', [DesignationController::class, 'DeleteDesignation'] )->name('designation.destroy');
 });

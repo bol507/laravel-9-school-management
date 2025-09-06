@@ -6,26 +6,24 @@
       <div class="box">
 
         <div class="box-header with-border">
-          <h4 class="box-title">Edit exam type</h4>
-        </div><!-- /.box-header -->
-
+          <h4 class="box-title">Add designation</h4>
+        </div>
+        <!-- /.box-header -->
         <div class="box-body">
 
           <div class="row">
             <div class="col">
-              <form method="POST" action="{{ route('exam.type.update', $doc->id) }}">
+              <form method="POST" action="{{ route('designation.store') }}">
                 @csrf
-                @method('PUT')
                 <div class="row">
 
                   <div class="col-md-6">
-
                     <div class="form-group">
-                      <label for="name" class="control-label">Exam type name</label>
+                      <label for="name" class="control-label">Designation name</label>
                       <span class="text-danger">*</span>
                       <div class="controls">
                         <input
-                          value="{{ old('name', $doc->name)  }}"
+                          value="{{ old('name')  }}"
                           type="text"
                           name="name"
                           class="form-control"
@@ -36,39 +34,23 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <label for="description" class="control-label">Description</label>
-                      <div class="controls">
-                        <input
-                          value="{{ old('description', $doc->description) }}"
-                          type="text"
-                          name="description"
-                          class="form-control">
-                        @error('description')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-
-
-
-                  </div> <!-- /.col-md-6 -->
-
+                  </div> <!-- /.col-md-12 -->
 
                   <div class="col-12">
                     <input type="submit" class="btn btn-info" value="Submit">
                   </div>
-
-                </div><!-- row -->
+                </div>
               </form>
+
             </div><!-- /.col -->
+
           </div><!-- /.row -->
+
         </div><!-- /.box-body -->
+
       </div><!-- /.box -->
     </section>
   </div><!-- /.container-full -->
-
 </div><!-- /.content-wrapper -->
 
 

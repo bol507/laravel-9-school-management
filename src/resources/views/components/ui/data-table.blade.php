@@ -6,7 +6,7 @@ $actionWidth = 100 / $totalColumns;
 
 <table {{ $attributes->merge(['class' => 'table']) }}>
 
-    <thead>
+    <thead class="thead-ligth">
         <tr >
             <th >SL</th>
             @foreach ($columns as $label)
