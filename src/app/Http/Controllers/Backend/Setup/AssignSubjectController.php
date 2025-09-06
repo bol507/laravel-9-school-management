@@ -44,13 +44,28 @@ class AssignSubjectController extends Controller
     }
 
     public function StoreAssignSubject(StoreAssignSubjectRequest $request){
+        $validated = $request->validated();
         try {
-            $subjectIds = $request->subject_id;
-            $full_marks = $request->full_mark;
-            $pass_marks = $request->pass_mark;
-            $subjective_marks = $request->subjective_mark;
-            $data = [];
+            $subjectIds = $validated['subject_id'];
+            $full_marks = $validated['full_mark'];
+            $pass_marks = $validated['pass_mark'];
+            $subjective_marks = $validated['subjective_mark'];
+            
+            if(
+                count($subjectIds) !== count($full_marks) ||
+                count($subjectIds)!== count($pass_marks) ||
+                count($subjectIds) !== count($subjective_marks)
+            ){
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with([
+                        'message' => 'Mismatched input lengths for subjects and marks.',
+                        'alert-type' => 'error'
+                    ]);
+            }
 
+            $data = [];
             foreach ($subjectIds as $index => $subjectId) {
                 $data[] = [
                     'class_id' => $request->class_id,
@@ -91,7 +106,7 @@ class AssignSubjectController extends Controller
                 ->route('assign.subject.add')
                 ->withInput()
                 ->with([
-                    'message' => 'An error ocurred while saving subjects. Please try again.',
+                    'message' => 'An error occurred while saving subjects. Please try again.',
                     'alert-type' => 'error'
                 ]);
         }
@@ -108,7 +123,7 @@ class AssignSubjectController extends Controller
     public function UpdateAssignSubject(UpdateAssignSubjectRequest $request, $id){
         $validated = $request->validated();
         if (empty($validated['subject_id'])){
-            return redirect()->route('assgin.subject.edit')->with([
+            return redirect()->route('assgin.subject.edit',$id)->with([
                 'message' => 'Sorry, you have not selected any subject.',
                 'alert-type' => 'error',
             ]);
@@ -167,7 +182,6 @@ class AssignSubjectController extends Controller
             Log::error('An error ocurred while updating subjects: '. $e->getMessage(),[
                 'request' => $request->all()
             ]);
-            dd(session()->all());
             return redirect()
                 ->route('assign.subject.edit', $id)
                 ->withInput()

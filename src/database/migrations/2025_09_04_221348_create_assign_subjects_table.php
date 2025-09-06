@@ -22,6 +22,8 @@ return new class extends Migration
             $table->double('subjective_mark');
             $table->timestamps();
             $table->softDeletes();
+            //Protect integrity with a unique composite index.
+            $table->unique(['class_id', 'subject_id'], 'assign_subjects_class_subject_unique');
         });
     }
 

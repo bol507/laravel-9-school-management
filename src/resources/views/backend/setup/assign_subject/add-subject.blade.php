@@ -67,7 +67,7 @@
                         name="full_mark[]"
                         class="form-control"
                         required>
-                      @error('full_mark')
+                      @error('full_mark.*')
                         <div class="text-danger">{{ $message }}</div>
                       @enderror
                   </div> <!-- form-group -->
@@ -79,7 +79,7 @@
                         name="pass_mark[]"
                         class="form-control"
                         required>
-                      @error('pass_mark')
+                      @error('pass_mark.*')
                         <div class="text-danger">{{ $message }}</div>
                       @enderror
                   </div> <!-- form-group -->
@@ -94,7 +94,7 @@
                           required>
                         <x-ui.buttons.icon-circle-plus-success  class="btn btn-success ml-2 add-event-more " />
                       </div>
-                      @error('subjective_mark')
+                      @error('subjective_mark.*')
                         <div class="text-danger">{{ $message }}</div>
                       @enderror
                     
@@ -124,7 +124,7 @@
 
 <div style="visibility:hidden;">
   <div id="add-extra-item" class="add-extra-item">
-    <div id="delete-extra-item" class="delete-extra-item">
+    <div class="delete-extra-item">
       <div class="form-row">
         <div class="form-group col col-sm-12 col-md-3">
                     <label>Student subject<span class="text-danger">*</span></label>

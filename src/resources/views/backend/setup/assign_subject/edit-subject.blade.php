@@ -77,7 +77,10 @@
                       <label for="full_mark_{{ $loop->index }}" class="control-label">Full mark<span class="text-danger">*</span></label>
                         <input
                           value="{{ old('full_mark.'.$loop->index, $edit->full_mark ?? '') }}"
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
+                          inputmode="numeric"
                           name="full_mark[]"
                           class="form-control"
                           required>
@@ -93,6 +96,9 @@
                           type="text"
                           name="pass_mark[]"
                           class="form-control"
+                          min="0"
+                          step="1"
+                          inputmode="numeric"
                           required>
                         @error('pass_mark.'.$loop->index)
                           <div class="text-danger">{{ $message }}</div>
@@ -107,6 +113,9 @@
                             type="text"
                             name="subjective_mark[]"
                             class="form-control"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
                             required>
                           <x-ui.buttons.icon-circle-plus-success  class="btn btn-success ml-2 add-event-more " />
                           <x-ui.buttons.icon-circle-minus-danger class="btn btn-danger ml-2 remove-event-more " />

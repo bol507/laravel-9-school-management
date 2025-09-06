@@ -21,7 +21,7 @@
                   <div class="col-md-12">
 
                     <div class="form-group">
-                      <label for="name" class="control-label">Exam type name</label>
+                      <label for="name" class="control-label">School subject name</label>
                       <span class="text-danger">*</span>
                       <div class="controls">
                         <input
