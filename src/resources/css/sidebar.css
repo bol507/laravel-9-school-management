@@ -3,33 +3,44 @@
   top: 0;
   left: 0;
   padding-top: 0px;
+  height: 100svh;
   min-height: 100%;
   width: var(--sidebar-width);
   background-color: var(--background-dark);
   z-index: 810;
   -webkit-tap-highlight-color: transparent;
   transition: transform .3s ease-in-out, width .3s ease-in-out;
-
-
 }
 
+.sidebar {
+  height: auto;
+  width: auto;
+  padding-top: 10px;
+  overflow: hidden;
+}
+
+
 .sidebar-footer {
-  position: fixed;
-  z-index: 10;
-  bottom: 0;
-  left: 0;
   transition: .2s ease-out;
   width: var(--sidebar-width);
   background-color: var(--dark3);
 
-  :is(a) {
+/*  :is(a) {
     padding: 12px;
     width: 33.333337%;
     float: left;
     text-align: center;
     font-size: 18px;
-  }
+  }*/
 }
+
+.sidebar-footer a{
+  padding:12px;
+  text-align:center;
+  font-size:18px;
+}
+
+.sidebar-footer a:hover{background:rgba(0,0,0,.2);}
 
 
 .sidebar-collapse .sidebar-menu .tree {
@@ -41,20 +52,8 @@
   border-radius: 0;
 }
 
-.slimScrollDiv {
-  overflow: hidden;
-  position: relative;
-  width: auto;
-  height: 419px;
-}
 
-.sidebar {
-  display: block;
-  height: 668px;
-  width: auto;
-  padding-top: 10px;
-  overflow: hidden;
-}
+
 
 .sidebar .user-profile .ulogo a {
   background-color: transparent;

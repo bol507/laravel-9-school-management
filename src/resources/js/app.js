@@ -1,6 +1,8 @@
 import './bootstrap';
 import './modal-confirm';
 import './extra-item';
+import './slim-scroll';
+import './slim-sidebar';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';

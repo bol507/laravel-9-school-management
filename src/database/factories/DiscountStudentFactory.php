@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StudenYear>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DiscountStudent>
  */
-class StudentYearFactory extends Factory
+class DiscountStudentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class StudentYearFactory extends Factory
     public function definition()
     {
         return [
-            'id' => fake()->unique()->uuid(),
-            'name' => fake()->unique()->year(),
+            //
         ];
     }
 }
