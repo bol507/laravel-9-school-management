@@ -1,7 +1,6 @@
 import './bootstrap';
 import './modal-confirm';
-import './extra-item';
-import './slim-scroll';
+import './extra-item'; 
 import './slim-sidebar';
 
 import Alpine from 'alpinejs';

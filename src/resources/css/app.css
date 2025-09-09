@@ -47,6 +47,8 @@
   --light2: #fafafa;
 
   --main-hed-nav: 60px;
+  /*Sidebar*/
+  --sidebar-width: 280px;
   --default-border-radius: 15px;
   --fct-border-radius: 10px;
 
@@ -88,8 +90,7 @@
     /* 30% */
 
     --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)) --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
-  /*Sidebar*/
-  --sidebar-width: 280px;
+  
 
   /*font weight*/
 
@@ -353,3 +354,4 @@ a.btn {
 .fixed    .right-side{
         padding-top: var(--main-hed-nav) + 10; 
     }
+

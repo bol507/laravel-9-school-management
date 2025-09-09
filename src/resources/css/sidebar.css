@@ -1,4 +1,7 @@
 .main-sidebar {
+ display:flex;
+  flex-direction: column;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -13,14 +16,49 @@
 }
 
 .sidebar {
-  height: auto;
-  width: auto;
   padding-top: 10px;
-  overflow: hidden;
+}
+
+.slimScroll {
+    flex:1;
+    overflow-y: auto;
+    padding-right: 5px;
+    box-sizing: content-box;
+}
+
+.scroller {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 8px;
+    background-color: #ccc;
+    border-radius: 4px;
+    cursor: grab;
+    transition: background-color 0.2s;
+    z-index: 10;
+}
+
+.scroller:hover {
+    background-color: #999;
+}
+
+.showScroll .scroller {
+    display: block;
+}
+
+.slimScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.slimScroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 
 .sidebar-footer {
+  flex-shrink: 0;
+
   transition: .2s ease-out;
   width: var(--sidebar-width);
   background-color: var(--dark3);

@@ -1,7 +1,7 @@
 
 .sidebar-menu{
   white-space: nowrap;
-  overflow: hidden;
+  overflow: hidden; /*hidden*/
   border-radius: var(--default-border-radius);
   list-style: none;
   margin: 10px 10px 0;
@@ -30,7 +30,7 @@
 
 .sidebar-menu > li.header {
     white-space: nowrap;
-    overflow: hidden;
+    overflow: hidden;/*hidden*/
     text-overflow: clip;
 }
 
@@ -166,7 +166,7 @@
 
 
 .sidebar-menu:hover {
-    overflow: visible;
+    overflow: hidden; /*hidden*/
 }
 
 .sidebar-menu li.treeview.menu-open > .treeview-menu {
