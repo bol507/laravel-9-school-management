@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
+use App\Models\Profile;
 use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use App\Models\StudentShift;
@@ -40,6 +41,7 @@ class StudentRegistrationController extends Controller
         $docs->classes = StudentClass::all();
         $docs->groups = StudentGroup::all();
         $docs->shifts = StudentShift::all();
+        $docs->genderOptions = Profile::genderOptions();
         return view('backend.student.registration.add-registration',['docs' => $docs]);
     }
 }

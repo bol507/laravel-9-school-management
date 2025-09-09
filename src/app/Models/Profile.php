@@ -32,4 +32,13 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function genderOptions()
+    {
+        return [
+            'male' => 'Male',
+            'female' => 'Female',
+            'other' => 'Other',
+        ];
+    }
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\StudentShift;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,10 +23,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            ProfileSeeder::class,
+           // ProfileSeeder::class,
             StudentClassSeeder::class,
             StudentYearSeeder::class,
             StudentGroupSeeder::class,
+            StudentShift::class,
         ]);
     }
 }

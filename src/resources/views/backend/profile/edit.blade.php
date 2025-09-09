@@ -299,5 +299,4 @@
 </div>
 <!-- /.content-wrapper -->
 </section>
-@include('backend.profile.partials.image-change')
 @endsection

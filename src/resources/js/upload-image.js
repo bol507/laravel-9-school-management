@@ -1,4 +1,3 @@
-<script>
   document.addEventListener('DOMContentLoaded', function() {
     const imageInput = document.getElementById('image');
     const imagePreview = document.getElementById('show-image');
@@ -23,4 +22,3 @@
       reader.readAsDataURL(file);
     });
   });
-</script>
