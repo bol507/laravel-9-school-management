@@ -28,6 +28,10 @@ class AssignStudent extends Model
         return $this->belongsTo(User::class, 'student_id', 'id');
     }
 
+    public function profile(){
+        return $this->belongsTo(Profile::class, 'student_id', 'user_id');
+    }
+
   
     public function class()
     {

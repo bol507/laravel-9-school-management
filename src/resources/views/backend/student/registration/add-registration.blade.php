@@ -12,7 +12,11 @@
         <div class="box-body">
           <div class="row">
             <div class="col">
-              <form method="POST" action="{{ route('student.registration.store') }}">
+              <form 
+                method="POST" 
+                action="{{ route('student.registration.store') }}"
+                enctype="multipart/form-data"
+              >
                 @csrf
                 <div class="row">
                   
@@ -146,15 +150,15 @@
                 
               
                     <div class="form-group col-sm-12 col-md-4">
-                      <label for="birth_day" class="control-label">Date of birth</label>
+                      <label for="date_birth" class="control-label">Date of birth</label>
                       <div class="controls">
                         <input
-                          value="{{ old('birth_day') }}"
+                          value="{{ old('date_birth') }}"
                           type="date"
-                          name="birth_day"
+                          name="date_birth"
                           class="form-control"
                         >
-                        @error('birth_day')
+                        @error('date_birth')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                       </div>
@@ -178,22 +182,31 @@
 
                 <div class="row">
                   
-                    <div class="form-group col-sm-12 col-md-4">
-                      <label for="year" class="control-label">Year</label>
-                      <span class="text-danger">*</span>
-                      <div class="controls">
-                        <input
-                          value="{{ old('year')  }}"
-                          type="text"
-                          name="year"
-                          class="form-control"
-                          required
+                    <div class="form-group col col-sm-12 col-md-4">
+                    <label for="year_id">Year</label>
+                    <div class="controls">
+                      <select
+                        name="year_id"
+                        required
+                        class="form-control"
+                        aria-invalid="false">
+                        <option
+                          value=""
+                          selected=""
+                          disabled="">
+                          Select year
+                        </option>
+                        @foreach($docs->years as $year)
+                        <option 
+                          value="{{ $year->id}}" 
+                          {{ old('year_id') == $year->id ? 'selected' : '' }}
                         >
-                        @error('year')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                      </div>
+                          {{ $year->name }}
+                        </option>
+                        @endforeach
+                      </select>
                     </div>
+                  </div> <!-- form-group -->
 
                     <div class="form-group col col-sm-12 col-md-4">
                     <label>Class</label>
@@ -212,7 +225,7 @@
                         @foreach($docs->classes as $class)
                         <option 
                           value="{{ $class->id}}" 
-                          {{ old('class_id') == $value ? 'selected' : '' }}
+                          {{ old('class_id') == $class->id ? 'selected' : '' }}
                         >
                           {{ $class->name }}
                         </option>
@@ -238,7 +251,7 @@
                         @foreach($docs->groups as $group)
                         <option 
                           value="{{ $group->id}}" 
-                          {{ old('group_id') == $value ? 'selected' : '' }}
+                          {{ old('group_id') == $group->id ? 'selected' : '' }}
                         >
                           {{ $group->name }}
                         </option>
@@ -256,7 +269,7 @@
                 <div class="row">
                   
                     <div class="form-group col col-sm-12 col-md-4">
-                    <label>Shif</label>
+                    <label for="shift_id">Shif</label>
                     <div class="controls">
                       <select
                         name="shift_id"
@@ -272,7 +285,7 @@
                         @foreach($docs->shifts as $shift)
                         <option 
                           value="{{ $shift->id}}" 
-                          {{ old('shift_id') == $value ? 'selected' : '' }}
+                          {{ old('shift_id') == $shift->id ? 'selected' : '' }}
                         >
                           {{ $shift->name }}
                         </option>

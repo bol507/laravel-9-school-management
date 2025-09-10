@@ -31,8 +31,8 @@
                     class="table-bordered table-striped my-2"
                     :items="$docs"
                     :columns="[
-                      'user.name' => 'name',
-                      'student_id' => 'id',
+                      'user.name' => 'Name',
+                      'profile.student_no' => 'Student no',
                     ]"
                     :actions="[
                       'Edit' => fn($doc) => [

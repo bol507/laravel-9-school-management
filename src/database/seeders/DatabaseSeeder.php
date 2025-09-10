@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
             StudentClassSeeder::class,
             StudentYearSeeder::class,
             StudentGroupSeeder::class,
-            StudentShift::class,
+            StudentShiftSeeder::class,
+            ExamTypeSeeder::class,
+            FeeCategorySeeder::class,
         ]);
     }
 }

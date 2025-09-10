@@ -64,7 +64,7 @@ class ProfileController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            // (opcional) delete the old image
+            // (optional) delete the old image
             if ($profile->image) {
                 Storage::disk('uploads')->delete($profile->image);
             }
