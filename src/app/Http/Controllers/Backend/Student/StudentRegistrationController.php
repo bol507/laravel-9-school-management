@@ -27,20 +27,38 @@ class StudentRegistrationController extends Controller
         $perPage = (int) $request->input('limit',10);
         $perPage = max(1,min($perPage,100));
 
-        $search = trim((string) $request->input('search','') );
+        /* ---------- find  / pagination  --------------- */
         $query = AssignStudent::with(['user','profile']);
-
-        if($search){
+        
+        if($request->filled('search')){
+            $search = trim($request->input('search'));
             $query->whereHas('user', function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%");
             });
         }
 
-        $docs = $query
+        if ($request->filled('year_id')) {
+            $query->where('year_id', $request->year_id);
+        }
+        if ($request->filled('class_id')) {
+            $query->where('class_id', $request->class_id);
+        }
+
+        $students = $query
             ->orderBy('student_id')
-            ->paginate()
+            ->paginate($perPage)
             ->appends($request->query());
-        return view('backend.student.registration.view-registration',compact('docs','search'));
+
+        /* ----------  only object $docs  ---------- */
+
+        $docs = (object)[
+            'students'    => $students,           
+            'search'      => $request->input('search'),
+            'years'       => StudentYear::all()->sortByDesc('name')->values(),
+            'classes'     => StudentClass::all()->sortByDesc('name')->values(),
+        ];
+        
+        return view('backend.student.registration.view-registration',compact('docs'));
 
     }
 
@@ -72,7 +90,7 @@ class StudentRegistrationController extends Controller
                     'image',                                   
                     file_get_contents($image->getRealPath()),  // binary content
                     $image->getClientOriginalName()            // optional name
-                )->post('https://api.imgbb.com/1/upload?expiration=600&key='.$apiKey);
+                )->post('https://api.imgbb.com/1/upload?key='.$apiKey);
 
                 if ($response->successful() && ($url = data_get($response->json(), 'data.url'))) {
                     $validated['image'] = $url;

@@ -1,4 +1,4 @@
-@props(['items', 'columns', 'actions'])
+@props(['items', 'columns', 'actions','images' => [] ])
 @php
 $totalColumns = count($columns) + 2;
 $actionWidth = 100 / $totalColumns;
@@ -25,7 +25,13 @@ $actionWidth = 100 / $totalColumns;
 
             {{-- Dinamic columns --}}
             @foreach ($columns as $key => $label)
-            <td>{{ e(data_get($row, $key)) }}</td>
+                <td>
+                    @if (in_array($key, $images) && data_get($row, $key))
+                        <img src="{{ data_get($row, $key) }}" alt="{{ $label }}" style="max-height: 60px; max-width:60px;">
+                    @else
+                        {{ e(data_get($row, $key)) }}
+                    @endif
+                </td>
             @endforeach
 
             {{-- Actions --}}

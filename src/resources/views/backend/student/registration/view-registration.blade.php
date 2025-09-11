@@ -23,17 +23,55 @@
                   <div class="row justify-between">
                     <x-ui.show-entries
                       :action="route('student.registration.view')"
-                      :docs="$docs" />
-                    <x-ui.search :action="route('student.registration.view')" />
+                      :docs="$docs->students" />
+                    <form class="flex items-center gap-4" method="GET" action="{{ route('student.registration.view') }}" id="searchForm">
+
+                      <div class="flex items-center py-2">
+                        <span class="mr-2">Class</span>
+                        <div class="controls">
+                          <select name="year_id" required class="form-control">
+                            <option value="" disabled selected>Select year</option>
+                            @foreach($docs->years as $year)
+                            <option value="{{ $year->id }}" @selected(request('year_id')==$year->id)>
+                              {{ $year->name }}
+                            </option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center py-2">
+                        <span class="mr-2">Class</span>
+                        <div class="controls">
+                          <select name="class_id"  class="form-select appearence-none">
+                            <option value="" disabled selected>Select class</option>
+                            @foreach($docs->classes as $class)
+                            <option value="{{ $class->id }}" @selected(request('class_id')==$class->id)>
+                              {{ $class->name }}
+                            </option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <input type="submit"  class="btn btn-primary" value="Filter">
+
+                    </form>
+
+                    <x-ui.search :action="route('student.registration.view')" :search="$docs->search"/>
                   </div>
-                  
+
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
-                    :items="$docs"
+                    :items="$docs->students"
                     :columns="[
                       'user.name' => 'Name',
+                      'year.name' => 'Year',
+                      'class.name' => 'Class',
+                      'profile.image' => 'Image',
                       'profile.student_no' => 'Student no',
                     ]"
+                    :images="['profile.image']"
                     :actions="[
                       'Edit' => fn($doc) => [
                         'href' => route('student.registration.edit',$doc),
@@ -48,15 +86,14 @@
                           
                         ],  
                       ]  
-                    ] "
-                  />
+                    ] " />
 
                   <div class="row items-center justify-between">
-                    <x-ui.pagination-info :docs="$docs" class="text-muted" />
-                    <x-ui.paginator :docs="$docs" />
+                    <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
+                    <x-ui.paginator :docs="$docs->students" />
                   </div>
 
-                </div>   
+                </div>
               </div><!-- table-responsive -->
             </div> <!-- /.box-body -->
           </div><!-- /.box -->
@@ -69,6 +106,6 @@
         title="Delete registration"
         message="Are you sure you want to delete this registration?" />
     </section>
-  </div><!-- container-full -->        
+  </div><!-- container-full -->
 </div>
 @endsection
