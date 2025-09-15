@@ -81,7 +81,12 @@
                         'href' => route('student.promotion.edit',$doc),
                         'class' => 'btn-primary',
                          
-                      ]  
+                      ],
+                      'Details' => fn($doc) => [
+                        'href' => route('student.registration.details',$doc),
+                        'class' => 'btn-primary',
+                        'attrs' => ['target' => '_blank'], 
+                      ],
                     ] " />
 
                   <div class="row items-center justify-between">

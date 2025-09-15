@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Student;
 
-
+use App\Facades\PDF;
 use App\Factories\ProfileStudentFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentRegistrationRequest;
@@ -123,7 +123,7 @@ class StudentRegistrationController extends Controller
                     ]
                 );
 
-                return $assign
+                return $assign;
             });
 
             $notification = $this->createNotification($registration);
@@ -301,6 +301,16 @@ class StudentRegistrationController extends Controller
                     'alert-type' => 'error'
                 ]);
         }
+    }
+
+    public function DetailsStudentRegistration($id){
+        $student = AssignStudent::findOrFail($id);
+        return PDF::loadView('pdfs.student', [
+        'user' => $student->user,
+        'year' => $student->year,
+        'class' => $student->class,
+        'profile' => $student->profile,
+        ])->stream("student_{$student->id}.pdf");
     }
 
     private function createNotification($value){

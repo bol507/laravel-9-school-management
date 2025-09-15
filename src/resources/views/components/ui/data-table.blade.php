@@ -1,8 +1,5 @@
 @props(['items', 'columns', 'actions','images' => [] ])
-@php
-$totalColumns = count($columns) + 2;
-$actionWidth = 100 / $totalColumns;
-@endphp
+
 
 <table {{ $attributes->merge(['class' => 'table']) }}>
 
