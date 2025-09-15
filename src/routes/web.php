@@ -155,6 +155,8 @@ Route::prefix('students')->middleware([
     Route::post('/registration/store', [StudentRegistrationController::class, 'StoreStudentRegistration'])->name('student.registration.store');
     Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'EditStudentRegistration'])->name('student.registration.edit');
     Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'UpdateStudentRegistration'])->name('student.registration.update');
-    Route::delete('/registration/destroy/{id}', [StudentRegistrationController::class , 'DeleteStudentRegistration'])->name('student.registration.destroy');
+    //student promotion
+    Route::get('/promotion/edit/{id}', [StudentRegistrationController::class , 'EditStudentPromotion'])->name('student.promotion.edit');
+    Route::put('/promotion/update/{id}', [StudentRegistrationController::class , 'UpdateStudentPromotion'])->name('student.promotion.update');
 
 });

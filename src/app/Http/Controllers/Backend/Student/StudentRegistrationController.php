@@ -221,6 +221,84 @@ class StudentRegistrationController extends Controller
         }
     }
 
+    public function EditStudentPromotion($id){
+        $docs = new stdClass();
+        $docs->years = StudentYear::all();
+        $docs->classes = StudentClass::all();
+        $docs->groups = StudentGroup::all();
+        $docs->shifts = StudentShift::all();
+        $docs->genderOptions = Profile::genderOptions();
+        $docs->student = AssignStudent::with(['user','discount','profile'])->where('id',$id)
+            ->first();
+        return view('backend.student.registration.promotion-registration',['docs' => $docs]);
+    }
+
+    public function UpdateStudentPromotion(UpdateStudentRegistrationRequest $request, $id){
+        try{
+            $validated = $request->validated();
+            
+            if ($request->hasFile('image')) {
+                $imageUploadService = new ImageUploadService();
+                $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
+            }
+
+            $category = FeeCategory::ensureRegistrationFeeExists();
+            $validated['fee_category_id'] = $category->id;
+            $student = AssignStudent::findOrFail($id);
+            if (!$student) {
+                throw new Exception('Student promotion not found.');
+            }
+
+            $registration = DB::transaction(function () use ($validated, $student) {
+                
+
+                $user = User::updateOrCreate(
+                    ['id' => $student->student_id],//match
+                    ['name' => $validated['name']]
+                );
+
+                $profileStudentFactory = new ProfileStudentFactory();
+                $profileStudentFactory->updateOrCreate($user->id, $validated);
+
+                DiscountStudent::updateOrCreate(
+                    ['assign_student_id' => $user->id],
+                    [
+                        'fee_category_id' => $validated['fee_category_id'],
+                        'discount' => $validated['discount']
+                    ]
+                );
+
+                return AssignStudent::updateOrCreate(
+                    ['student_id' => $user->id], //match
+                    [
+                        'year_id' => $validated['year_id'],
+                        'class_id' => $validated['class_id'],
+                        'group_id' => $validated['group_id'],
+                        'shift_id' => $validated['shift_id'],
+                    ]
+                );
+            });
+
+            $notification = $this->createNotification($registration);
+            return redirect()
+                ->route('student.registration.view')
+                ->with($notification);
+        } catch (Exception $e) {
+            
+            Log::error('An error occurred while processing the request:',[
+                'message' =>  $e->getMessage(),
+                'request' => $request->except(['image'], true)
+            ]);
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors([
+                    'message' => 'An error occurred while saving the promotion: ' . $e->getMessage(),
+                    'alert-type' => 'error'
+                ]);
+        }
+    }
+
     private function createNotification($value){
         if ($value->wasRecentlyCreated) {
             return [

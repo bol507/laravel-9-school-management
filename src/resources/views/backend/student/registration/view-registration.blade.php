@@ -77,14 +77,10 @@
                         'href' => route('student.registration.edit',$doc),
                         'class' => 'btn-info',  
                       ],
-                      'Delete' => fn($doc) => [
-                        'href' => 'javascript:void(0);',
-                        'class' => 'btn-danger',
-                        'attrs' => [
-                          'data-modal-confirm' => 'deleteStudentRegistration',
-                          'data-url' => route('student.registration.destroy',$doc),
-                          
-                        ],  
+                      'Promotion' => fn($doc) => [
+                        'href' => route('student.promotion.edit',$doc),
+                        'class' => 'btn-primary',
+                         
                       ]  
                     ] " />
 
@@ -99,12 +95,7 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-      <x-ui.dialog
-        id="deleteStudentRegistration"
-        method="DELETE"
-        submitText="Delete"
-        title="Delete registration"
-        message="Are you sure you want to delete this registration?" />
+      
     </section>
   </div><!-- container-full -->
 </div>
