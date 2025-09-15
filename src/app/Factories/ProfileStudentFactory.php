@@ -13,18 +13,20 @@ class ProfileStudentFactory
         $existingProfile = Profile::where('user_id', $userId)->first();
 
         $studentNo = $existingProfile ? $existingProfile->student_no : $this->generateStudentCode(User::where('user_type', 'student')->count() + 1);
-        $code = $existingProfile ? $existingProfile->code : rand(0000, 9999);
+        $code = $existingProfile 
+            ? $existingProfile->code 
+            : str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
 
         $updateData = [
             'student_no' => $studentNo,
             'code' => $code,
-            'father_name' => $validated['father_name'],
-            'mother_name' => $validated['mother_name'],
-            'mobile' => $validated['mobile'],
-            'address' => $validated['address'],
-            'gender' => $validated['gender'],
-            'religion' => $validated['religion'],
-            'date_birth' => $validated['date_birth'],
+            'father_name' => $validated['father_name'] ?? null,
+            'mother_name' => $validated['mother_name'] ?? null,
+            'mobile' => $validated['mobile'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+            'religion' => $validated['religion'] ?? null,
+            'date_birth' => $validated['date_birth'] ?? null,
         ];
 
         

@@ -103,15 +103,9 @@ class StudentRegistrationController extends Controller
                 $user->password = Hash::make($result['code']);
                 $user->update();
 
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $user->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
+               
 
-                return AssignStudent::updateOrCreate(
+                $assign =  AssignStudent::updateOrCreate(
                     ['student_id' => $user->id], //match
                     [
                         'year_id' => $validated['year_id'],
@@ -120,6 +114,16 @@ class StudentRegistrationController extends Controller
                         'shift_id' => $validated['shift_id'],
                     ]
                 );
+
+                DiscountStudent::updateOrCreate(
+                    ['assign_student_id' => $assign->id],
+                    [
+                        'fee_category_id' => $validated['fee_category_id'],
+                        'discount' => $validated['discount']
+                    ]
+                );
+
+                return $assign
             });
 
             $notification = $this->createNotification($registration);
@@ -130,7 +134,7 @@ class StudentRegistrationController extends Controller
             
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
-                'request' => $request->except(['image'], true)
+                'request' => $request->except(['image']),
             ]);
             return redirect()
                 ->back()

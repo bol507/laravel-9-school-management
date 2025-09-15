@@ -22,8 +22,17 @@ class CustomScrollBar {
         };  
         this.options = Object.assign({}, defaults, options);
         this.scrollContainer = document.querySelector(containerMain);
+        if (!this.scrollContainer) {
+            console.warn('CustomScrollBar: container not found', containerMain);
+            return;
+        }
         this.scrollContentWrapper = null;
         this.scrollContent = this.scrollContainer.querySelector(containerSelector);
+        this.scrollContent = this.scrollContainer.querySelector(containerSelector);
+        if (!this.scrollContent) {
+            console.warn('CustomScrollBar: content not found', containerSelector);
+            return;
+        }
         this.contentPosition = 0;
         this.scrollerBeingDragged = false;
         this.scroller = null;
@@ -62,6 +71,7 @@ class CustomScrollBar {
     }
 
     moveScroller() {
+        if (!this.scroller) return;
         const scrollPercentage = this.scrollContentWrapper.scrollTop / (this.scrollContentWrapper.scrollHeight - this.scrollContainer.offsetHeight);
         this.topPosition = scrollPercentage * (this.scrollContainer.offsetHeight - this.scrollerHeight);
         this.scroller.style.top = this.topPosition + 'px';
@@ -106,7 +116,7 @@ class CustomScrollBar {
     }
 
     addEventListeners() {
-        this.scrollContentWrapper.addEventListener('scroll', () => this.moveScroller());
+        this.scrollContentWrapper?.addEventListener('scroll', () => this.moveScroller());
         this.scroller?.addEventListener('mousedown', (evt) => this.startDrag(evt));
         window.addEventListener('mouseup', () => this.stopDrag());
         window.addEventListener('mousemove', (evt) => this.scrollBarScroll(evt));

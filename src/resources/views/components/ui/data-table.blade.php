@@ -24,12 +24,15 @@ $actionWidth = 100 / $totalColumns;
             <td>{{ $key + 1 }}</td>
 
             {{-- Dinamic columns --}}
-            @foreach ($columns as $key => $label)
+            @foreach ($columns as $colKey => $label)
                 <td>
-                    @if (in_array($key, $images) && data_get($row, $key))
-                        <img src="{{ data_get($row, $key) }}" alt="{{ $label }}" style="max-height: 60px; max-width:60px;">
+                    @if (in_array($colKey, $images, true) && data_get($row, $colKey))
+                       <img src="{{ data_get($row, $colKey) }}"
+                            alt="{{ $label }}"
+                            loading="lazy"
+                            style="max-height: 60px; max-width:60px;">
                     @else
-                        {{ e(data_get($row, $key)) }}
+                        {{ e(data_get($row, $colKey)) }}
                     @endif
                 </td>
             @endforeach
