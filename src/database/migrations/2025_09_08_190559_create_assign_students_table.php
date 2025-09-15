@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('student_shifts', function (Blueprint $table) {
+        Schema::create('assign_students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->uuid('student_id')->comment('user_id=student_id');
+            $table->uuid('class_id');
+            $table->uuid('year_id');
+            $table->uuid('group_id')->nullable();
+            $table->uuid('shift_id')->nullable();
             $table->timestamps();
-            $table->SoftDeletes();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_shifts');
+        Schema::dropIfExists('assign_students');
     }
 };

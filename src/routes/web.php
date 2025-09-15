@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
+use App\Http\Controllers\Backend\Student\StudentRegistrationController;
 use App\Http\Controllers\Backend\UserController;
 
 /*
@@ -70,7 +71,7 @@ Route::prefix('setups')->middleware([
         config('jetstream.auth_session'),
         'verified'
     ])->group(function () {
-    //class
+    //student class
     Route::get('/student/class/view', [StudentClassController::class , 'ViewStudentClass'])->name('student.class.view');
     Route::get('/student/class/add', [StudentClassController::class, 'AddStudentClass'])->name('student.class.add');
     Route::post('/student/class/store', [StudentClassController::class, 'StoreStudentClass'])->name('student.class.store');
@@ -140,4 +141,22 @@ Route::prefix('setups')->middleware([
     Route::get('/designation/edit/{id}', [DesignationController::class, 'EditDesignation'])->name('designation.edit');
     Route::put('/designation/update/{id}', [DesignationController::class,'UpdateDesignation'])->name('designation.update');
     Route::delete('/designation/destroy/{id}', [DesignationController::class, 'DeleteDesignation'] )->name('designation.destroy');
+    
+});
+
+Route::prefix('students')->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])->group(function () {
+    //student registration
+    Route::get('/registration/view', [StudentRegistrationController::class , 'ViewStudentRegistration'])->name('student.registration.view');
+    Route::get('/registration/add', [StudentRegistrationController::class, 'AddStudentRegistration'])->name('student.registration.add');
+    Route::post('/registration/store', [StudentRegistrationController::class, 'StoreStudentRegistration'])->name('student.registration.store');
+    Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'EditStudentRegistration'])->name('student.registration.edit');
+    Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'UpdateStudentRegistration'])->name('student.registration.update');
+    //student promotion
+    Route::get('/promotion/edit/{id}', [StudentRegistrationController::class , 'EditStudentPromotion'])->name('student.promotion.edit');
+    Route::put('/promotion/update/{id}', [StudentRegistrationController::class , 'UpdateStudentPromotion'])->name('student.promotion.update');
+
 });

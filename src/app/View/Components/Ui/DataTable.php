@@ -10,6 +10,7 @@ class DataTable extends Component
     public LengthAwarePaginator $items;
     public array $columns;
     public array $actions;
+    public array $images;
     
     /**
      * Create a new component instance.
@@ -20,11 +21,13 @@ class DataTable extends Component
         LengthAwarePaginator $items,
         array $columns =[],
         array $actions = [],
+        array $images = [],
     )
     {
         $this->items = $items;
         $this->columns = $columns;
         $this->actions = $actions;
+        $this->images = $images;
     }
 
     /**

@@ -15,6 +15,10 @@ class StudentClassSeeder extends Seeder
      */
     public function run()
     {
-        StudentClass::factory(50)->create();
+        $classes = ['Class one', 'Class two', 'Class three', 'Class four', 'Class five'];
+
+        foreach ($classes as $class) {
+            StudentClass::create(['name' => $class]);
+        }
     }
 }

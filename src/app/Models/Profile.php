@@ -16,8 +16,9 @@ class Profile extends Model
     public $incrementing = false; 
 
     protected $fillable = [
-        'id',
-        'user_id',
+        'father_name',
+        'mother_name',
+        'date_birth',
         'mobile',
         'address',
         'gender',
@@ -25,11 +26,23 @@ class Profile extends Model
         'blood_group',
         'nationality',
         'status',
+        'student_no',
+        'code',
         'image',
+        'user_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function genderOptions()
+    {
+        return [
+            'male' => 'Male',
+            'female' => 'Female',
+            'other' => 'Other',
+        ];
     }
 }

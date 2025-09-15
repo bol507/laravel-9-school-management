@@ -54,7 +54,7 @@ class DesignationController extends Controller
                 'request' => $request->only('name')
             ]);
             return redirect()
-                ->route('designation.add')
+                ->back()
                 ->withInput()
                 ->with([
                     'message' => 'An error occurred while saving designation',

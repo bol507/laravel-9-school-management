@@ -19,4 +19,9 @@ class FeeCategory extends Model
         'name',
         'description'
     ];
+
+    public static function ensureRegistrationFeeExists()
+    {
+        return self::firstOrCreate(['name' => 'Registration fee']);
+    }
 }

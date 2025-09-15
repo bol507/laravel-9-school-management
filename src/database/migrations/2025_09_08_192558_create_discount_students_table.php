@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('student_shifts', function (Blueprint $table) {
+        Schema::create('discount_students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->uuid('assign_student_id');
+            $table->uuid('fee_category_id')->nullable();
+            $table->double('discount')->nullable();
             $table->timestamps();
-            $table->SoftDeletes();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_shifts');
+        Schema::dropIfExists('discount_students');
     }
 };
