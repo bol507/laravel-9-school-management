@@ -24,4 +24,9 @@ class FeeCategory extends Model
     {
         return self::firstOrCreate(['name' => 'Registration fee']);
     }
+    //use FeeCategory::registration()->value('id');
+    public function scopeRegistration($query)
+    {
+        return $query->where('name', 'Registration fee');
+    }
 }

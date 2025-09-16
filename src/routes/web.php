@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
+use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 use App\Http\Controllers\Backend\Student\StudentRegistrationController;
 use App\Http\Controllers\Backend\UserController;
 
@@ -159,5 +160,7 @@ Route::prefix('students')->middleware([
     //student promotion
     Route::get('/promotion/edit/{id}', [StudentRegistrationController::class , 'EditStudentPromotion'])->name('student.promotion.edit');
     Route::put('/promotion/update/{id}', [StudentRegistrationController::class , 'UpdateStudentPromotion'])->name('student.promotion.update');
-
+    //registration fee
+    Route::get('/registration/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee'])->name('registration.fee.view');
+    Route::get('/registration/fee/payslip',[RegistrationFeeController::class, 'PayslipRegistrationFee'])->name('registration.fee.payslip');
 });
