@@ -73,23 +73,31 @@
                       
                     ]"
                     :actions="[
-                      'Edit' => fn($doc) => [
-                        'href' => route('student.registration.edit',$doc),
-                        'class' => 'btn-info',  
-                      ],
-                      'Promotion' => fn($doc) => [
-                        'href' => route('student.promotion.edit',$doc),
-                        'class' => 'btn-primary',
-                         
-                      ],
-                      'Details' => fn($doc) => [
-                        'href' => route('student.registration.details',$doc),
-                        'class' => 'btn-primary',
-                        'attrs' => ['target' => '_blank'], 
-                      ],
-                    ] " >
+                      'Edit' => function ($doc){
+                        return [
+                          'href' => route('student.registration.edit',$doc),
+                          'class' => 'btn-info',  
+                        ];
+                      },
+                      'Promotion' => function ($doc){
+                        return [
+                          'href' => route('student.promotion.edit',$doc),
+                          'class' => 'btn-primary',
+                        ]; 
+                      },
+                      'Slip fee' => function ($doc) {
+                        return [
+                          'href'  => route('registration.fee.payslip', [
+                            'student_id' => $doc->student_id,
+                            'class_id' =>  $doc->class_id,
+                            ]),
+                          'class' => 'btn-primary',
+                          'attrs' => ['target' => '_blank'], 
+                        ];
+                      },
+                    ] " />
                       
-                  </x-ui.data-table>
+                  
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />

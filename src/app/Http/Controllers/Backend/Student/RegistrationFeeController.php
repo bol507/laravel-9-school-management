@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Student;
 
+use App\Facades\PDF;
 use App\Http\Controllers\Concerns\Listable;
 use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
-use App\Models\FeeCategory;
-use App\Models\FeeCategoryAmount;
 use App\Models\StudentClass;
 use App\Models\StudentYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RegistrationFeeController extends Controller
 {
@@ -42,6 +42,22 @@ class RegistrationFeeController extends Controller
             'classes'  => StudentClass::all()->sortByDesc('name')->values(),
         ];
         return view('backend.student.registration_fee.view-registration', compact('docs'));
+    }
+
+    public function PayslipRegistrationFee(Request $request){
+        $studentId = $request->query('student_id'); 
+        $classId   = $request->query('class_id');  
+
+        $details = AssignStudent::with(['user','profile','discounts'])
+            ->where('student_id',$studentId)
+            ->where('class_id',$classId)
+            ->firstOrFail();  
+        
+        $fileName = 'student_' . Str::slug($details->student_no) . '.pdf';
+
+        return PDF::loadView('pdfs.student-details', [
+            'docs' => $details
+        ])->stream($fileName);   
     }
 
 
