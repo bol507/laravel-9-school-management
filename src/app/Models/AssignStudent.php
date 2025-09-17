@@ -92,10 +92,33 @@ class AssignStudent extends Model
     public function studentFee(): Attribute
     {
         return Attribute::make(
-            get: fn () => round(
-                $this->registrationFeeAmount * (100 - $this->totalDiscount) / 100,
-                2
-            ),
+            get: function () {
+                $discountPct = max(0, min(100, (float) $this->registrationDiscount));
+                return round($this->registrationFeeAmount * (100 - $discountPct) / 100, 2);
+            },
+        );
+    }
+    /**
+     * Registration-fee-specific discount percentage.
+     */
+    public function registrationDiscount(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                static $registrationId;
+                $registrationId ??= FeeCategory::registration()->value('id');
+                if (!$registrationId) {
+                    return 0.0;
+                }
+                if ($this->relationLoaded('discounts')) {
+                    return (float) $this->discounts
+                        ->where('fee_category_id', $registrationId)
+                        ->sum('discount');
+                }
+                return (float) $this->discounts()
+                    ->where('fee_category_id', $registrationId)
+                    ->sum('discount');
+            }
         );
     }
 }

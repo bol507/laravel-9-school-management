@@ -100,12 +100,22 @@ trait Listable
         $query = $this->applySearch($query, trim($request->input('search') ?? ''));
         $query = $this->applyFilters($query, $request);
 
-        $orderBy = $this->listableOrderBy($request);
-        if (strpos($orderBy, '.') !== false) {
-            $query->orderByRaw($orderBy);
-        } else {
-            $query->orderBy($orderBy);
+        $raw = (string) $this->listableOrderBy($request);
+        $direction = 'asc';
+        // support "-col" or "col desc"
+        if (str_starts_with($raw, '-')) {
+            $direction = 'desc';
+            $raw = ltrim($raw, '-');
+        } elseif (preg_match('/\s+(asc|desc)\s*$/i', $raw, $m)) {
+            $direction = strtolower($m[1]);
+            $raw = trim(substr($raw, 0, -strlen($m[1])));
         }
+        $column = trim($raw);
+        $allowed = method_exists($this, 'listableSortable') ? $this->listableSortable() : ['id'];
+        if (!in_array($column, $allowed, true)) {
+            $column = $allowed[0] ?? 'id';
+        }
+        $query->orderBy($column, $direction);
 
         return $query
             ->paginate($this->perPage($request))

@@ -9,7 +9,7 @@
         <div class="col-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Student <strong>registration fee</strong></h3>
+              <h3 class="box-title">Student <strong>monthly fee</strong></h3>
               
             </div>
             <!-- /.box-header -->
@@ -18,9 +18,9 @@
                 <div class="container-fluid">
                   <div class="row justify-between">
                     <x-ui.show-entries
-                      :action="route('registration.fee.view')"
+                      :action="route('monthly.fee.view')"
                       :docs="$docs->students" />
-                    <form class="flex items-center gap-4" method="GET" action="{{ route('registration.fee.view') }}" id="searchForm">
+                    <form class="flex items-center gap-4" method="GET" action="{{ route('monthly.fee.view') }}" id="searchForm">
 
                       <div class="flex items-center py-2">
                         <span class="mr-2">Class</span>
@@ -44,6 +44,20 @@
                             @foreach($docs->classes as $class)
                             <option value="{{ $class->id }}" @selected(request('class_id')==$class->id)>
                               {{ $class->name }}
+                            </option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center py-2">
+                        <span class="mr-2">Month</span>
+                        <div class="controls">
+                          <select name="year_id" required class="form-control">
+                            <option value="" disabled selected>Select month</option>
+                            @foreach($docs->months as $month)
+                            <option value="{{ $month->id }}" @selected(request('month_id')==$month->id)>
+                              {{ $month->name }}
                             </option>
                             @endforeach
                           </select>
