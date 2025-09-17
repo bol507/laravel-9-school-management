@@ -246,12 +246,14 @@ class TCPDF_IMAGES {
 		//Check signature
 		if (fread($f, 8) != chr(137).'PNG'.chr(13).chr(10).chr(26).chr(10)) {
 			// Not a PNG file
+			fclose($f);
 			return false;
 		}
 		//Read header chunk
 		fread($f, 4);
 		if (fread($f, 4) != 'IHDR') {
 			//Incorrect PNG file
+			fclose($f);
 			return false;
 		}
 		$w = TCPDF_STATIC::_freadint($f);

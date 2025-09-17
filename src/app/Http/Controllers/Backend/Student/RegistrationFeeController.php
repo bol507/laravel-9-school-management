@@ -45,16 +45,20 @@ class RegistrationFeeController extends Controller
     }
 
     public function PayslipRegistrationFee(Request $request){
-        $studentId = $request->query('student_id'); 
-        $classId   = $request->query('class_id');  
+        $data = $request->validate([
+            'student_id' => ['required','string'],
+            'class_id'   => ['required','string'],
+        ]);
+        $studentId = $data['student_id'];
+        $classId   = $data['class_id'];
 
-        $details = AssignStudent::with(['user','profile','discounts'])
-            ->where('student_id',$studentId)
-            ->where('class_id',$classId)
-            ->firstOrFail();  
+         $details = AssignStudent::with(['user','profile','discounts'])
+            ->where('student_id', $studentId)
+            ->where('class_id',   $classId)
+            ->firstOrFail();
         
-        $fileName = 'student_' . Str::slug($details->student_no) . '.pdf';
-
+        $slugSource = $details->profile->student_no ?? $details->user->name ?? (string) $details->student_id;
+        $fileName = 'student_' . Str::slug($slugSource) . '.pdf';
         return PDF::loadView('pdfs.student-details', [
             'docs' => $details
         ])->stream($fileName);   

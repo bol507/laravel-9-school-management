@@ -77,12 +77,15 @@ class AssignStudent extends Model
     public function registrationFeeAmount(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->feeCategoryAmounts
-                ->where(
-                    'fee_category_id',
-                    FeeCategory::ensureRegistrationFeeExists()->id   
-                )
-                ->value('amount') ?? 0,
+            get: function () { 
+                static $registrationId;
+                $registrationId ??= FeeCategory::registration()->value('id');
+                if (!$registrationId) {
+                    return 0;
+                }
+                $row = $this->feeCategoryAmounts->firstWhere('fee_category_id', $registrationId);
+                return $row?->amount ?? 0;
+            }
         );
     }
 

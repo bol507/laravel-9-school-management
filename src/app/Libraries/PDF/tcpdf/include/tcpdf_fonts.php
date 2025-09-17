@@ -1187,7 +1187,7 @@ class TCPDF_FONTS {
 						$startGlyphID = TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
 						for ($k = $startCharCode; $k <= $endCharCode; ++$k) {
-							$is32idx = floor($c / 8);
+							$is32idx = floor($k / 8);
 							if ((isset($is32[$is32idx])) AND (($is32[$is32idx] & (1 << (7 - ($c % 8)))) == 0)) {
 								$c = $k;
 							} else {
