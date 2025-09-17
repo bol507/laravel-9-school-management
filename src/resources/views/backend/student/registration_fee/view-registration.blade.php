@@ -22,9 +22,9 @@
                 <div class="container-fluid">
                   <div class="row justify-between">
                     <x-ui.show-entries
-                      :action="route('student.registration.view')"
+                      :action="route('registration.fee.view')"
                       :docs="$docs->students" />
-                    <form class="flex items-center gap-4" method="GET" action="{{ route('student.registration.view') }}" id="searchForm">
+                    <form class="flex items-center gap-4" method="GET" action="{{ route('registration.fee.view') }}" id="searchForm">
 
                       <div class="flex items-center py-2">
                         <span class="mr-2">Class</span>
@@ -58,37 +58,46 @@
 
                     </form>
 
-                    <x-ui.search :action="route('student.registration.view')" :search="$docs->search"/>
+                    <x-ui.search :action="route('registration.fee.view')" :search="$docs->search"/>
                   </div>
 
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs->students"
                     :columns="[
-                      'user.name' => 'Name',
-                      'year.name' => 'Year',
-                      'class.name' => 'Class',
-                      'profile.image' => 'Image',
                       'profile.student_no' => 'Student no',
+                      'user.name' => 'Name',
+                      'registration_fee_amount' => 'Registration fee',
+                      'total_discount_formatted' => 'Discount',
+                      'student_fee' => 'Fee to pay',
+                      
                     ]"
-                    :images="['profile.image']"
                     :actions="[
-                      'Edit' => fn($doc) => [
-                        'href' => route('student.registration.edit',$doc),
-                        'class' => 'btn-info',  
-                      ],
-                      'Promotion' => fn($doc) => [
-                        'href' => route('student.promotion.edit',$doc),
-                        'class' => 'btn-primary',
-                         
-                      ],
-                      'Details' => fn($doc) => [
-                        'href' => route('student.registration.details',$doc),
-                        'class' => 'btn-primary',
-                        'attrs' => ['target' => '_blank'], 
-                      ],
+                      'Edit' => function ($doc){
+                        return [
+                          'href' => route('student.registration.edit',$doc),
+                          'class' => 'btn-info',  
+                        ];
+                      },
+                      'Promotion' => function ($doc){
+                        return [
+                          'href' => route('student.promotion.edit',$doc),
+                          'class' => 'btn-primary',
+                        ]; 
+                      },
+                      'Slip fee' => function ($doc) {
+                        return [
+                          'href'  => route('registration.fee.payslip', [
+                            'student_id' => $doc->student_id,
+                            'class_id' =>  $doc->class_id,
+                            ]),
+                          'class' => 'btn-primary',
+                          'attrs' => ['target' => '_blank'], 
+                        ];
+                      },
                     ] " />
-
+                      
+                  
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />
