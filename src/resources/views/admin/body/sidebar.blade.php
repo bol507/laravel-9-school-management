@@ -50,6 +50,7 @@ $route = Route::current()->getName();
       <x-ui.menus.icon-menu-item icon="message-circle" label="Student Management" class="treeview {{  ($prefix == '/students') ? 'active' : '' }}">
         <x-ui.menus.icon-sub-menu-item label="Student registration" href="{{ route('student.registration.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Registration fee" href="{{ route('registration.fee.view') }}" />
+        <x-ui.menus.icon-sub-menu-item label="Monthly fee" href="{{ route('monthly.fee.view') }}" />
       </x-ui.menus.icon-menu-item>
     </x-ui.tree> <!-- sidebar menu-->
 

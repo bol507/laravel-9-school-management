@@ -15,12 +15,12 @@ class AssignStudent extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-     protected $table = 'assign_students'; 
+     protected $table = 'assign_students';
     protected $fillable = [
-        'student_id', 
-        'class_id', 
-        'year_id', 
-        'group_id', 
+        'student_id',
+        'class_id',
+        'year_id',
+        'group_id',
         'shift_id'
     ];
 
@@ -32,22 +32,22 @@ class AssignStudent extends Model
         return $this->belongsTo(Profile::class, 'student_id', 'user_id');
     }
 
-  
+
     public function class(){
-        return $this->belongsTo(StudentClass::class, 'class_id', 'id'); 
+        return $this->belongsTo(StudentClass::class, 'class_id', 'id');
     }
 
-    
+
     public function year(){
         return $this->belongsTo(StudentYear::class, 'year_id', 'id');
     }
 
-   
+
     public function group(){
         return $this->belongsTo(StudentGroup::class, 'group_id', 'id');
     }
 
-    
+
     public function shift(){
         return $this->belongsTo(StudentShift::class, 'shift_id', 'id');
     }
@@ -77,9 +77,9 @@ class AssignStudent extends Model
     public function registrationFeeAmount(): Attribute
     {
         return Attribute::make(
-            get: function () { 
+            get: function () {
                 static $registrationId;
-                $registrationId ??= FeeCategory::registration()->value('id');
+                $registrationId ??= FeeCategory::getFeeIdByName('Registration fee');
                 if (!$registrationId) {
                     return 0;
                 }
@@ -106,7 +106,7 @@ class AssignStudent extends Model
         return Attribute::make(
             get: function () {
                 static $registrationId;
-                $registrationId ??= FeeCategory::registration()->value('id');
+                $registrationId ??= FeeCategory::getFeeIdByName('Registration fee');
                 if (!$registrationId) {
                     return 0.0;
                 }

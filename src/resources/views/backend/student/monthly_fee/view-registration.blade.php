@@ -10,7 +10,7 @@
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Student <strong>monthly fee</strong></h3>
-              
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -53,12 +53,12 @@
                       <div class="flex items-center py-2">
                         <span class="mr-2">Month</span>
                         <div class="controls">
-                          <select name="year_id" required class="form-control">
+                          <select name="month_id" required class="form-control">
                             <option value="" disabled selected>Select month</option>
                             @foreach($docs->months as $month)
-                            <option value="{{ $month->id }}" @selected(request('month_id')==$month->id)>
-                              {{ $month->name }}
-                            </option>
+                              <option value="{{ $month->id }}" @selected(request('month_id')==$month->id)>
+                                {{ $month->name }}
+                              </option>
                             @endforeach
                           </select>
                         </div>
@@ -77,13 +77,13 @@
                     :columns="[
                       'profile.student_no' => 'Student no',
                       'user.name' => 'Name',
-                      'registration_fee_amount' => 'Registration fee',
+                      'registration_fee_amount' => 'month fee',
                       'total_discount_formatted' => 'Discount',
                       'student_fee' => 'Fee to pay',
-                      
+
                     ]"
                     :actions="[
-                      
+
                       'Slip fee' => function ($doc) {
                         return [
                           'href'  => route('registration.fee.payslip', [
@@ -91,12 +91,12 @@
                             'class_id' =>  $doc->class_id,
                             ]),
                           'class' => 'btn-primary',
-                          'attrs' => ['target' => '_blank'], 
+                          'attrs' => ['target' => '_blank'],
                         ];
                       },
                     ] " />
-                      
-                  
+
+
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />
@@ -108,7 +108,7 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-      
+
     </section>
   </div><!-- container-full -->
 </div>

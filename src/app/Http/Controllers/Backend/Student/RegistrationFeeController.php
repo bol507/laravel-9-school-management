@@ -30,7 +30,6 @@ class RegistrationFeeController extends Controller
     protected function listableFilters(): array{
         return ['year_id', 'class_id'];
     }
-
     
     public function ViewRegistrationFee(Request $request){
         $students = $this->list($request);

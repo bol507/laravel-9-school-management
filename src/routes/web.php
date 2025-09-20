@@ -165,5 +165,5 @@ Route::prefix('students')->middleware([
     Route::get('/registration/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee'])->name('registration.fee.view');
     Route::get('/registration/fee/payslip',[RegistrationFeeController::class, 'PayslipRegistrationFee'])->name('registration.fee.payslip');
     //Montly fee 
-    Route::get('monthly/fee/view',[MonthlyFeeController::class, 'ViewMonthlyFee'])->name('monthly.fee.view')
+    Route::get('monthly/fee/view',[MonthlyFeeController::class, 'ViewMonthlyFee'])->name('monthly.fee.view');
 });
