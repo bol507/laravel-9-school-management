@@ -69,13 +69,11 @@ class AssignStudent extends Model
         );
     }
 
-    public function feeCategoryAmounts()
-    {
+    public function feeCategoryAmounts(){
         return $this->hasMany(FeeCategoryAmount::class, 'class_id', 'class_id');
     }
 
-    public function registrationFeeAmount(): Attribute
-    {
+    public function registrationFeeAmount(): Attribute{
         return Attribute::make(
             get: function () {
                 static $registrationId;
@@ -84,6 +82,34 @@ class AssignStudent extends Model
                     return 0;
                 }
                 $row = $this->feeCategoryAmounts->firstWhere('fee_category_id', $registrationId);
+                return $row?->amount ?? 0;
+            }
+        );
+    }
+
+    public function monthlyFeeAmount(): Attribute {
+        return Attribute::make(
+            get: function(){
+                static $monthId;
+                $monthId ??= FeeCategory::getFeeIdByName('Monthly fee');
+                if(!$monthId){
+                    return 0;
+                }
+                $row = $this->feeCategoryAmounts->firstWhere('fee_category_id',$monthId);
+                return $row?->amount ?? 0;
+            }
+        );
+    }
+
+    public function examFeeAmount(): Attribute {
+        return Attribute::make(
+            get: function(){
+                static $examId;
+                $examId ??= FeeCategory::getFeeIdByName('Exam fee');
+                if(!$examId){
+                    return 0;
+                }
+                $row = $this->feeCategoryAmounts->firstWhere('fee_category_id',$examId);
                 return $row?->amount ?? 0;
             }
         );
