@@ -9,7 +9,10 @@ use App\Models\AssignStudent;
 use App\Models\ExamType;
 use App\Models\StudentClass;
 use App\Models\StudentYear;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class ExamFeeController extends Controller
@@ -32,8 +35,21 @@ class ExamFeeController extends Controller
         return ['year_id', 'class_id'];
     }
 
+    protected function listableQueryScope(Builder $query, Request $request): Builder
+    {
+        return $query->whereHas('user', fn ($q) => $q->where('user_type', 'student'));
+    }
+
     public function ViewExamFee(Request $request){
-        $students = $this->list($request);
+        if (!$request->filled(['year_id','class_id'])) {
+            $empty = new LengthAwarePaginator(
+                collect(), 0, 10, $request->input('page',1),
+                ['path'=>$request->url()]
+            );
+            $students = $empty;
+        } else {
+            $students = $this->list($request);  
+        }
         $docs = (object) [
             'students' => $students,
             'search' => $request->input('search'),
@@ -54,18 +70,6 @@ class ExamFeeController extends Controller
         $studentId = $data['student_id'];
         $classId   = $data['class_id'];
         $examId = $data['exam_id'];
-
-        $exam = ExamType::find($examId);
-        if (!$exam) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors([
-                    'message' => 'An error occurred while processing the request',
-                    'exam_id' => 'The selected exam does not exist.',
-                    'alert-type' => 'error'
-                ]);
-        }
 
         $details = AssignStudent::with(['user','profile','discounts'])
             ->where('student_id', $studentId)

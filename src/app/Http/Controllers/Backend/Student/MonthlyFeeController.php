@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
 use App\Models\StudentClass;
 use App\Models\StudentYear;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,6 +30,11 @@ class MonthlyFeeController extends Controller
 
     protected function listableFilters(): array{
         return ['year_id', 'class_id'];
+    }
+
+    protected function listableQueryScope(Builder $query, Request $request): Builder
+    {
+        return $query->whereHas('user', fn ($q) => $q->where('user_type', 'student'));
     }
 
     public function ViewMonthlyFee (Request $request){
