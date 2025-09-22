@@ -9,8 +9,8 @@
         <div class="col-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Student <strong>registration fee</strong></h3>
-              
+              <h3 class="box-title">Student <strong>exam fee</strong></h3>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -18,9 +18,9 @@
                 <div class="container-fluid">
                   <div class="row justify-between">
                     <x-ui.show-entries
-                      :action="route('registration.fee.view')"
+                      :action="route('exam.fee.view')"
                       :docs="$docs->students" />
-                    <form class="flex items-center gap-4" method="GET" action="{{ route('registration.fee.view') }}" id="searchForm">
+                    <form class="flex items-center gap-4" method="GET" action="{{ route('exam.fee.view') }}" id="searchForm">
 
                       <div class="flex items-center py-2">
                         <span class="mr-2">Class</span>
@@ -50,6 +50,20 @@
                         </div>
                       </div>
 
+                      <div class="flex items-center py-2">
+                        <span class="mr-2">Exam</span>
+                        <div class="controls">
+                          <select name="exam_id" required class="form-control">
+                            <option value="" disabled selected>Select exam</option>
+                            @foreach($docs->exam_types as $exam)
+                              <option value="{{ $exam->id }}" @selected(request('exam_id')==$exam->id)>
+                                {{ $exam->name }}
+                              </option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
                       <input type="submit"  class="btn btn-primary" value="Filter">
 
                     </form>
@@ -63,26 +77,27 @@
                     :columns="[
                       'profile.student_no' => 'Student no',
                       'user.name' => 'Name',
-                      'registration_fee_amount' => 'Registration fee',
+                      'exam_fee_amount' => 'exam fee',
                       'total_discount_formatted' => 'Discount',
                       'student_fee' => 'Fee to pay',
-                      
+
                     ]"
                     :actions="[
-                      
+
                       'Slip fee' => function ($doc) {
                         return [
-                          'href'  => route('registration.fee.payslip', [
+                          'href'  => route('exam.fee.payslip', [
                             'student_id' => $doc->student_id,
                             'class_id' =>  $doc->class_id,
+                            'exam_id' => request('exam_id')
                             ]),
                           'class' => 'btn-primary',
-                          'attrs' => ['target' => '_blank'], 
+                          'attrs' => ['target' => '_blank'],
                         ];
                       },
                     ] " />
-                      
-                  
+
+
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />
@@ -94,7 +109,7 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-      
+
     </section>
   </div><!-- container-full -->
 </div>

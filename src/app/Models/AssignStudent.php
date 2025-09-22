@@ -15,12 +15,12 @@ class AssignStudent extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-     protected $table = 'assign_students'; 
+     protected $table = 'assign_students';
     protected $fillable = [
-        'student_id', 
-        'class_id', 
-        'year_id', 
-        'group_id', 
+        'student_id',
+        'class_id',
+        'year_id',
+        'group_id',
         'shift_id'
     ];
 
@@ -32,22 +32,22 @@ class AssignStudent extends Model
         return $this->belongsTo(Profile::class, 'student_id', 'user_id');
     }
 
-  
+
     public function class(){
-        return $this->belongsTo(StudentClass::class, 'class_id', 'id'); 
+        return $this->belongsTo(StudentClass::class, 'class_id', 'id');
     }
 
-    
+
     public function year(){
         return $this->belongsTo(StudentYear::class, 'year_id', 'id');
     }
 
-   
+
     public function group(){
         return $this->belongsTo(StudentGroup::class, 'group_id', 'id');
     }
 
-    
+
     public function shift(){
         return $this->belongsTo(StudentShift::class, 'shift_id', 'id');
     }
@@ -69,17 +69,15 @@ class AssignStudent extends Model
         );
     }
 
-    public function feeCategoryAmounts()
-    {
+    public function feeCategoryAmounts(){
         return $this->hasMany(FeeCategoryAmount::class, 'class_id', 'class_id');
     }
 
-    public function registrationFeeAmount(): Attribute
-    {
+    public function registrationFeeAmount(): Attribute{
         return Attribute::make(
-            get: function () { 
+            get: function () {
                 static $registrationId;
-                $registrationId ??= FeeCategory::registration()->value('id');
+                $registrationId ??= FeeCategory::getFeeIdByName('Registration fee');
                 if (!$registrationId) {
                     return 0;
                 }
@@ -89,13 +87,64 @@ class AssignStudent extends Model
         );
     }
 
+    public function monthlyFeeAmount(): Attribute {
+        return Attribute::make(
+            get: function(){
+                static $monthId;
+                $monthId ??= FeeCategory::getFeeIdByName('Monthly fee');
+                if(!$monthId){
+                    return 0;
+                }
+                $row = $this->feeCategoryAmounts->firstWhere('fee_category_id',$monthId);
+                return $row?->amount ?? 0;
+            }
+        );
+    }
+
+    public function examFeeAmount(): Attribute {
+        return Attribute::make(
+            get: function(){
+                static $examId;
+                $examId ??= FeeCategory::getFeeIdByName('Exam fee');
+                if(!$examId){
+                    return 0;
+                }
+                $row = $this->feeCategoryAmounts->firstWhere('fee_category_id',$examId);
+                return $row?->amount ?? 0;
+            }
+        );
+    }
+
     public function studentFee(): Attribute
     {
         return Attribute::make(
-            get: fn () => round(
-                $this->registrationFeeAmount * (100 - $this->totalDiscount) / 100,
-                2
-            ),
+            get: function () {
+                $discountPct = max(0, min(100, (float) $this->registrationDiscount));
+                return round($this->registrationFeeAmount * (100 - $discountPct) / 100, 2);
+            },
+        );
+    }
+    /**
+     * Registration-fee-specific discount percentage.
+     */
+    public function registrationDiscount(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                static $registrationId;
+                $registrationId ??= FeeCategory::getFeeIdByName('Registration fee');
+                if (!$registrationId) {
+                    return 0.0;
+                }
+                if ($this->relationLoaded('discounts')) {
+                    return (float) $this->discounts
+                        ->where('fee_category_id', $registrationId)
+                        ->sum('discount');
+                }
+                return (float) $this->discounts()
+                    ->where('fee_category_id', $registrationId)
+                    ->sum('discount');
+            }
         );
     }
 }

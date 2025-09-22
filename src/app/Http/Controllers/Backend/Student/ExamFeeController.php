@@ -6,14 +6,15 @@ use App\Facades\PDF;
 use App\Http\Controllers\Concerns\Listable;
 use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
+use App\Models\ExamType;
 use App\Models\StudentClass;
 use App\Models\StudentYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class RegistrationFeeController extends Controller
+class ExamFeeController extends Controller
 {
-    use Listable;   
+    use Listable;
 
     protected function listableModel(): string {
         return AssignStudent::class;
@@ -30,39 +31,61 @@ class RegistrationFeeController extends Controller
     protected function listableFilters(): array{
         return ['year_id', 'class_id'];
     }
-    
-    public function ViewRegistrationFee(Request $request){
-        $students = $this->list($request);
 
-        $docs = (object)[
+    public function ViewExamFee(Request $request){
+        $students = $this->list($request);
+        $docs = (object) [
             'students' => $students,
-            'search'   => $request->input('search'),
+            'search' => $request->input('search'),
             'years'    => StudentYear::all()->sortByDesc('name')->values(),
             'classes'  => StudentClass::all()->sortByDesc('name')->values(),
+            'exam_types' => ExamType::all()->sortByDesc('name')->values(),
         ];
-        return view('backend.student.registration_fee.view-registration', compact('docs'));
+        return view('backend.student.exam_fee.view-registration', compact('docs'));
     }
 
-    public function PayslipRegistrationFee(Request $request){
+    public function PayslipExamFee(Request $request){
         $data = $request->validate([
             'student_id' => ['required','string'],
             'class_id'   => ['required','string'],
+            'exam_id' => ['required','string']
         ]);
+
         $studentId = $data['student_id'];
         $classId   = $data['class_id'];
+        $examId = $data['exam_id'];
 
-         $details = AssignStudent::with(['user','profile','discounts'])
+        $exam = ExamType::find($examId);
+        if (!$exam) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors([
+                    'message' => 'An error occurred while processing the request',
+                    'exam_id' => 'The selected exam does not exist.',
+                    'alert-type' => 'error'
+                ]);
+        }
+
+        $details = AssignStudent::with(['user','profile','discounts'])
             ->where('student_id', $studentId)
             ->where('class_id',   $classId)
             ->firstOrFail();
-        
+
         $slugSource = $details->profile->student_no ?? $details->user->name ?? (string) $details->student_id;
         $fileName = 'student_' . Str::slug($slugSource) . '.pdf';
+
+        $exam_name = ExamType::findOrFail($examId)->value('name');
+
+
+        $docs = (object)[
+            'details' => $details,
+            'exam_name' => $exam_name
+        ];
+
         return PDF::loadView('pdfs.student-details', [
-            'docs' => $details
-        ])->stream($fileName);   
+            'docs' => $docs,
+        ])->stream($fileName);
     }
-
-
 
 }

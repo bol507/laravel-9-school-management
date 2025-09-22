@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
+use App\Http\Controllers\Backend\Student\ExamFeeController;
+use App\Http\Controllers\Backend\Student\MonthlyFeeController;
 use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 use App\Http\Controllers\Backend\Student\StudentRegistrationController;
 use App\Http\Controllers\Backend\UserController;
@@ -142,7 +144,7 @@ Route::prefix('setups')->middleware([
     Route::get('/designation/edit/{id}', [DesignationController::class, 'EditDesignation'])->name('designation.edit');
     Route::put('/designation/update/{id}', [DesignationController::class,'UpdateDesignation'])->name('designation.update');
     Route::delete('/designation/destroy/{id}', [DesignationController::class, 'DeleteDesignation'] )->name('designation.destroy');
-    
+
 });
 
 Route::prefix('students')->middleware([
@@ -163,4 +165,11 @@ Route::prefix('students')->middleware([
     //registration fee
     Route::get('/registration/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee'])->name('registration.fee.view');
     Route::get('/registration/fee/payslip',[RegistrationFeeController::class, 'PayslipRegistrationFee'])->name('registration.fee.payslip');
+    //Montly fee
+    Route::get('/monthly/fee/view',[MonthlyFeeController::class, 'ViewMonthlyFee'])->name('monthly.fee.view');
+    Route::get('/monthly/fee/payslip',[MonthlyFeeController::class, 'PayslipMonthlyFee'])->name('monthly.fee.payslip');
+    //Exam fee
+    Route::get('/exam/fee/view',[ExamFeeController::class, 'ViewExamFee'])->name('exam.fee.view');
+    Route::get('/exam/fee/payslip',[ExamFeeController::class, 'PayslipExamFee'])->name('exam.fee.payslip');
+
 });
