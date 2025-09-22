@@ -55,6 +55,18 @@ class ExamFeeController extends Controller
         $classId   = $data['class_id'];
         $examId = $data['exam_id'];
 
+        $exam = ExamType::find($examId);
+        if (!$exam) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors([
+                    'message' => 'An error occurred while processing the request',
+                    'exam_id' => 'The selected exam does not exist.',
+                    'alert-type' => 'error'
+                ]);
+        }
+
         $details = AssignStudent::with(['user','profile','discounts'])
             ->where('student_id', $studentId)
             ->where('class_id',   $classId)
