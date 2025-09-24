@@ -90,6 +90,11 @@ trait Listable
         return $query;
     }
 
+    protected function listableQueryScope(Builder $query, Request $request): Builder
+    {
+        return $query;
+    }
+
     /**
      * Executes the query and returns the paginator.
      */
@@ -99,6 +104,8 @@ trait Listable
 
         $query = $this->applySearch($query, trim($request->input('search') ?? ''));
         $query = $this->applyFilters($query, $request);
+
+        $query = $this->listableQueryScope($query, $request);
 
         $raw = (string) $this->listableOrderBy($request);
         $direction = 'asc';

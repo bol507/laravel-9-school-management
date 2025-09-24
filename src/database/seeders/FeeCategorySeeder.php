@@ -17,8 +17,6 @@ class FeeCategorySeeder extends Seeder
     {
         $categories = ['Registration fee', 'Monthly fee', 'Exam fee'];
 
-        foreach ($categories as $category) {
-            FeeCategory::create(['name' => $category]);
-        }
+        FeeCategory::ensureDefaultFeesExist($categories);
     }
 }

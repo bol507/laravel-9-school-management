@@ -35,7 +35,7 @@ class StoreEmployeeRegistrationRequest extends FormRequest
             'religion' => 'nullable|string|max:50',
             'date_birth' => 'required|date',
             'date_join' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
         ];
     }
 
@@ -77,12 +77,30 @@ class StoreEmployeeRegistrationRequest extends FormRequest
 
             'date_join.required' => 'Date of joining is required.',
             'date_join.date' => 'The date of joining format is invalid.',
-            
+
             'designation_id.required' => 'Designation is required.',
             'designation_id.exists' => 'The selected designation is not valid.',
 
             'image.mimes' => 'Image must be a file of type: jpeg, png, jpg, gif.',
             'image.max' => 'Image size cannot exceed 2MB.',
+        ];
+    }
+
+
+     public function validatedForDto(): array
+    {
+        return [
+            'name'          => $this->validated('name'),
+            'designation_id'=> $this->validated('designation_id'),
+            'father_name'   => $this->validated('father_name'),
+            'mother_name'   => $this->validated('mother_name'),
+            'mobile'        => $this->validated('mobile'),
+            'address'       => $this->validated('address'),
+            'gender'        => $this->validated('gender'),
+            'religion'      => $this->validated('religion'),
+            'date_birth'    => $this->validated('date_birth'),
+            'date_join'     => $this->validated('date_join'),
+            'salary'        => $this->validated('salary'),
         ];
     }
 }

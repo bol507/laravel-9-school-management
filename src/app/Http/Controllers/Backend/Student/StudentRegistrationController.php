@@ -16,7 +16,7 @@ use App\Models\StudentGroup;
 use App\Models\StudentShift;
 use App\Models\StudentYear;
 use App\Models\User;
-use App\Services\ImageUploadService;
+use App\Services\ImgBbUploaderService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,8 +81,8 @@ class StudentRegistrationController extends Controller
         $validated = $request->validated();
         
         if ($request->hasFile('image')) {
-            $imageUploadService = new ImageUploadService();
-            $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
+            $imageUploadService = new ImgBbUploaderService();
+            $validated['image'] = $imageUploadService->upload($request->file('image'));
         }
 
         $category = FeeCategory::ensureRegistrationFeeExists();
@@ -163,8 +163,8 @@ class StudentRegistrationController extends Controller
             $validated = $request->validated();
             
             if ($request->hasFile('image')) {
-                $imageUploadService = new ImageUploadService();
-                $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
+                $imageUploadService = new ImgBbUploaderService();
+                $validated['image'] = $imageUploadService->upload($request->file('image'));
             }
 
             $category = FeeCategory::ensureRegistrationFeeExists();
@@ -241,8 +241,8 @@ class StudentRegistrationController extends Controller
             $validated = $request->validated();
             
             if ($request->hasFile('image')) {
-                $imageUploadService = new ImageUploadService();
-                $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
+                $imageUploadService = new ImgBbUploaderService();
+                $validated['image'] = $imageUploadService->upload($request->file('image'));
             }
 
             $category = FeeCategory::ensureRegistrationFeeExists();

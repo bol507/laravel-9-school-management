@@ -67,7 +67,7 @@ class MonthlyFeeController extends Controller
             ->firstOrFail();
         $months = $this->getMonths();
         $monthName = $months[$monthId] ?? 'Unknown Month';
-        $slugSource = $details->profile->student_no ?? $details->user->name ?? (string) $details->student_id;
+        $slugSource = $details->profile->id_no ?? $details->user->name ?? (string) $details->student_id;
         $fileName = 'student_' . Str::slug($slugSource) . '.pdf';
 
         $docs = (object)[

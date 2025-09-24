@@ -69,7 +69,7 @@
                       'year.name' => 'Year',
                       'class.name' => 'Class',
                       'profile.image' => 'Image',
-                      'profile.student_no' => 'Student no',
+                      'profile.id_no' => 'Student no',
                     ]"
                     :images="['profile.image']"
                     :actions="[

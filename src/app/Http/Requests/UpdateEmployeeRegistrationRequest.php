@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\DTO\EmployeeData;
+use App\DTO\EmployeeDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEmployeeRegistrationRequest extends FormRequest
@@ -40,9 +40,9 @@ class UpdateEmployeeRegistrationRequest extends FormRequest
         ];
     }
 
-    public function dto(string $employeeId): EmployeeData
+    public function dto(string $employeeId): EmployeeDTO
     {
-        return new EmployeeData(
+        return new EmployeeDTO(
             name: $this->validated('name'),
             designationId: $this->validated('designation_id'),
             fatherName: $this->validated('father_name'),

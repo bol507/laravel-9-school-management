@@ -26,9 +26,12 @@ class Profile extends Model
         'blood_group',
         'nationality',
         'status',
-        'student_no',
+        'id_no',
         'code',
-        'image',
+        'image_path',
+        'salary',
+        'date_join',
+        'designation_id',
         'user_id',
     ];
 

@@ -10,7 +10,7 @@
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Student <strong>registration fee</strong></h3>
-              
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -57,19 +57,23 @@
                     <x-ui.search :action="route('registration.fee.view')" :search="$docs->search"/>
                   </div>
 
+                  @if($docs->students->isEmpty())
+                    <p>No students found for the selected criteria.</p>
+                  @else
+
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs->students"
                     :columns="[
-                      'profile.student_no' => 'Student no',
+                      'profile.id_no' => 'Student no',
                       'user.name' => 'Name',
                       'registration_fee_amount' => 'Registration fee',
                       'total_discount_formatted' => 'Discount',
-                      'student_fee' => 'Fee to pay',
-                      
+                      'registration_fee' => 'Fee to pay',
+
                     ]"
                     :actions="[
-                      
+
                       'Slip fee' => function ($doc) {
                         return [
                           'href'  => route('registration.fee.payslip', [
@@ -77,12 +81,12 @@
                             'class_id' =>  $doc->class_id,
                             ]),
                           'class' => 'btn-primary',
-                          'attrs' => ['target' => '_blank'], 
+                          'attrs' => ['target' => '_blank'],
                         ];
                       },
                     ] " />
-                      
-                  
+
+                    @endif
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />
@@ -94,7 +98,7 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-      
+
     </section>
   </div><!-- container-full -->
 </div>

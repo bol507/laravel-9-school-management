@@ -53,6 +53,10 @@ $route = Route::current()->getName();
         <x-ui.menus.icon-sub-menu-item label="Monthly fee" href="{{ route('monthly.fee.view') }}" />
         <x-ui.menus.icon-sub-menu-item label="Exam fee" href="{{ route('exam.fee.view') }}" />
       </x-ui.menus.icon-menu-item>
+
+      <x-ui.menus.icon-menu-item icon="message-circle" label="Employee Management" class="treeview {{  ($prefix == '/employees') ? 'active' : '' }}">
+        <x-ui.menus.icon-sub-menu-item label="Employee registration" href="{{ route('employee.registration.view') }}" />
+      </x-ui.menus.icon-menu-item>
     </x-ui.tree> <!-- sidebar menu-->
 
   </section>

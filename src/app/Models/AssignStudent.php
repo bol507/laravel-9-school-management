@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Strategies\ExamDiscountStrategy;
+use App\Strategies\MonthlyDiscountStrategy;
+use App\Strategies\RegistrationDiscountStrategy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,8 +65,7 @@ class AssignStudent extends Model
         );
     }
 
-    public function totalDiscountFormatted(): Attribute
-    {
+    public function totalDiscountFormatted(): Attribute {
         return Attribute::make(
             get: fn () => $this->totalDiscount . ' %'
         );
@@ -115,36 +117,84 @@ class AssignStudent extends Model
         );
     }
 
-    public function studentFee(): Attribute
+    public function registrationFee(): Attribute
     {
         return Attribute::make(
             get: function () {
-                $discountPct = max(0, min(100, (float) $this->registrationDiscount));
-                return round($this->registrationFeeAmount * (100 - $discountPct) / 100, 2);
+                $discount = max(0, min(100, (float) $this->registrationDiscount));
+                return round($this->registrationFeeAmount * (100 - $discount) / 100, 2);
             },
         );
     }
-    /**
-     * Registration-fee-specific discount percentage.
-     */
-    public function registrationDiscount(): Attribute
-    {
+
+    public function monthlyFee(): Attribute{
         return Attribute::make(
-            get: function () {
-                static $registrationId;
-                $registrationId ??= FeeCategory::getFeeIdByName('Registration fee');
-                if (!$registrationId) {
-                    return 0.0;
-                }
-                if ($this->relationLoaded('discounts')) {
-                    return (float) $this->discounts
-                        ->where('fee_category_id', $registrationId)
-                        ->sum('discount');
-                }
-                return (float) $this->discounts()
-                    ->where('fee_category_id', $registrationId)
-                    ->sum('discount');
+            get: function(){
+                $discount = max(0, min(100,(float) $this->MonthlyDiscount));
+                return round($this->monthlyFeeAmount * (100 - $discount) / 100, 2);
             }
         );
+    }
+
+    public function examFee(): Attribute {
+        return Attribute::make(
+            get: function(){
+                $discount = max(0, min(100,(float) $this->ExamDiscount));
+
+                return round($this->examFeeAmount * (100 - $discount) / 100, 2);
+            }
+        );
+    }
+
+    public function registrationDiscount(): Attribute {
+        return Attribute::make(
+            get: function () {
+                return (new RegistrationDiscountStrategy())->calculateDiscount($this);
+            }
+        );
+    }
+
+    public function ExamDiscount(): Attribute {
+        return Attribute::make(
+            get: function() {
+                return (new ExamDiscountStrategy())->calculateDiscount($this);
+            }
+        );
+    }
+
+    public function ExamDiscountFormatted(): Attribute {
+        return Attribute::make(
+            get: function() {
+                return (new ExamDiscountStrategy())->calculateDiscount($this)." %";
+            }
+        );
+    }
+
+    public function monthlyDiscount(): Attribute {
+        return Attribute::make(
+            get: function() {
+                return (new MonthlyDiscountStrategy())->calculateDiscount($this);
+            }
+        );
+    }
+
+     public function monthlyDiscountFormatted(): Attribute {
+        return Attribute::make(
+            get: function() {
+                return (new MonthlyDiscountStrategy())->calculateDiscount($this)." %";
+            }
+        );
+    }
+
+    public function calculateDiscount(string $id): float {
+        if ($this->relationLoaded('discounts')) {
+            return $this->discounts
+                ->where('fee_category_id', $id)
+                ->sum('discount');
+        }
+
+        return $this->discounts()
+            ->where('fee_category_id', $id)
+            ->sum('discount');
     }
 }

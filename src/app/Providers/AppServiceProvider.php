@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\PDF\PDF as CustomPDF;
+use App\Services\Contracts\ImageBbUploaderInterface;
+use App\Services\ImgBbUploaderService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,9 +16,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // PDF service
         $this->app->singleton('pdf.custom', function () {
-        return new CustomPDF();
-    });
+            return new CustomPDF();
+        });
+
+        // Image upload service
+        $this->app->bind(
+            ImageBbUploaderInterface::class,
+            ImgBbUploaderService::class
+        );
     }
 
     /**

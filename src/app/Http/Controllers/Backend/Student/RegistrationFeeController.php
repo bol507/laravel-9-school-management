@@ -62,7 +62,7 @@ class RegistrationFeeController extends Controller
             ->where('class_id',   $classId)
             ->firstOrFail();
 
-        $slugSource = $details->profile->student_no ?? $details->user->name ?? (string) $details->student_id;
+        $slugSource = $details->profile->id_no ?? $details->user->name ?? (string) $details->student_id;
         $fileName = 'student_' . Str::slug($slugSource) . '.pdf';
         return PDF::loadView('pdfs.student-details', [
             'docs' => $details

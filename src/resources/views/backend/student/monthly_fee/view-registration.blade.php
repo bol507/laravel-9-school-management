@@ -39,7 +39,7 @@
                       <div class="flex items-center py-2">
                         <span class="mr-2">Class</span>
                         <div class="controls">
-                          <select name="class_id"  class="form-select appearence-none">
+                          <select name="class_id" class="form-select appearence-none">
                             <option value="" disabled selected>Select class</option>
                             @foreach($docs->classes as $class)
                             <option value="{{ $class->id }}" @selected(request('class_id')==$class->id)>
@@ -56,30 +56,34 @@
                           <select name="month_id" required class="form-control">
                             <option value="" disabled selected>Select month</option>
                             @foreach($docs->months as $month)
-                              <option value="{{ $month->id }}" @selected(request('month_id')==$month->id)>
-                                {{ $month->name }}
-                              </option>
+                            <option value="{{ $month->id }}" @selected(request('month_id')==$month->id)>
+                              {{ $month->name }}
+                            </option>
                             @endforeach
                           </select>
                         </div>
                       </div>
 
-                      <input type="submit"  class="btn btn-primary" value="Filter">
+                      <input type="submit" class="btn btn-primary" value="Filter">
 
                     </form>
 
-                    <x-ui.search :action="route('registration.fee.view')" :search="$docs->search"/>
+                    <x-ui.search :action="route('monthly.fee.view')" :search="$docs->search" />
                   </div>
+
+                  @if($docs->students->isEmpty())
+                    <p>No students found for the selected criteria.</p>
+                  @else
 
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs->students"
                     :columns="[
-                      'profile.student_no' => 'Student no',
+                      'profile.id_no' => 'Student no',
                       'user.name' => 'Name',
                       'monthly_fee_amount' => 'month fee',
-                      'total_discount_formatted' => 'Discount',
-                      'student_fee' => 'Fee to pay',
+                      'monthly_discount_formatted' => 'Discount',
+                      'monthly_fee' => 'Fee to pay',
 
                     ]"
                     :actions="[
@@ -89,15 +93,16 @@
                           'href'  => route('monthly.fee.payslip', [
                             'student_id' => $doc->student_id,
                             'class_id' =>  $doc->class_id,
-                            'month_id => request('month_id'),
+                            'month_id' => request('month_id'),
                             ]),
                           'class' => 'btn-primary',
                           'attrs' => ['target' => '_blank'],
                         ];
                       },
-                    ] " />
+                    ] "
+                  />
 
-
+                  @endif
                   <div class="row items-center justify-between">
                     <x-ui.pagination-info :docs="$docs->students" class="text-muted" />
                     <x-ui.paginator :docs="$docs->students" />
@@ -109,7 +114,6 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-
     </section>
   </div><!-- container-full -->
 </div>
