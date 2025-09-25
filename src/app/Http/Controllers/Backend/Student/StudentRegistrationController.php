@@ -32,7 +32,7 @@ class StudentRegistrationController extends Controller
 
         /* ---------- find  / pagination  --------------- */
         $query = AssignStudent::with(['user','profile']);
-        
+
         if($request->filled('search')){
             $search = trim($request->input('search'));
             $query->whereHas('user', function($q) use ($search) {
@@ -55,12 +55,12 @@ class StudentRegistrationController extends Controller
         /* ----------  only object $docs  ---------- */
 
         $docs = (object)[
-            'students'    => $students,           
+            'students'    => $students,
             'search'      => $request->input('search'),
             'years'       => StudentYear::all()->sortByDesc('name')->values(),
             'classes'     => StudentClass::all()->sortByDesc('name')->values(),
         ];
-        
+
         return view('backend.student.registration.view-registration',compact('docs'));
 
     }
@@ -79,7 +79,7 @@ class StudentRegistrationController extends Controller
 
         try{
         $validated = $request->validated();
-        
+
         if ($request->hasFile('image')) {
             $imageUploadService = new ImgBbUploaderService();
             $validated['image'] = $imageUploadService->upload($request->file('image'));
@@ -91,18 +91,18 @@ class StudentRegistrationController extends Controller
         $registration = DB::transaction(function () use ($validated) {
 
                 $user = User::create([
-                    'user_type' => 'student', 
-                    'name' => $validated['name'], 
+                    'user_type' => 'student',
+                    'name' => $validated['name'],
                 ]);
 
                 $profileStudentFactory = new ProfileStudentFactory();
-                
+
                 $result = $profileStudentFactory->updateOrCreate($user->id, $validated);
-                
+
                 $user->password = Hash::make($result['code']);
                 $user->update();
 
-               
+
 
                 $assign =  AssignStudent::updateOrCreate(
                     ['student_id' => $user->id], //match
@@ -130,7 +130,7 @@ class StudentRegistrationController extends Controller
                 ->route('student.registration.view')
                 ->with($notification);
         } catch (Exception $e) {
-            
+
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
                 'request' => $request->except(['image']),
@@ -161,7 +161,7 @@ class StudentRegistrationController extends Controller
     public function UpdateStudentRegistration(UpdateStudentRegistrationRequest $request, $id){
         try{
             $validated = $request->validated();
-            
+
             if ($request->hasFile('image')) {
                 $imageUploadService = new ImgBbUploaderService();
                 $validated['image'] = $imageUploadService->upload($request->file('image'));
@@ -175,7 +175,7 @@ class StudentRegistrationController extends Controller
             }
 
             $registration = DB::transaction(function () use ($validated, $student) {
-                
+
 
                 $user = User::updateOrCreate(
                     ['id' => $student->student_id],//match
@@ -209,7 +209,7 @@ class StudentRegistrationController extends Controller
                 ->route('student.registration.view')
                 ->with($notification);
         } catch (Exception $e) {
-            
+
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
                 'request' => $request->except(['image'], true)
@@ -239,7 +239,7 @@ class StudentRegistrationController extends Controller
     public function UpdateStudentPromotion(UpdateStudentRegistrationRequest $request, $id){
         try{
             $validated = $request->validated();
-            
+
             if ($request->hasFile('image')) {
                 $imageUploadService = new ImgBbUploaderService();
                 $validated['image'] = $imageUploadService->upload($request->file('image'));
@@ -253,7 +253,7 @@ class StudentRegistrationController extends Controller
             }
 
             $registration = DB::transaction(function () use ($validated, $student) {
-                
+
 
                 $user = User::updateOrCreate(
                     ['id' => $student->student_id],//match
@@ -287,7 +287,7 @@ class StudentRegistrationController extends Controller
                 ->route('student.registration.view')
                 ->with($notification);
         } catch (Exception $e) {
-            
+
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
                 'request' => $request->except(['image'], true)

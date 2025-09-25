@@ -8,12 +8,9 @@ use App\Http\Requests\StoreEmployeeRegistrationRequest;
 use App\Http\Requests\UpdateEmployeeRegistrationRequest;
 use App\Models\Designation;
 use App\Models\Profile;
-use App\Models\User;
 use App\Repositories\EmployeeRepository;
 use App\Services\EmployeeCreatorService;
 use App\Services\EmployeeUpdaterService;
-use App\Services\ImgBbUploaderService;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use stdClass;
@@ -37,7 +34,7 @@ class EmployeeRegistrationController extends Controller
         $this->repository = $repository;
     }
 
-    
+
 
     public function index(Request $request){
 
@@ -94,18 +91,18 @@ class EmployeeRegistrationController extends Controller
     }
 
     public function edit($id){
-        
+
         $docs = new stdClass();
         $docs->designations = Designation::all();
         $docs->genderOptions = Profile::genderOptions();
         $docs->employee = $this->repository->findDTOOrFail($id);
-        
+
         return view('backend.employee.registration.edit-registration',compact('docs'));
     }
 
     public function update(UpdateEmployeeRegistrationRequest $request, $id){
-        try{    
-            
+        try{
+
             $dto = new EmployeeDTO($request->validatedForDto());
             $image = $request->file('image');
             $this->updaterService->execute($id, $dto, $image);
@@ -126,7 +123,7 @@ class EmployeeRegistrationController extends Controller
                 ->back()
                 ->withInput($request->except(['image']))
                 ->withErrors([
-                    'message' => 'An error occurred while updating the employee. Please try again', 
+                    'message' => 'An error occurred while updating the employee. Please try again',
                     'alert-type' => 'error'
                 ]);
         }

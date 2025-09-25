@@ -8,15 +8,7 @@
                 <div class="box-header with-border">
                     <h4 class="box-title">Edit employee</h4>
                 </div><!-- /.box-header -->
-                @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
                 <div class="box-body">
                     <div class="row">
                         <div class="col">
@@ -221,7 +213,7 @@
                                         </div>
                                     </div> <!-- /.form-group -->
 
-                                    
+
                                     <!-- image -->
 
                                     <div class="form-group col-sm-12 col-md-3"  >
@@ -248,7 +240,7 @@
                                             </picture>
                                         </div>
                                     </div><!-- form group -->
-                                    
+
 
                                 </div><!-- row -->
 

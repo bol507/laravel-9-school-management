@@ -26,8 +26,8 @@ final class EmployeeUpdaterService
     }
 
     public function execute(
-        string $employeeId, 
-        EmployeeDTO $data, 
+        string $employeeId,
+        EmployeeDTO $data,
         ?UploadedFile $image = null
     ): User {
         return DB::transaction(function () use ($employeeId, $data, $image) {
@@ -45,7 +45,7 @@ final class EmployeeUpdaterService
                             ->profile()
                             ->firstOrFail();
             // Handle image upload if a new image is provided
-            if ($image && !$data->imagePath) {  
+            if ($image && !$data->imagePath) {
                 try{
                     $data->imagePath = $this->imageUploader->upload($image);
                 } catch (RuntimeException $e) {
@@ -54,7 +54,7 @@ final class EmployeeUpdaterService
             }
 
 
-            
+
             $profile->fill([
                 'father_name'    => $data->fatherName,
                 'mother_name'    => $data->motherName,
@@ -64,7 +64,7 @@ final class EmployeeUpdaterService
                 'religion'       => $data->religion,
                 'date_birth'     => $data->dateBirth,
                 'date_join'      => $data->dateJoin,
-                'salary'         => $data->salary, // ✅ actualizamos el salario en el perfil
+                'salary'         => $data->salary,
                 'designation_id' => $data->designationId,
                 'image_path'     => $data->imagePath ?? $profile->image_path,
             ]);
@@ -82,13 +82,13 @@ final class EmployeeUpdaterService
                     );
                 }
             }
-            
+
             return $user->fresh();
         });
     }
 
     /**
-     * Undocumented function
+     *
      *
      * @param integer $employeeId
      * @param float $newSalary

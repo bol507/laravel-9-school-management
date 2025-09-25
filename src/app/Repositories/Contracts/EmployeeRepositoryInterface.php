@@ -1,8 +1,8 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
+use App\DTO\EmployeeDTO;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -10,7 +10,8 @@ interface EmployeeRepositoryInterface{
 
     public function all(): Collection;
     public function findById(string $id): ?User;
-
+    public function findOrFail(string $id): User;
+    public function findDTOOrFail(string $id): EmployeeDTO;
     // For pagination with search and filters
     public function paginate(
         int $perPage = 10,

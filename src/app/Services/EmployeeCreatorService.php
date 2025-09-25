@@ -5,7 +5,7 @@ namespace App\Services;
 use App\DTO\EmployeeDTO;
 use App\Models\EmployeeSalaryChange;
 use App\Models\User;
-use App\Services\Contracts\ImageBbUploaderInterface;
+use App\Services\Contracts\ImageUploaderInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,10 +14,10 @@ use RuntimeException;
 final class EmployeeCreatorService
 {
 
-    private ImageBbUploaderInterface $imageUploader;
+    private ImageUploaderInterface $imageUploader;
 
     public function __construct(
-        ImageBbUploaderInterface $imageUploader
+        ImageUploaderInterface $imageUploader
     ) {
         $this->imageUploader = $imageUploader;
     }

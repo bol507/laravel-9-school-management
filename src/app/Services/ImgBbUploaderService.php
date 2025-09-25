@@ -4,9 +4,9 @@ namespace App\Services;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use App\Services\Contracts\ImageBbUploaderInterface;
+use App\Services\Contracts\ImageUploaderInterface;
 
-final class ImgBbUploaderService implements ImageBbUploaderInterface
+final class ImgBbUploaderService implements ImageUploaderInterface
 {
     private const ENDPOINT = 'https://api.imgbb.com/1/upload';
 

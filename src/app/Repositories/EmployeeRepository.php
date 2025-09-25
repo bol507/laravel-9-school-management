@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\DTO\EmployeeDTO;
 use App\Models\User;
+use App\Repositories\Contracts\EmployeeRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;

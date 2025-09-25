@@ -7,12 +7,13 @@ interface ImageUploaderInterface
 {
     /**
      * @param \Illuminate\Http\UploadedFile $file
-     * @return string  
+     * @return string
+     * @throws \RuntimeException
      */
     public function upload(UploadedFile $file): string;
 
     /**
      * @param string|null $path
      */
-    public function delete(?string $path): void;
+    public function delete(?string $pathOrUrl): void;
 }

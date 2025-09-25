@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\PDF\PDF as CustomPDF;
-use App\Services\Contracts\ImageBbUploaderInterface;
+use App\Services\Contracts\ImageUploaderInterface;
 use App\Services\ImgBbUploaderService;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Image upload service
         $this->app->bind(
-            ImageBbUploaderInterface::class,
+            ImageUploaderInterface::class,
             ImgBbUploaderService::class
         );
     }
