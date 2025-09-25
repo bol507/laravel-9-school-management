@@ -7,7 +7,9 @@ use App\Libraries\PDF\PDF as CustomPDF;
 use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Repositories\StudentRepository;
 use App\Services\Contracts\ImageUploaderInterface;
+use App\Services\Contracts\StudentCreatorServiceInterface;
 use App\Services\ImgBbUploaderService;
+use App\Services\StudentCreatorService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             StudentRepositoryInterface::class,
             StudentRepository::class
+        );
+
+        //student service creator
+        $this->app->bind(
+            StudentCreatorServiceInterface::class,
+            StudentCreatorService::class
         );
     }
 

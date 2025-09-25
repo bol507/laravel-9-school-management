@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Student;
 
+use App\DTO\StudentDTO;
 use App\Facades\PDF;
 use App\Factories\ProfileStudentFactory;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,7 @@ use App\Models\StudentShift;
 use App\Models\StudentYear;
 use App\Models\User;
 use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Services\Contracts\StudentCreatorServiceInterface;
 use App\Services\ImgBbUploaderService;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,17 +26,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use stdClass;
+use Throwable;
 
 class StudentRegistrationController extends Controller
 {
     private StudentRepositoryInterface $repository;
+    private StudentCreatorServiceInterface $creatorService;
 
     public function __construct(
-        StudentRepositoryInterface $repository
+        StudentRepositoryInterface $repository,
+        StudentCreatorServiceInterface $creatorService,
     ){
         $this->repository = $repository;
+        $this->creatorService = $creatorService;
     }
-    
+
     public function index(Request $request) {
         $perPage = (int) $request->input('limit',10);
         $perPage = max(1,min($perPage,100));
@@ -68,68 +74,28 @@ class StudentRegistrationController extends Controller
     public function store(StoreStudentRegistrationRequest $request){
 
         try{
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $imageUploadService = new ImgBbUploaderService();
-            $validated['image'] = $imageUploadService->upload($request->file('image'));
-        }
-
-        $category = FeeCategory::ensureRegistrationFeeExists();
-        $validated['fee_category_id'] = $category->id;
-
-        $registration = DB::transaction(function () use ($validated) {
-
-                $user = User::create([
-                    'user_type' => 'student',
-                    'name' => $validated['name'],
-                ]);
-
-                $profileStudentFactory = new ProfileStudentFactory();
-
-                $result = $profileStudentFactory->updateOrCreate($user->id, $validated);
-
-                $user->password = Hash::make($result['code']);
-                $user->update();
-
-
-
-                $assign =  AssignStudent::updateOrCreate(
-                    ['student_id' => $user->id], //match
-                    [
-                        'year_id' => $validated['year_id'],
-                        'class_id' => $validated['class_id'],
-                        'group_id' => $validated['group_id'],
-                        'shift_id' => $validated['shift_id'],
-                    ]
-                );
-
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $assign->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
-
-                return $assign;
-            });
-
-            $notification = $this->createNotification($registration);
+            $dto = new StudentDTO($request->validatedForDto());
+            $image = $request->file('image');
+            $this->creatorService->execute($dto, $image);
             return redirect()
                 ->route('student.registration.view')
-                ->with($notification);
-        } catch (Exception $e) {
+                ->with([
+                    'message' => 'Student registered successfully',
+                    'alert-type' => 'success'
+                ]);
+        } catch (Throwable $e) {
 
-            Log::error('An error occurred while processing the request:',[
+            Log::error('Student registration failed',[
                 'message' =>  $e->getMessage(),
-                'request' => $request->except(['image']),
+                'line'    => $e->getLine(),
+                'stack' => $e->getTraceAsString(),
+                'request_data' => $request->except(['image','_token']),
             ]);
             return redirect()
                 ->back()
-                ->withInput()
+                ->withInput($request->except(['image']))
                 ->withErrors([
-                    'message' => 'An error occurred while saving the assignation: ' . $e->getMessage(),
+                    'message' => 'An error occurred while saving the student. Please try again',
                     'alert-type' => 'error'
                 ]);
         }
