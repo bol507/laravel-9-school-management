@@ -16,6 +16,7 @@ use App\Models\StudentGroup;
 use App\Models\StudentShift;
 use App\Models\StudentYear;
 use App\Models\User;
+use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Services\ImgBbUploaderService;
 use Exception;
 use Illuminate\Http\Request;
@@ -26,34 +27,24 @@ use stdClass;
 
 class StudentRegistrationController extends Controller
 {
-    public function ViewStudentRegistration(Request $request) {
+    private StudentRepositoryInterface $repository;
+
+    public function __construct(
+        StudentRepositoryInterface $repository
+    ){
+        $this->repository = $repository;
+    }
+    
+    public function index(Request $request) {
         $perPage = (int) $request->input('limit',10);
         $perPage = max(1,min($perPage,100));
+        $search = $request->input('search');
 
-        /* ---------- find  / pagination  --------------- */
-        $query = AssignStudent::with(['user','profile']);
-
-        if($request->filled('search')){
-            $search = trim($request->input('search'));
-            $query->whereHas('user', function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            });
-        }
-
-        if ($request->filled('year_id')) {
-            $query->where('year_id', $request->year_id);
-        }
-        if ($request->filled('class_id')) {
-            $query->where('class_id', $request->class_id);
-        }
-
-        $students = $query
-            ->orderBy('student_id')
-            ->paginate($perPage)
-            ->appends($request->query());
-
-        /* ----------  only object $docs  ---------- */
-
+        $students = $this->repository->paginate(
+            perPage: $perPage,
+            search: $search,
+        );
+        
         $docs = (object)[
             'students'    => $students,
             'search'      => $request->input('search'),
@@ -62,10 +53,9 @@ class StudentRegistrationController extends Controller
         ];
 
         return view('backend.student.registration.view-registration',compact('docs'));
-
     }
 
-    public function AddStudentRegistration(){
+    public function create  (){
         $docs = new stdClass();
         $docs->years = StudentYear::all();
         $docs->classes = StudentClass::all();
@@ -75,7 +65,7 @@ class StudentRegistrationController extends Controller
         return view('backend.student.registration.add-registration',['docs' => $docs]);
     }
 
-    public function StoreStudentRegistration(StoreStudentRegistrationRequest $request){
+    public function store(StoreStudentRegistrationRequest $request){
 
         try{
         $validated = $request->validated();
@@ -146,7 +136,7 @@ class StudentRegistrationController extends Controller
 
     }
 
-    public function EditStudentRegistration($id){
+    public function edit($id){
         $docs = new stdClass();
         $docs->years = StudentYear::all();
         $docs->classes = StudentClass::all();
@@ -158,7 +148,7 @@ class StudentRegistrationController extends Controller
         return view('backend.student.registration.edit-registration',['docs' => $docs]);
     }
 
-    public function UpdateStudentRegistration(UpdateStudentRegistrationRequest $request, $id){
+    public function update(UpdateStudentRegistrationRequest $request, $id){
         try{
             $validated = $request->validated();
 
@@ -302,7 +292,7 @@ class StudentRegistrationController extends Controller
         }
     }
 
-    public function DetailsStudentRegistration($id){
+    public function show($id){
         $student = AssignStudent::findOrFail($id);
         return PDF::loadView('pdfs.student', [
         'user' => $student->user,

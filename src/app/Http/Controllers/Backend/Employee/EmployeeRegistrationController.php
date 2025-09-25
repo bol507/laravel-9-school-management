@@ -55,7 +55,7 @@ class EmployeeRegistrationController extends Controller
         return view('backend.employee.registration.view-registration',compact('docs'));
     }
 
-    public function add(){
+    public function create(){
         $docs = new stdClass();
         $docs->designations = Designation::all();
         $docs->genderOptions = Profile::genderOptions();

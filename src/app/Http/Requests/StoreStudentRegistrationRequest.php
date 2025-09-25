@@ -29,7 +29,7 @@ class StoreStudentRegistrationRequest extends FormRequest
             'mother_name' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:15',
             'address' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female,other',
+            'gender' => 'required|string|in:Male,Female,Other',
             'religion' => 'nullable|string|max:50',
             'date_birth' => 'required|date',
             'year_id' => 'required|exists:student_years,id',

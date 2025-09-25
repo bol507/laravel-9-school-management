@@ -155,12 +155,12 @@ Route::prefix('students')->middleware([
         'verified'
     ])->group(function () {
     //student registration
-    Route::get('/registration/view', [StudentRegistrationController::class , 'ViewStudentRegistration'])->name('student.registration.view');
-    Route::get('/registration/add', [StudentRegistrationController::class, 'AddStudentRegistration'])->name('student.registration.add');
-    Route::post('/registration/store', [StudentRegistrationController::class, 'StoreStudentRegistration'])->name('student.registration.store');
-    Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'EditStudentRegistration'])->name('student.registration.edit');
-    Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'UpdateStudentRegistration'])->name('student.registration.update');
-    Route::get('/registration/details/{id}', [StudentRegistrationController::class , 'DetailsStudentRegistration'])->name('student.registration.details');
+    Route::get('/registration', [StudentRegistrationController::class , 'index'])->name('student.registration.view');
+    Route::get('/registration/add', [StudentRegistrationController::class, 'create'])->name('student.registration.add');
+    Route::post('/registration/store', [StudentRegistrationController::class, 'store'])->name('student.registration.store');
+    Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'edit'])->name('student.registration.edit');
+    Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'update'])->name('student.registration.update');
+    Route::get('/registration/details/{id}', [StudentRegistrationController::class , 'show'])->name('student.registration.details');
     //student promotion
     Route::get('/promotion/edit/{id}', [StudentRegistrationController::class , 'EditStudentPromotion'])->name('student.promotion.edit');
     Route::put('/promotion/update/{id}', [StudentRegistrationController::class , 'UpdateStudentPromotion'])->name('student.promotion.update');
@@ -185,7 +185,7 @@ Route::prefix('employees')
     ->group( function (){
         //employee registration
         Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
-        Route::get('/registration/add', [EmployeeRegistrationController::class, 'add'])->name('employee.registration.add');
+        Route::get('/registration/add', [EmployeeRegistrationController::class, 'create'])->name('employee.registration.add');
         Route::post('/registration/store', [EmployeeRegistrationController::class, 'store'])->name('employee.registration.store');
         Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'edit'])->name('employee.registration.edit');
         Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'update'])->name('employee.registration.update');
