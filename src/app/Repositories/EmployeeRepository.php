@@ -2,12 +2,11 @@
 
 namespace App\Repositories;
 
+use App\DTO\EmployeeDTO;
 use App\Models\User;
-use App\Models\EmployeeSalaryChange;
-use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 final class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -24,13 +23,30 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     public function findById(string $id): ?User {
         return $this->baseQuery()->find($id);
     }
+
+    // Find employee by email
+    public function findOrFail(string $id): User
+    {
+        $model = $this->findById($id);
+        if (!$model) {
+            throw new ModelNotFoundException("Employee with ID {$id} not found.");
+        }
+        return $model;
+    }
+
+    // Find employee DTO by ID
+    public function findDTOOrFail(string $id): EmployeeDTO {
+        $user = $this->findOrFail($id);
+        return $this->toEmployeeDTO($user);
+    }
+
     // For pagination with search and filters
     public function paginate(
         int $perPage = 10,
         ?string $search = null,
         array $filters = [],
         string $orderBy = 'created_at',
-        string $orderDirection = 'asc'
+        string $orderDirection = 'desc'
     ): LengthAwarePaginator {
         $query = $this->baseQuery();
 
@@ -63,5 +79,28 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
 
         return $query->orderBy($orderBy, $orderDirection)
             ->paginate($perPage);
+    }
+
+    private function toEmployeeDTO(User $user): EmployeeDTO
+    {
+        $profile = $user->profile;
+
+        return new EmployeeDTO([
+            'id'            => $user->id,
+            'name'          => $user->name,
+            'gender'        => $profile?->gender,
+            'fatherName'    => $profile?->father_name,
+            'motherName'    => $profile?->mother_name,
+            'mobile'        => $profile?->mobile,
+            'address'       => $profile?->address,
+            'religion'      => $profile?->religion,
+            'dateBirth'     => $profile?->date_birth,
+            'dateJoin'      => $profile?->date_join,
+            'salary'        => $profile?->salary !== null ? (float) $profile->salary : null,
+            'idNo'          => $profile?->id_no !== null ? (string) $profile->id_no : null,
+            'code'          => $profile?->code,
+            'imagePath'     => $profile?->image_path,
+            'designationId' => $profile?->designation_id,
+        ]);
     }
 }

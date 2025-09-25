@@ -184,9 +184,9 @@ Route::prefix('employees')
     ])
     ->group( function (){
         //employee registration
-        Route::get('/registration/view',[EmployeeRegistrationController::class, 'ViewEmployeeRegistration'])->name('employee.registration.view');
-        Route::get('/registration/add', [EmployeeRegistrationController::class, 'AddEmployeeRegistration'])->name('employee.registration.add');
-        Route::post('/registration/store', [EmployeeRegistrationController::class, 'StoreEmployeeRegistration'])->name('employee.registration.store');
-        Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'EditEmployeeRegistration'])->name('employee.registration.edit');
-        Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'UpdateEmployeeRegistration'])->name('employee.registration.update');
+        Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
+        Route::get('/registration/add', [EmployeeRegistrationController::class, 'add'])->name('employee.registration.add');
+        Route::post('/registration/store', [EmployeeRegistrationController::class, 'store'])->name('employee.registration.store');
+        Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'edit'])->name('employee.registration.edit');
+        Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'update'])->name('employee.registration.update');
     });

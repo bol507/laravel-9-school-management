@@ -8,7 +8,15 @@
                 <div class="box-header with-border">
                     <h4 class="box-title">Edit employee</h4>
                 </div><!-- /.box-header -->
-
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <div class="box-body">
                     <div class="row">
                         <div class="col">
@@ -41,7 +49,7 @@
                                         <label for="father_name" class="control-label">Father's name</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('father_name', $docs->employee->profile->father_name) }}"
+                                                value="{{ old('father_name', $docs->employee->fatherName) }}"
                                                 type="text"
                                                 name="father_name"
                                                 class="form-control">
@@ -56,7 +64,7 @@
                                         <label for="mother_name" class="control-label">Mother's name</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('mother_name', $docs->employee->profile->mother_name) }}"
+                                                value="{{ old('mother_name', $docs->employee->motherName) }}"
                                                 type="text"
                                                 name="mother_name"
                                                 class="form-control">
@@ -74,7 +82,7 @@
                                         <label for="mobile" class="control-label">Mobile number</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('mobile', $docs->employee->profile->mobile)  }}"
+                                                value="{{ old('mobile', $docs->employee->mobile)  }}"
                                                 type="text"
                                                 name="mobile"
                                                 class="form-control">
@@ -89,7 +97,7 @@
                                         <label for="address" class="control-label">Address</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('address', $docs->employee->profile->address) }}"
+                                                value="{{ old('address', $docs->employee->address) }}"
                                                 type="text"
                                                 name="address"
                                                 class="form-control">
@@ -116,7 +124,7 @@
                                                 @foreach($docs->genderOptions as $value => $label)
                                                 <option
                                                     value="{{ $value}}"
-                                                    {{ old('gender', $docs->employee->profile->gender) == $value ? 'selected' : '' }}>
+                                                    {{ old('gender', $docs->employee->gender) == $value ? 'selected' : '' }}>
                                                     {{ $label }}
                                                 </option>
                                                 @endforeach
@@ -131,7 +139,7 @@
                                         <label for="religion" class="control-label">Religion</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('religion', $docs->employee->profile->religion)  }}"
+                                                value="{{ old('religion', $docs->employee->religion)  }}"
                                                 type="text"
                                                 name="religion"
                                                 class="form-control">
@@ -146,7 +154,7 @@
                                         <label for="date_birth" class="control-label">Date of birth</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('date_birth', $docs->employee->profile->date_birth) }}"
+                                                value="{{ old('date_birth', $docs->employee->getDateBirthForInput()) }}"
                                                 type="date"
                                                 name="date_birth"
                                                 class="form-control">
@@ -173,7 +181,7 @@
                                                 @foreach($docs->designations as $designation)
                                                 <option
                                                     value="{{ $designation->id}}"
-                                                    {{ old('designation_id', $docs->employee->profile->designation_id) == $designation->id ? 'selected' : '' }}>
+                                                    {{ old('designation_id', $docs->employee->designationId) == $designation->id ? 'selected' : '' }}>
                                                     {{ $designation->name }}
                                                 </option>
                                                 @endforeach
@@ -189,7 +197,7 @@
                                         <label for="salary" class="control-label">Salary</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('salary', $docs->employee->profile->salary)  }}"
+                                                value="{{ old('salary', $docs->employee->salary)  }}"
                                                 type="number"
                                                 name="salary"
                                                 class="form-control">
@@ -203,7 +211,7 @@
                                         <label for="date_join" class="control-label">Joining date</label>
                                         <div class="controls">
                                             <input
-                                                value="{{ old('date_join', $docs->employee->profile->date_join) }}"
+                                                value="{{ old('date_join', $docs->employee->getDateJoinForInput()) }}"
                                                 type="date"
                                                 name="date_join"
                                                 class="form-control">
@@ -234,17 +242,13 @@
                                             <picture>
                                                 <img
                                                     id="show-image"
-                                                    src="{{ (!empty($docs->employee->profile->image) ? url($docs->student->profile->image ) : url('upload/no_image.jpg')) }}"
+                                                    src="{{ (!empty($docs->employee->imagePath) ? url($docs->employee->imagePath) : url('upload/no_image.jpg')) }}"
                                                     alt="User Avatar"
                                                     style="width:100px; height:100px; border:1px solid #ddd">
                                             </picture>
                                         </div>
                                     </div><!-- form group -->
                                     
-
-
-
-
 
                                 </div><!-- row -->
 

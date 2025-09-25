@@ -43,9 +43,9 @@ class Profile extends Model
     public static function genderOptions()
     {
         return [
-            'male' => 'Male',
-            'female' => 'Female',
-            'other' => 'Other',
+            'Male' => 'Male',
+            'Female' => 'Female',
+            'Other' => 'Other',
         ];
     }
 }

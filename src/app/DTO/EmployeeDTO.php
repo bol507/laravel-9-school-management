@@ -2,10 +2,13 @@
 namespace App\DTO;
 
 use Carbon\Carbon;
+use InvalidArgumentException;
 
 final class EmployeeDTO
 {
+   
     public string $name;
+    public ?string $id;
     public ?string $designationId;
     public ?string $fatherName;
     public ?string $motherName;
@@ -16,31 +19,44 @@ final class EmployeeDTO
     public ?Carbon $dateBirth;
     public ?Carbon $dateJoin;
     public ?float $salary;
-    public ?int $idNo;
+    public ?string $idNo;
     public ?string $code;
     public ?string $imagePath;
 
     public function __construct(array $data)
     {
-        $this->name          = $data['name'];
-        $this->designationId = $data['designationId'] ?? null;
-        $this->fatherName    = $data['fatherName'] ?? null;
-        $this->motherName    = $data['motherName'] ?? null;
-        $this->mobile        = $data['mobile'] ?? null;
-        $this->address       = $data['address'] ?? null;
-        $this->gender        = $data['gender'] ?? null;
-        $this->religion      = $data['religion'] ?? null;
-        $this->dateBirth     = $data['dateBirth'] ?? null;
-        $this->dateJoin      = $data['dateJoin'] ?? null;
-        $this->salary        = $data['salary'] ?? null;
-        $this->imagePath     = $data['imagePath'] ?? null;
-        $this->idNo          = $data['idNo'] ?? null;
-        $this->code          = $data['code'] ?? null;
+        // Required field
+        if (!isset($data['name'])) {
+            throw new InvalidArgumentException('The "name" field is required.');
+        }
+        
+        $this->name = (string) $data['name'];
+        // Optional fields
+        $this->id            = isset($data['id']) ? (string) $data['id'] : '';
+        $this->designationId = isset($data['designationId']) ? (string) $data['designationId'] : null;
+        $this->fatherName    = isset($data['fatherName']) ? (string) $data['fatherName'] : null;
+        $this->motherName    = isset($data['motherName']) ? (string) $data['motherName'] : null;
+        $this->mobile        = isset($data['mobile']) ? (string) $data['mobile'] : null;
+        $this->address       = isset($data['address']) ? (string) $data['address'] : null;
+        $this->gender        = isset($data['gender']) ? (string) $data['gender'] : null;
+        $this->religion      = isset($data['religion']) ? (string) $data['religion'] : null;
+        $this->imagePath     = isset($data['imagePath']) ? (string) $data['imagePath'] : null;
+        $this->code          = isset($data['code']) ? (string) $data['code'] : null;
+        $this->idNo          = isset($data['idNo']) ? (string) $data['idNo'] : null;
+
+         // Date fields
+        $this->dateBirth = $this->parseDate($data['dateBirth'] ?? null);
+        $this->dateJoin = $this->parseDate($data['dateJoin'] ?? null);
+
+        // Numeric fields
+        $this->salary = isset($data['salary']) ? (float) $data['salary'] : null;
+        
     }
 
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'designationId' => $this->designationId,
             'fatherName' => $this->fatherName,
@@ -61,6 +77,7 @@ final class EmployeeDTO
     public function toEloquent(): array
     {
         return [
+            'id'             => $this->id,
             'name'           => $this->name,
             'designation_id' => $this->designationId,
             'father_name'    => $this->fatherName,
@@ -78,29 +95,31 @@ final class EmployeeDTO
         ];
     }
 
-    public static function fromRequest(array $validated): self
+  
+    private function parseDate(mixed $value): ?Carbon
     {
-        return new self([
-            'name'          => $validated['name'],
-            'designationId' => $validated['designation_id'] ?? null,
-            'fatherName'    => $validated['father_name']    ?? null,
-            'motherName'    => $validated['mother_name']    ?? null,
-            'mobile'        => $validated['mobile']         ?? null,
-            'address'       => $validated['address']        ?? null,
-            'gender'        => $validated['gender']         ?? null,
-            'religion'      => $validated['religion']       ?? null,
-            'dateBirth'     => isset($validated['date_birth'])
-                                ? Carbon::parse($validated['date_birth'])
-                                : null,
-            'dateJoin'      => isset($validated['date_join'])
-                                ? Carbon::parse($validated['date_join'])
-                                : null,
-            'salary'        => isset($validated['salary'])
-                                ? (float) $validated['salary']
-                                : null,
-            'imagePath'     => null, // Image handling is done in the controller
-            'idNo'          => $validated['id_no'] ?? null,
-            'code'          => $validated['code']  ?? null,
-        ]);
+        if ($value === null) {
+            return null;
+        }
+
+        if ($value instanceof Carbon) {
+            return $value;
+        }
+
+        try {
+            return Carbon::parse($value);
+        } catch (\Exception $e) {
+            throw new InvalidArgumentException('Invalid date format: ' . $e->getMessage());
+        }
+    }
+
+    public function getDateBirthForInput(): ?string
+    {
+        return $this->dateBirth?->format('Y-m-d');
+    }
+
+    public function getDateJoinForInput(): ?string
+    {
+        return $this->dateJoin?->format('Y-m-d');
     }
 }

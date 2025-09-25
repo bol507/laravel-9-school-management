@@ -31,7 +31,7 @@ class StoreEmployeeRegistrationRequest extends FormRequest
             'designation_id' => 'required|exists:designations,id',
             'salary' => 'required|numeric|min:0',
             'address' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female,other',
+            'gender' => 'required|string|in:Male,Female,Other',
             'religion' => 'nullable|string|max:50',
             'date_birth' => 'required|date',
             'date_join' => 'required|date',
@@ -89,18 +89,19 @@ class StoreEmployeeRegistrationRequest extends FormRequest
 
      public function validatedForDto(): array
     {
+        $data = $this->validated();
         return [
-            'name'          => $this->validated('name'),
-            'designation_id'=> $this->validated('designation_id'),
-            'father_name'   => $this->validated('father_name'),
-            'mother_name'   => $this->validated('mother_name'),
-            'mobile'        => $this->validated('mobile'),
-            'address'       => $this->validated('address'),
-            'gender'        => $this->validated('gender'),
-            'religion'      => $this->validated('religion'),
-            'date_birth'    => $this->validated('date_birth'),
-            'date_join'     => $this->validated('date_join'),
-            'salary'        => $this->validated('salary'),
+            'name'          => $data['name'] ?? null,
+            'designationId' => $data['designation_id'] ?? null,
+            'fatherName'    => $data['father_name'] ?? null,
+            'motherName'    => $data['mother_name'] ?? null,
+            'mobile'        => $data['mobile'] ?? null,
+            'address'       => $data['address'] ?? null,
+            'gender'        => $data['gender'] ?? null,
+            'religion'      => $data['religion'] ?? null,
+            'dateBirth'     => $data['date_birth'] ?? null,
+            'dateJoin'      => $data['date_join'] ?? null,
+            'salary'        => $data['salary'] ?? null,
         ];
     }
 }
