@@ -60,4 +60,53 @@ interface StudentRepositoryInterface
         string $orderBy = 'created_at',
         string $orderDirection = 'desc'
     ): LengthAwarePaginator;
+    
+    /**
+     * Create a new student including user, profile, assignment, and discount records.
+     *
+     * This operation is performed within a database transaction to ensure data consistency.
+     *
+     * @param array $userData Attributes for the User model (e.g., name, password).
+     * @param array $profileData Attributes for the student's profile.
+     * @param array $assignData Assignment details (class, year, group, shift).
+     * @param int $discount Discount percentage to apply for registration fee.
+     * @return AssignStudent The created assignment record.
+     */
+    public function createStudent(
+        array $userData,
+        array $profileData,
+        array $assignData,
+        int $discount
+    ): AssignStudent;
+    
+    /**
+     * Updates an existing student's user data, profile, assignment, and discount.
+     *
+     * @param string $id The ID of the AssignStudent record to update.
+     * @param array $userData User-related fields to update (e.g., 'name').
+     * @param array $profileData Profile-related fields (e.g., 'gender', 'address', 'image_path').
+     * @param array $assignData Assignment-related fields (e.g., 'year_id', 'class_id', 'group_id', 'shift_id').
+     * @param int $discount The discount percentage to apply for the student's registration fee.
+     *
+     * @return \App\Models\AssignStudent The updated AssignStudent model with loaded relationships.
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException If the student assignment is not found.
+     * @throws \Throwable If the transaction fails.
+     */
+    public function updateStudent(
+        string $id,
+        array $userData,
+        array $profileData,
+        array $assignData,
+        int $discount
+    ): AssignStudent; 
+    
+    /**
+     * Count the total number of students in the system.
+     *
+     * Used, for example, to generate sequential student identifiers.
+     *
+     * @return int The number of users with 'student' type.
+     */
+    public function countStudents(): int;
 }

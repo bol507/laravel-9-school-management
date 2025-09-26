@@ -55,8 +55,8 @@ class AssignStudent extends Model
         return $this->belongsTo(StudentShift::class, 'shift_id', 'id');
     }
 
-    public function discounts(){
-        return $this->hasMany(DiscountStudent::class, 'assign_student_id');
+    public function discount(){
+        return $this->hasMany(DiscountStudent::class, 'assign_student_id', 'id');
     }
 
     public function totalDiscount(): Attribute {

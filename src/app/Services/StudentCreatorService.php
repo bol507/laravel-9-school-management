@@ -4,8 +4,7 @@ namespace App\Services;
 
 use App\DTO\StudentDTO;
 use App\Models\AssignStudent;
-use App\Models\DiscountStudent;
-use App\Models\User;
+use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Services\Contracts\ImageUploaderInterface;
 use App\Services\Contracts\StudentCreatorServiceInterface;
 use Illuminate\Http\UploadedFile;
@@ -16,11 +15,14 @@ use RuntimeException;
 final class StudentCreatorService implements StudentCreatorServiceInterface {
 
     private ImageUploaderInterface $imageUploader;
+    private StudentRepositoryInterface $studentRepository;
 
     public function __construct(
         ImageUploaderInterface $imageUploader,
+        StudentRepositoryInterface $studentRepository,
     ){
         $this->imageUploader = $imageUploader;
+        $this->studentRepository = $studentRepository;
     }
 
     public function execute(StudentDTO $data, ?UploadedFile $image = null): AssignStudent {
@@ -30,37 +32,41 @@ final class StudentCreatorService implements StudentCreatorServiceInterface {
                 try{
                     $imageUrl = $this->imageUploader->upload($image);
                 }catch(RuntimeException $e){
-
+                    throw new RuntimeException("Failed to upload image: " . $e->getMessage());
                 }
             }
 
             $code = str_pad((string) random_int(0,9999),4,'0',STR_PAD_LEFT);
-            $user = User::create([
+            $userData = [
                 'name' => $data->name,
                 'user_type' => 'student',
-                'password' => Hash::make($code)
-            ]);
+                'password' => Hash::make($code),
+            ];
+            //generate unique ID
+            $studentCount = $this->studentRepository->countStudents();
+            $idNo = $this->generateStudentCode($studentCount);
 
-            $eloquent = $data->toEloquent();
-            $eloquent['code'] = $code;
-            $eloquent['id_no'] = $this->generateStudentCode(User::where('user_type','student')->count());
-            $eloquent['image'] = $imageUrl;
-            $user->profile()->create($eloquent);
+            // profile data
+            $profileData = $data->toEloquent();
+            $profileData['code'] = $code;
+            $profileData['id_no'] = $idNo;
+            $profileData['image_path'] = $imageUrl;
 
-            $assign = AssignStudent::create([
-                'student_id' => $user->id,
-                'year_id' => $eloquent['year_id'],
-                'group_id' => $eloquent['group_id'],
-                'shift_id' => $eloquent['shift_id'],
-                'class_id' => $eloquent['class_id']
-            ]);
-            $category = FeeCategory::ensureRegistrationFeeExists();
-            DiscountStudent::create([
-                'assign_student_id' => $assign->id,
-                'fee_category_id' => $category->id,
-                'discount' => $eloquent['discount']
-            ]);
-            return $assign;
+            //Assignation data
+            $assignData = [
+                'year_id' => $profileData['year_id'],
+                'group_id' => $profileData['group_id'],
+                'shift_id' => $profileData['shift_id'],
+                'class_id' => $profileData['class_id'],
+            ];
+
+
+            return $this->studentRepository->createStudent(
+                $userData,
+                $profileData,
+                $assignData,
+                $data->discount ?? 0 
+            );
 
         });
     }

@@ -5,7 +5,7 @@ use App\DTO\EmployeeDTO;
 use App\Models\EmployeeSalaryChange;
 use App\Models\User;
 use App\Repositories\EmployeeRepository;
-use App\Services\Contracts\ImageBbUploaderInterface;
+use App\Services\Contracts\ImageUploaderInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
@@ -15,11 +15,11 @@ use RuntimeException;
 final class EmployeeUpdaterService
 {
     private EmployeeRepository $repository;
-    private ImageBbUploaderInterface $imageUploader;
+    private ImageUploaderInterface $imageUploader;
 
     public function __construct(
         EmployeeRepository $repository,
-        ImageBbUploaderInterface $imageUploader
+        ImageUploaderInterface $imageUploader
     ) {
         $this->repository = $repository;
         $this->imageUploader = $imageUploader;

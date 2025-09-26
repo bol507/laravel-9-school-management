@@ -8,8 +8,10 @@ use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Repositories\StudentRepository;
 use App\Services\Contracts\ImageUploaderInterface;
 use App\Services\Contracts\StudentCreatorServiceInterface;
+use App\Services\Contracts\StudentUpdaterServiceInterface;
 use App\Services\ImgBbUploaderService;
 use App\Services\StudentCreatorService;
+use App\Services\StudentUpdaterService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +42,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             StudentCreatorServiceInterface::class,
             StudentCreatorService::class
+        );
+
+        //student service updater
+        $this->app->bind(
+            StudentUpdaterServiceInterface::class,
+            StudentUpdaterService::class
         );
     }
 

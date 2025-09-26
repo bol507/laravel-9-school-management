@@ -148,7 +148,7 @@ final class StudentDTO
         $this->studentId = isset($data['studentId']) ? (string) $data['studentId'] : null;
         $this->classId = isset($data['classId']) ? (string) $data['classId'] : null;
         $this->yearId = isset($data['yearId']) ? (string) $data['yearId'] : null;
-        $this->groupId = isset($data['groupId']) ? (string) $data['groupId'] : null; // Fixed: was checking 'yearId' before
+        $this->groupId = isset($data['groupId']) ? (string) $data['groupId'] : null; 
         $this->shiftId = isset($data['shiftId']) ? (string) $data['shiftId'] : null;
         $this->feeCategoryId = isset($data['feeCategoryId']) ? (string) $data['feeCategoryId'] : null;
 
@@ -195,5 +195,10 @@ final class StudentDTO
             'fee_category_id' => $this->feeCategoryId,
             'discount'        => $this->discount,
         ];
+    }
+
+    public function getDateBirthForInput(): ?string
+    {
+        return $this->dateBirth?->format('Y-m-d');
     }
 }
