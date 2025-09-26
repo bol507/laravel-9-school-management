@@ -6,38 +6,30 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreStudentRegistrationRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+    
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
+    
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'father_name' => 'nullable|string|max:255',
-            'mother_name' => 'nullable|string|max:255',
-            'mobile' => 'nullable|string|max:15',
-            'address' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female,other',
-            'religion' => 'nullable|string|max:50',
-            'date_birth' => 'required|date',
-            'year_id' => 'required|exists:student_years,id',
-            'class_id' => 'required|exists:student_classes,id',
-            'group_id' => 'nullable|exists:student_groups,id',
-            'shift_id' => 'required|exists:student_shifts,id',
-            'discount' => 'nullable|numeric|min:0|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'name'          => 'required|string|max:255',
+            'father_name'   => 'nullable|string|max:255',
+            'mother_name'   => 'nullable|string|max:255',
+            'mobile'        => 'nullable|string|max:15',
+            'address'       => 'required|string|max:255',
+            'gender'        => 'required|string|in:Male,Female,Other',
+            'religion'      => 'nullable|string|max:50',
+            'date_birth'    => 'required|date',
+            'year_id'       => 'required|exists:student_years,id',
+            'class_id'      => 'required|exists:student_classes,id',
+            'group_id'      => 'nullable|exists:student_groups,id',
+            'shift_id'      => 'required|exists:student_shifts,id',
+            'discount'      => 'nullable|numeric|min:0|max:100',
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
         ];
     }
 
@@ -89,6 +81,25 @@ class StoreStudentRegistrationRequest extends FormRequest
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be of type: jpeg, png, jpg, gif.',
             'image.max' => 'The image cannot exceed 2MB.',
+        ];
+    }
+
+    public function validatedForDto(): array {
+        $data = $this->validated();
+        return [
+            'name'          => $data['name'] ?? null,
+            'fatherName'    => $data['father_name'],
+            'motherName'    => $data['mother_name'],
+            'mobile'        => $data['mobile'],
+            'address'       => $data['address'],
+            'gender'        => $data['gender'],
+            'religion'      => $data['religion'],
+            'dateBirth'     => $data['date_birth'],
+            'yearId'        => $data['year_id'], 
+            'classId'       => $data['class_id'],
+            'groupId'       => $data['group_id'],
+            'shiftId'       => $data['shift_id'],
+            'discount'      => $data['discount'],
         ];
     }
 }

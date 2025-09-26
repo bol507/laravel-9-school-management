@@ -26,9 +26,12 @@ class Profile extends Model
         'blood_group',
         'nationality',
         'status',
-        'student_no',
+        'id_no',
         'code',
-        'image',
+        'image_path',
+        'salary',
+        'date_join',
+        'designation_id',
         'user_id',
     ];
 
@@ -40,9 +43,9 @@ class Profile extends Model
     public static function genderOptions()
     {
         return [
-            'male' => 'Male',
-            'female' => 'Female',
-            'other' => 'Other',
+            'Male' => 'Male',
+            'Female' => 'Female',
+            'Other' => 'Other',
         ];
     }
 }

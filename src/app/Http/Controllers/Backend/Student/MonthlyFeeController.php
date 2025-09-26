@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
 use App\Models\StudentClass;
 use App\Models\StudentYear;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,6 +30,11 @@ class MonthlyFeeController extends Controller
 
     protected function listableFilters(): array{
         return ['year_id', 'class_id'];
+    }
+
+    protected function listableQueryScope(Builder $query, Request $request): Builder
+    {
+        return $query->whereHas('user', fn ($q) => $q->where('user_type', 'student'));
     }
 
     public function ViewMonthlyFee (Request $request){
@@ -61,7 +67,7 @@ class MonthlyFeeController extends Controller
             ->firstOrFail();
         $months = $this->getMonths();
         $monthName = $months[$monthId] ?? 'Unknown Month';
-        $slugSource = $details->profile->student_no ?? $details->user->name ?? (string) $details->student_id;
+        $slugSource = $details->profile->id_no ?? $details->user->name ?? (string) $details->student_id;
         $fileName = 'student_' . Str::slug($slugSource) . '.pdf';
 
         $docs = (object)[

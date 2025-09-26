@@ -8,17 +8,11 @@ use Illuminate\Database\Seeder;
 
 class FeeCategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    
     public function run()
     {
         $categories = ['Registration fee', 'Monthly fee', 'Exam fee'];
 
-        foreach ($categories as $category) {
-            FeeCategory::create(['name' => $category]);
-        }
+        FeeCategory::ensureDefaultFeesExist($categories);
     }
 }

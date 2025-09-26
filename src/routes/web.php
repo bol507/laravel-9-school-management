@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\Employee\EmployeeRegistrationController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Backend\Student\MonthlyFeeController;
 use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 use App\Http\Controllers\Backend\Student\StudentRegistrationController;
 use App\Http\Controllers\Backend\UserController;
+use Illuminate\Auth\Events\Verified;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,12 +155,12 @@ Route::prefix('students')->middleware([
         'verified'
     ])->group(function () {
     //student registration
-    Route::get('/registration/view', [StudentRegistrationController::class , 'ViewStudentRegistration'])->name('student.registration.view');
-    Route::get('/registration/add', [StudentRegistrationController::class, 'AddStudentRegistration'])->name('student.registration.add');
-    Route::post('/registration/store', [StudentRegistrationController::class, 'StoreStudentRegistration'])->name('student.registration.store');
-    Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'EditStudentRegistration'])->name('student.registration.edit');
-    Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'UpdateStudentRegistration'])->name('student.registration.update');
-    Route::get('/registration/details/{id}', [StudentRegistrationController::class , 'DetailsStudentRegistration'])->name('student.registration.details');
+    Route::get('/registration', [StudentRegistrationController::class , 'index'])->name('student.registration.view');
+    Route::get('/registration/add', [StudentRegistrationController::class, 'create'])->name('student.registration.add');
+    Route::post('/registration/store', [StudentRegistrationController::class, 'store'])->name('student.registration.store');
+    Route::get('/registration/edit/{id}', [StudentRegistrationController::class , 'edit'])->name('student.registration.edit');
+    Route::put('/registration/update/{id}', [StudentRegistrationController::class , 'update'])->name('student.registration.update');
+    Route::get('/registration/details/{id}', [StudentRegistrationController::class , 'show'])->name('student.registration.details');
     //student promotion
     Route::get('/promotion/edit/{id}', [StudentRegistrationController::class , 'EditStudentPromotion'])->name('student.promotion.edit');
     Route::put('/promotion/update/{id}', [StudentRegistrationController::class , 'UpdateStudentPromotion'])->name('student.promotion.update');
@@ -173,3 +175,18 @@ Route::prefix('students')->middleware([
     Route::get('/exam/fee/payslip',[ExamFeeController::class, 'PayslipExamFee'])->name('exam.fee.payslip');
 
 });
+
+Route::prefix('employees')
+    ->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])
+    ->group( function (){
+        //employee registration
+        Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
+        Route::get('/registration/add', [EmployeeRegistrationController::class, 'create'])->name('employee.registration.add');
+        Route::post('/registration/store', [EmployeeRegistrationController::class, 'store'])->name('employee.registration.store');
+        Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'edit'])->name('employee.registration.edit');
+        Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'update'])->name('employee.registration.update');
+    });

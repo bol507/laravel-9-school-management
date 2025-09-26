@@ -57,20 +57,22 @@
   }//end switch
   
 </script>
-@endif
+@else
 
-@if ($errors->any())
-<script>
-  Toastify({
-    text: "There were errors in the form. Please review it.",
-    duration: 4000,
-    close: true,
-    style: {
-      background:" hsl(0, 85%, 52%)",
-    },
-    onClick: function () {
-      Toastify.hide();
-    }
-  }).showToast();
-</script>
+    @if ($errors->any())
+    <script>
+    Toastify({
+        text: "There were errors in the form. Please review it.",
+        duration: 4000,
+        close: true,
+        style: {
+        background:" hsl(0, 85%, 52%)",
+        },
+        onClick: function () {
+        Toastify.hide();
+        }
+    }).showToast();
+    </script>
+    @endif
+
 @endif

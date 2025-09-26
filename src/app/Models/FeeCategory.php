@@ -20,12 +20,7 @@ class FeeCategory extends Model
         'description'
     ];
 
-    /**
-     * Ensure that the main fee categories exist.
-     *
-     * @param array $names
-     * @return void
-     */
+    
     public static function ensureDefaultFeesExist(array $names = ['Registration fee', 'Monthly fee', 'Exam fee'])
     {
         foreach ($names as $name) {
@@ -37,6 +32,7 @@ class FeeCategory extends Model
     {
         return self::firstOrCreate(['name' => 'Registration fee']);
     }
+    
     //use FeeCategory::registration()->value('id');
     public function scopeRegistration($query)
     {

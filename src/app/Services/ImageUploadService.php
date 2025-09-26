@@ -1,35 +1,26 @@
 <?php
-
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use App\Services\Contracts\ImageUploaderInterface;
 
-class ImageUploadService
+final class ImageUploadService implements ImageUploaderInterface
 {
-    public function uploadImage($image)
+    private const DISK = 'public';
+
+    public function upload(UploadedFile $file): string
     {
-        if (!$image->isValid()) {
-            throw new \Exception('Uploaded file is not valid.');
+        $path = $file->store('employees', self::DISK);
+        if ($path === false) {
+            throw new \RuntimeException('Failed to store image');
         }
+        return $path;
+    }
 
-        $apiKey = env('IMGBB_API_KEY');
-        if (!$apiKey) {
-            Log::debug('An error in api key: ' . $apiKey);
-            throw new \Exception('Error in api key');
-        }
-
-        $response = Http::attach(
-            'image',
-            file_get_contents($image->getRealPath()),
-            $image->getClientOriginalName()
-        )->post('https://api.imgbb.com/1/upload?key=' . $apiKey);
-
-        if ($response->successful() && ($url = data_get($response->json(), 'data.url'))) {
-            return $url;
-        } else {
-            Log::debug('imgBB multipart error', $response->json());
-            return null;
-        }
+    public function delete(?string $path): void
+    {
+        if ($path === null) { return; }
+        Storage::disk(self::DISK)->delete($path);
     }
 }

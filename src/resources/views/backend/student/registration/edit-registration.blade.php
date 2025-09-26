@@ -4,7 +4,15 @@
   <div class="container-full">
     <section class="content">
       <div class="box">
-
+        @if ($errors->any())
+<div class="alert alert-danger">
+<ul class="mb-0">
+@foreach ($errors->all() as $error)
+<li>{{ $error }}</li>
+@endforeach
+</ul>
+</div>
+@endif
         <div class="box-header with-border">
           <h4 class="box-title">Edit student</h4>
         </div>
@@ -26,7 +34,7 @@
                       <span class="text-danger">*</span>
                       <div class="controls">
                         <input
-                          value="{{ old('name',$docs->student->user->name)  }}"
+                          value="{{ old('name',$docs->student->name)  }}"
                           type="text"
                           name="name"
                           class="form-control"
@@ -42,7 +50,7 @@
                       <label for="father_name" class="control-label">Father's name</label>
                       <div class="controls">
                         <input
-                          value="{{ old('father_name', $docs->student->profile->father_name) }}"
+                          value="{{ old('father_name', $docs->student->fatherName) }}"
                           type="text"
                           name="father_name"
                           class="form-control"
@@ -58,7 +66,7 @@
                       <label for="mother_name" class="control-label">Mother's name</label>
                       <div class="controls">
                         <input
-                          value="{{ old('mother_name',$docs->student->profile->mother_name) }}"
+                          value="{{ old('mother_name',$docs->student->motherName) }}"
                           type="text"
                           name="mother_name"
                           class="form-control"
@@ -77,7 +85,7 @@
                       <label for="mobile" class="control-label">Mobile number</label>
                       <div class="controls">
                         <input
-                          value="{{ old('mobile',$docs->student->profile->mobile)  }}"
+                          value="{{ old('mobile',$docs->student->mobile)  }}"
                           type="text"
                           name="mobile"
                           class="form-control"
@@ -93,7 +101,7 @@
                       <label for="address" class="control-label">Address</label>
                       <div class="controls">
                         <input
-                          value="{{ old('address',$docs->student->profile->address) }}"
+                          value="{{ old('address',$docs->student->address) }}"
                           type="text"
                           name="address"
                           class="form-control"
@@ -121,7 +129,7 @@
                         @foreach($docs->genderOptions as $value => $label)
                         <option 
                           value="{{ $value}}" 
-                          {{ old( 'gender', $docs->student->profile->gender ) == $value ? 'selected' : '' }}
+                          {{ old( 'gender', $docs->student->gender ) == $value ? 'selected' : '' }}
                         >
                           {{ $label }}
                         </option>
@@ -137,7 +145,7 @@
                       <label for="religion" class="control-label">Religion</label>
                       <div class="controls">
                         <input
-                          value="{{ old('religion',$docs->student->profile->religion)  }}"
+                          value="{{ old('religion',$docs->student->religion)  }}"
                           type="text"
                           name="religion"
                           class="form-control"
@@ -153,7 +161,7 @@
                       <label for="date_birth" class="control-label">Date of birth</label>
                       <div class="controls">
                         <input
-                          value="{{ old('date_birth',$docs->student->profile->date_birth) }}"
+                          value="{{ old('date_birth',$docs->student->getDateBirthForInput()) }}"
                           type="date"
                           name="date_birth"
                           class="form-control"
@@ -168,7 +176,7 @@
                       <label for="discount" class="control-label">Discount</label>
                       <div class="controls">
                         <input
-                          value="{{ old('discount',$docs->student->discount->discount)  }}"
+                          value="{{ old('discount',$docs->student->discount)  }}"
                           type="text"
                           name="discount"
                           class="form-control"
@@ -199,7 +207,7 @@
                         @foreach($docs->years as $year)
                         <option 
                           value="{{ $year->id}}" 
-                          {{ old('year_id', $docs->student->year_id) == $year->id ? 'selected' : '' }}
+                          {{ old('year_id', $docs->student->yearId) == $year->id ? 'selected' : '' }}
                         >
                           {{ $year->name }}
                         </option>
@@ -225,7 +233,7 @@
                         @foreach($docs->classes as $class)
                         <option 
                           value="{{ $class->id}}" 
-                          {{ old('class_id',$docs->student->class_id) == $class->id ? 'selected' : '' }}
+                          {{ old('class_id',$docs->student->classId) == $class->id ? 'selected' : '' }}
                         >
                           {{ $class->name }}
                         </option>
@@ -251,7 +259,7 @@
                         @foreach($docs->groups as $group)
                         <option 
                           value="{{ $group->id}}" 
-                          {{ old('group_id', $docs->student->group_id) == $group->id ? 'selected' : '' }}
+                          {{ old('group_id', $docs->student->groupId) == $group->id ? 'selected' : '' }}
                         >
                           {{ $group->name }}
                         </option>
@@ -285,7 +293,7 @@
                         @foreach($docs->shifts as $shift)
                         <option 
                           value="{{ $shift->id}}" 
-                          {{ old('shift_id', $docs->student->shift_id) == $shift->id ? 'selected' : '' }}
+                          {{ old('shift_id', $docs->student->shiftId) == $shift->id ? 'selected' : '' }}
                         >
                           {{ $shift->name }}
                         </option>
@@ -316,7 +324,7 @@
                         <picture>
                           <img 
                             id="show-image" 
-                            src="{{ (!empty($docs->student->profile->image) ? url($docs->student->profile->image ) : url('upload/no_image.jpg')) }}" 
+                            src="{{ (!empty($docs->student->imagePath) ? url($docs->student->imagePath ) : url('upload/no_image.jpg')) }}" 
                             alt="User Avatar"
                             style="width:100px; height:100px; border:1px solid #ddd"
                           >
@@ -332,7 +340,7 @@
 
                 <div class="row">  
                   <div class="col-12">
-                    <input type="submit" class="btn btn-info" value="Submit">
+                    <input type="submit" class="btn btn-info" value="Update">
                   </div>
                 </div>
               </form>

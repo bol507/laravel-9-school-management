@@ -60,7 +60,7 @@
 
                     <x-ui.search :action="route('student.registration.view')" :search="$docs->search"/>
                   </div>
-
+                    
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs->students"
@@ -68,10 +68,10 @@
                       'user.name' => 'Name',
                       'year.name' => 'Year',
                       'class.name' => 'Class',
-                      'profile.image' => 'Image',
-                      'profile.student_no' => 'Student no',
+                      'profile.image_path' => 'Image',
+                      'profile.id_no' => 'Student no',
                     ]"
-                    :images="['profile.image']"
+                    :images="['profile.image_path']"
                     :actions="[
                       'Edit' => fn($doc) => [
                         'href' => route('student.registration.edit',$doc),

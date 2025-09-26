@@ -17,4 +17,11 @@ class Designation extends Model
     protected $fillable = [
         'name',
     ];
+
+    public static function ensureDefaultDesignationsExist(array $names = ['Teacher', 'Head Teacher', 'Assistant Teacher']): void
+    {
+        foreach ($names as $name) {
+            self::firstOrCreate(['name' => $name]);
+        }
+    }
 }

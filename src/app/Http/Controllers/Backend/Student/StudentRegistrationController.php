@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Student;
 
+use App\DTO\StudentDTO;
 use App\Facades\PDF;
 use App\Factories\ProfileStudentFactory;
 use App\Http\Controllers\Controller;
@@ -16,56 +17,54 @@ use App\Models\StudentGroup;
 use App\Models\StudentShift;
 use App\Models\StudentYear;
 use App\Models\User;
-use App\Services\ImageUploadService;
+use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Services\Contracts\StudentCreatorServiceInterface;
+use App\Services\Contracts\StudentUpdaterServiceInterface;
+use App\Services\ImgBbUploaderService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use stdClass;
+use Throwable;
 
 class StudentRegistrationController extends Controller
 {
-    public function ViewStudentRegistration(Request $request) {
+    private StudentRepositoryInterface $repository;
+    private StudentCreatorServiceInterface $creatorService;
+    private StudentUpdaterServiceInterface $updaterService;
+
+    public function __construct(
+        StudentRepositoryInterface $repository,
+        StudentCreatorServiceInterface $creatorService,
+        StudentUpdaterServiceInterface $updaterService,
+    ){
+        $this->repository = $repository;
+        $this->creatorService = $creatorService;
+        $this->updaterService = $updaterService;
+    }
+
+    public function index(Request $request) {
         $perPage = (int) $request->input('limit',10);
         $perPage = max(1,min($perPage,100));
+        $search = $request->input('search');
 
-        /* ---------- find  / pagination  --------------- */
-        $query = AssignStudent::with(['user','profile']);
+        $students = $this->repository->paginate(
+            perPage: $perPage,
+            search: $search,
+        );
         
-        if($request->filled('search')){
-            $search = trim($request->input('search'));
-            $query->whereHas('user', function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            });
-        }
-
-        if ($request->filled('year_id')) {
-            $query->where('year_id', $request->year_id);
-        }
-        if ($request->filled('class_id')) {
-            $query->where('class_id', $request->class_id);
-        }
-
-        $students = $query
-            ->orderBy('student_id')
-            ->paginate($perPage)
-            ->appends($request->query());
-
-        /* ----------  only object $docs  ---------- */
-
         $docs = (object)[
-            'students'    => $students,           
+            'students'    => $students,
             'search'      => $request->input('search'),
             'years'       => StudentYear::all()->sortByDesc('name')->values(),
             'classes'     => StudentClass::all()->sortByDesc('name')->values(),
         ];
-        
-        return view('backend.student.registration.view-registration',compact('docs'));
 
+        return view('backend.student.registration.view-registration',compact('docs'));
     }
 
-    public function AddStudentRegistration(){
+    public function create  (){
         $docs = new stdClass();
         $docs->years = StudentYear::all();
         $docs->classes = StudentClass::all();
@@ -75,150 +74,74 @@ class StudentRegistrationController extends Controller
         return view('backend.student.registration.add-registration',['docs' => $docs]);
     }
 
-    public function StoreStudentRegistration(StoreStudentRegistrationRequest $request){
+    public function store(StoreStudentRegistrationRequest $request){
 
         try{
-        $validated = $request->validated();
-        
-        if ($request->hasFile('image')) {
-            $imageUploadService = new ImageUploadService();
-            $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
-        }
-
-        $category = FeeCategory::ensureRegistrationFeeExists();
-        $validated['fee_category_id'] = $category->id;
-
-        $registration = DB::transaction(function () use ($validated) {
-
-                $user = User::create([
-                    'user_type' => 'student', 
-                    'name' => $validated['name'], 
-                ]);
-
-                $profileStudentFactory = new ProfileStudentFactory();
-                
-                $result = $profileStudentFactory->updateOrCreate($user->id, $validated);
-                
-                $user->password = Hash::make($result['code']);
-                $user->update();
-
-               
-
-                $assign =  AssignStudent::updateOrCreate(
-                    ['student_id' => $user->id], //match
-                    [
-                        'year_id' => $validated['year_id'],
-                        'class_id' => $validated['class_id'],
-                        'group_id' => $validated['group_id'],
-                        'shift_id' => $validated['shift_id'],
-                    ]
-                );
-
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $assign->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
-
-                return $assign;
-            });
-
-            $notification = $this->createNotification($registration);
+            $dto = new StudentDTO($request->validatedForDto());
+            $image = $request->file('image');
+            $this->creatorService->execute($dto, $image);
             return redirect()
                 ->route('student.registration.view')
-                ->with($notification);
-        } catch (Exception $e) {
-            
-            Log::error('An error occurred while processing the request:',[
+                ->with([
+                    'message' => 'Student registered successfully',
+                    'alert-type' => 'success'
+                ]);
+        } catch (Throwable $e) {
+
+            Log::error('Student registration failed',[
                 'message' =>  $e->getMessage(),
-                'request' => $request->except(['image']),
+                'line'    => $e->getLine(),
+                'stack' => $e->getTraceAsString(),
+                'request_data' => $request->except(['image','_token']),
             ]);
             return redirect()
                 ->back()
-                ->withInput()
+                ->withInput($request->except(['image']))
                 ->withErrors([
-                    'message' => 'An error occurred while saving the assignation: ' . $e->getMessage(),
+                    'message' => 'An error occurred while saving the student. Please try again',
                     'alert-type' => 'error'
                 ]);
         }
 
     }
 
-    public function EditStudentRegistration($id){
+    public function edit($id){
         $docs = new stdClass();
         $docs->years = StudentYear::all();
         $docs->classes = StudentClass::all();
         $docs->groups = StudentGroup::all();
         $docs->shifts = StudentShift::all();
         $docs->genderOptions = Profile::genderOptions();
-        $docs->student = AssignStudent::with(['user','discount','profile'])->where('id',$id)
-            ->first();
+        $docs->student = $this->repository->findDTOOrFail($id);
         return view('backend.student.registration.edit-registration',['docs' => $docs]);
     }
 
-    public function UpdateStudentRegistration(UpdateStudentRegistrationRequest $request, $id){
+    public function update(UpdateStudentRegistrationRequest $request, $id){
         try{
-            $validated = $request->validated();
+            $dto = new StudentDTO($request->validatedForDto());
+            $image = $request->file('image');
+            $this->updaterService->execute($id,$dto,$image);
+
             
-            if ($request->hasFile('image')) {
-                $imageUploadService = new ImageUploadService();
-                $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
-            }
-
-            $category = FeeCategory::ensureRegistrationFeeExists();
-            $validated['fee_category_id'] = $category->id;
-            $student = AssignStudent::findOrFail($id);
-            if (!$student) {
-                throw new Exception('Student assignment not found.');
-            }
-
-            $registration = DB::transaction(function () use ($validated, $student) {
-                
-
-                $user = User::updateOrCreate(
-                    ['id' => $student->student_id],//match
-                    ['name' => $validated['name']]
-                );
-
-                $profileStudentFactory = new ProfileStudentFactory();
-                $profileStudentFactory->updateOrCreate($user->id, $validated);
-
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $user->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
-
-                return AssignStudent::updateOrCreate(
-                    ['student_id' => $user->id], //match
-                    [
-                        'year_id' => $validated['year_id'],
-                        'class_id' => $validated['class_id'],
-                        'group_id' => $validated['group_id'],
-                        'shift_id' => $validated['shift_id'],
-                    ]
-                );
-            });
-
-            $notification = $this->createNotification($registration);
             return redirect()
                 ->route('student.registration.view')
-                ->with($notification);
+                ->with([
+                    'message' => 'Student updated successfully',
+                    'alert-type' => 'success'
+                ]);
         } catch (Exception $e) {
-            
-            Log::error('An error occurred while processing the request:',[
+
+            Log::error('Student updating failed',[
                 'message' =>  $e->getMessage(),
-                'request' => $request->except(['image'], true)
+                'line'    => $e->getLine(),
+                'stack' => $e->getTraceAsString(),
+                'request_data' => $request->except(['image','_token']),
             ]);
             return redirect()
                 ->back()
-                ->withInput()
+                ->withInput($request->except(['image']))
                 ->withErrors([
-                    'message' => 'An error occurred while saving the assignation: ' . $e->getMessage(),
+                    'message' => 'An error occurred while saving the assignation. Pleaser try again ',
                     'alert-type' => 'error'
                 ]);
         }
@@ -239,10 +162,10 @@ class StudentRegistrationController extends Controller
     public function UpdateStudentPromotion(UpdateStudentRegistrationRequest $request, $id){
         try{
             $validated = $request->validated();
-            
+
             if ($request->hasFile('image')) {
-                $imageUploadService = new ImageUploadService();
-                $validated['image'] = $imageUploadService->uploadImage($request->file('image'));
+                $imageUploadService = new ImgBbUploaderService();
+                $validated['image'] = $imageUploadService->upload($request->file('image'));
             }
 
             $category = FeeCategory::ensureRegistrationFeeExists();
@@ -253,7 +176,7 @@ class StudentRegistrationController extends Controller
             }
 
             $registration = DB::transaction(function () use ($validated, $student) {
-                
+
 
                 $user = User::updateOrCreate(
                     ['id' => $student->student_id],//match
@@ -287,7 +210,7 @@ class StudentRegistrationController extends Controller
                 ->route('student.registration.view')
                 ->with($notification);
         } catch (Exception $e) {
-            
+
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
                 'request' => $request->except(['image'], true)
@@ -302,7 +225,7 @@ class StudentRegistrationController extends Controller
         }
     }
 
-    public function DetailsStudentRegistration($id){
+    public function show($id){
         $student = AssignStudent::findOrFail($id);
         return PDF::loadView('pdfs.student', [
         'user' => $student->user,
