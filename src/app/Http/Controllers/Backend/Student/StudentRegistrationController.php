@@ -53,7 +53,7 @@ class StudentRegistrationController extends Controller
             perPage: $perPage,
             search: $search,
         );
-        
+
         $docs = (object)[
             'students'    => $students,
             'search'      => $request->input('search'),
@@ -122,7 +122,7 @@ class StudentRegistrationController extends Controller
             $image = $request->file('image');
             $this->updaterService->execute($id,$dto,$image);
 
-            
+
             return redirect()
                 ->route('student.registration.view')
                 ->with([
@@ -147,85 +147,33 @@ class StudentRegistrationController extends Controller
         }
     }
 
-    public function EditStudentPromotion($id){
-        $docs = new stdClass();
-        $docs->years = StudentYear::all();
-        $docs->classes = StudentClass::all();
-        $docs->groups = StudentGroup::all();
-        $docs->shifts = StudentShift::all();
-        $docs->genderOptions = Profile::genderOptions();
-        $docs->student = AssignStudent::with(['user','discount','profile'])->where('id',$id)
-            ->first();
-        return view('backend.student.registration.promotion-registration',['docs' => $docs]);
-    }
-
     public function UpdateStudentPromotion(UpdateStudentRegistrationRequest $request, $id){
-        try{
-            $validated = $request->validated();
 
-            if ($request->hasFile('image')) {
-                $imageUploadService = new ImgBbUploaderService();
-                $validated['image'] = $imageUploadService->upload($request->file('image'));
-            }
-
-            $category = FeeCategory::ensureRegistrationFeeExists();
-            $validated['fee_category_id'] = $category->id;
-            $student = AssignStudent::findOrFail($id);
-            if (!$student) {
-                throw new Exception('Student promotion not found.');
-            }
-
-            $registration = DB::transaction(function () use ($validated, $student) {
-
-
-                $user = User::updateOrCreate(
-                    ['id' => $student->student_id],//match
-                    ['name' => $validated['name']]
-                );
-
-                $profileStudentFactory = new ProfileStudentFactory();
-                $profileStudentFactory->updateOrCreate($user->id, $validated);
-
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $user->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
-
-                return AssignStudent::updateOrCreate(
-                    ['student_id' => $user->id], //match
-                    [
-                        'year_id' => $validated['year_id'],
-                        'class_id' => $validated['class_id'],
-                        'group_id' => $validated['group_id'],
-                        'shift_id' => $validated['shift_id'],
-                    ]
-                );
-            });
-
-            $notification = $this->createNotification($registration);
-            return redirect()
-                ->route('student.registration.view')
-                ->with($notification);
-        } catch (Exception $e) {
-
-            Log::error('An error occurred while processing the request:',[
-                'message' =>  $e->getMessage(),
-                'request' => $request->except(['image'], true)
-            ]);
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors([
-                    'message' => 'An error occurred while saving the promotion: ' . $e->getMessage(),
-                    'alert-type' => 'error'
-                ]);
-        }
     }
 
     public function show($id){
+        $studentDTO = $this->repository->findDTOOrFail($id);
+        
+        $year = $studentDTO->yearId ? StudentYear::find($studentDTO->yearId) : null;
+        $class = $studentDTO->classId ? StudentClass::find($studentDTO->classId) : null;
+        $group = $studentDTO->groupId ? StudentGroup::find($studentDTO->groupId) : null;
+        $shift = $studentDTO->shiftId ? StudentShift::find($studentDTO->shiftId) : null;
+
+        $docs = new stdClass();
+        $docs->student = (object) array_merge(
+            get_object_vars($studentDTO),
+            [
+                'yearName' => $year?->name,
+                'className' => $class?->name,
+                'groupName' => $group?->name,
+                'shiftName' => $shift?->name,
+            ]
+        );
+
+        return view('backend.student.registration.details',['docs' => $docs]);
+    }
+
+    public function pdf($id){
         $student = AssignStudent::findOrFail($id);
         return PDF::loadView('pdfs.student', [
         'user' => $student->user,
@@ -234,20 +182,4 @@ class StudentRegistrationController extends Controller
         'profile' => $student->profile,
         ])->stream("student_{$student->id}.pdf");
     }
-
-    private function createNotification($value){
-        if ($value->wasRecentlyCreated) {
-            return [
-                'message' => 'Assignation created successfully',
-                'alert-type' => 'success'
-            ];
-        } else {
-            return [
-                'message' => 'Assignation updated successfully',
-                'alert-type' => 'warning'
-            ];
-        }
-    }
-
-
 }
