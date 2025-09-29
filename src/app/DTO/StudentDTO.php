@@ -148,7 +148,7 @@ final class StudentDTO
         $this->studentId = isset($data['studentId']) ? (string) $data['studentId'] : null;
         $this->classId = isset($data['classId']) ? (string) $data['classId'] : null;
         $this->yearId = isset($data['yearId']) ? (string) $data['yearId'] : null;
-        $this->groupId = isset($data['groupId']) ? (string) $data['groupId'] : null; 
+        $this->groupId = isset($data['groupId']) ? (string) $data['groupId'] : null;
         $this->shiftId = isset($data['shiftId']) ? (string) $data['shiftId'] : null;
         $this->feeCategoryId = isset($data['feeCategoryId']) ? (string) $data['feeCategoryId'] : null;
 
@@ -163,7 +163,7 @@ final class StudentDTO
      *
      * @return array Associative array of attributes ready for Eloquent mass assignment.
      */
-    public function toEloquent(): array
+    public function toArray(): array
     {
         return [
             // Primary identifier (used when updating existing records)

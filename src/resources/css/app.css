@@ -90,7 +90,7 @@
     /* 30% */
 
     --theme-primary-grd: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)) --theme-primary-grd-dark: linear-gradient(45deg, var(--theme-primary-primary-dark), var(--theme-primary-info-dark));
-  
+
 
   /*font weight*/
 
@@ -336,7 +336,7 @@ a.btn {
 .fixed .left-side{
         position: fixed;
     }
-    
+
 .fixed .main-header{
         position: fixed;
         z-index: 810;
@@ -352,6 +352,12 @@ a.btn {
         padding-top: var(--main-hed-nav) + 10;
     }
 .fixed    .right-side{
-        padding-top: var(--main-hed-nav) + 10; 
+        padding-top: var(--main-hed-nav) + 10;
     }
 
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}

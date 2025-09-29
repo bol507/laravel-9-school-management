@@ -24,10 +24,10 @@ final class StudentUpdaterService implements StudentUpdaterServiceInterface
         $this->repository = $repository;
         $this->imageUploader = $imageUploader;
     }
-    
+
     public function execute (string $id, StudentDTO $data, ?UploadedFile $image = null) : AssignStudent {
        return DB::transaction(function() use ($id,$data,$image){
-           
+
             $existingStudent = $this->repository->findById($id);
             if (!$existingStudent) {
                 throw new RuntimeException("Student with ID {$id} not found.");
@@ -54,10 +54,10 @@ final class StudentUpdaterService implements StudentUpdaterServiceInterface
                     throw new RuntimeException("Failed to upload image: " . $e->getMessage());
                 }
             } else {
-                // Conservar la imagen actual (no la toques)
+                // keep actual image.
                 $profileData['image_path'] = $existingStudent->profile->image_path ?? null;
             }
-            
+
             $assignData = [
                 'year_id'   => $data->yearId,
                 'group_id'  => $data->groupId,

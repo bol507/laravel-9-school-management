@@ -17,6 +17,10 @@ trait DateParsingTrait
             return $value;
         }
 
+        if (is_string($value) && trim($value) === '') {
+            return null;
+        }
+
         try {
             return Carbon::parse($value);
         } catch (\Exception $e) {

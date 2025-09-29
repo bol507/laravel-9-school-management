@@ -60,7 +60,7 @@ interface StudentRepositoryInterface
         string $orderBy = 'created_at',
         string $orderDirection = 'desc'
     ): LengthAwarePaginator;
-    
+
     /**
      * Create a new student including user, profile, assignment, and discount records.
      *
@@ -78,7 +78,7 @@ interface StudentRepositoryInterface
         array $assignData,
         int $discount
     ): AssignStudent;
-    
+
     /**
      * Updates an existing student's user data, profile, assignment, and discount.
      *
@@ -99,8 +99,8 @@ interface StudentRepositoryInterface
         array $profileData,
         array $assignData,
         int $discount
-    ): AssignStudent; 
-    
+    ): AssignStudent;
+
     /**
      * Count the total number of students in the system.
      *
@@ -109,4 +109,5 @@ interface StudentRepositoryInterface
      * @return int The number of users with 'student' type.
      */
     public function countStudents(): int;
+
 }

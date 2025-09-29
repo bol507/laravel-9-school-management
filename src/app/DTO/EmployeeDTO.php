@@ -1,12 +1,14 @@
 <?php
 namespace App\DTO;
 
+use App\DTO\Traits\DateParsingTrait;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
 final class EmployeeDTO
 {
-   
+    use DateParsingTrait;
+
     public string $name;
     public ?string $id;
     public ?string $designationId;
@@ -29,7 +31,7 @@ final class EmployeeDTO
         if (!isset($data['name'])) {
             throw new InvalidArgumentException('The "name" field is required.');
         }
-        
+        $this->id = isset($data['id']) ? (string) $data['id'] : null;
         $this->name = (string) $data['name'];
         // Optional fields
         $this->id            = isset($data['id']) ? (string) $data['id'] : '';
@@ -50,31 +52,10 @@ final class EmployeeDTO
 
         // Numeric fields
         $this->salary = isset($data['salary']) ? (float) $data['salary'] : null;
-        
+
     }
 
     public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'designationId' => $this->designationId,
-            'fatherName' => $this->fatherName,
-            'motherName' => $this->motherName,
-            'mobile' => $this->mobile,
-            'address' => $this->address,
-            'gender' => $this->gender,
-            'religion' => $this->religion,
-            'dateBirth' => $this->dateBirth,
-            'dateJoin' => $this->dateJoin,
-            'salary' => $this->salary,
-            'imagePath' => $this->imagePath,
-            'idNo' => $this->idNo,
-            'code' => $this->code,
-        ];
-    }
-
-    public function toEloquent(): array
     {
         return [
             'id'             => $this->id,
@@ -93,24 +74,6 @@ final class EmployeeDTO
             'id_no'          => $this->idNo,
             'code'           => $this->code,
         ];
-    }
-
-  
-    private function parseDate(mixed $value): ?Carbon
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        if ($value instanceof Carbon) {
-            return $value;
-        }
-
-        try {
-            return Carbon::parse($value);
-        } catch (\Exception $e) {
-            throw new InvalidArgumentException('Invalid date format: ' . $e->getMessage());
-        }
     }
 
     public function getDateBirthForInput(): ?string

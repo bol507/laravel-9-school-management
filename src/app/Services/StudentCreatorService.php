@@ -47,7 +47,7 @@ final class StudentCreatorService implements StudentCreatorServiceInterface {
             $idNo = $this->generateStudentCode($studentCount);
 
             // profile data
-            $profileData = $data->toEloquent();
+            $profileData = $data->toArray();
             $profileData['code'] = $code;
             $profileData['id_no'] = $idNo;
             $profileData['image_path'] = $imageUrl;
@@ -65,7 +65,7 @@ final class StudentCreatorService implements StudentCreatorServiceInterface {
                 $userData,
                 $profileData,
                 $assignData,
-                $data->discount ?? 0 
+                $data->discount ?? 0
             );
 
         });

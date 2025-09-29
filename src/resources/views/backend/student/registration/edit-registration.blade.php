@@ -4,15 +4,7 @@
   <div class="container-full">
     <section class="content">
       <div class="box">
-        @if ($errors->any())
-<div class="alert alert-danger">
-<ul class="mb-0">
-@foreach ($errors->all() as $error)
-<li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif
+
         <div class="box-header with-border">
           <h4 class="box-title">Edit student</h4>
         </div>
@@ -20,15 +12,15 @@
         <div class="box-body">
           <div class="row">
             <div class="col">
-              <form 
-                method="POST" 
+              <form
+                method="POST"
                 action="{{ route('student.registration.update',$docs->student->id) }}"
                 enctype="multipart/form-data"
               >
                 @csrf
                 @method('PUT')
                 <div class="row">
-                  
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="name" class="control-label">Student name</label>
                       <span class="text-danger">*</span>
@@ -45,7 +37,7 @@
                         @enderror
                       </div>
                     </div>
-                  
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="father_name" class="control-label">Father's name</label>
                       <div class="controls">
@@ -60,8 +52,8 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                
-                
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="mother_name" class="control-label">Mother's name</label>
                       <div class="controls">
@@ -76,11 +68,11 @@
                         @enderror
                       </div>
                     </div><!-- /.form-group -->
-                 
+
                 </div><!-- row -->
 
                 <div class="row">
-              
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="mobile" class="control-label">Mobile number</label>
                       <div class="controls">
@@ -95,8 +87,8 @@
                         @enderror
                       </div>
                     </div><!-- form-group -->
-                
-              
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="address" class="control-label">Address</label>
                       <div class="controls">
@@ -111,7 +103,7 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                 
+
                   <div class="form-group col col-sm-12 col-md-4">
                     <label>Gender</label>
                     <div class="controls">
@@ -127,8 +119,8 @@
                           Select gender
                         </option>
                         @foreach($docs->genderOptions as $value => $label)
-                        <option 
-                          value="{{ $value}}" 
+                        <option
+                          value="{{ $value}}"
                           {{ old( 'gender', $docs->student->gender ) == $value ? 'selected' : '' }}
                         >
                           {{ $label }}
@@ -140,7 +132,7 @@
                 </div><!-- row -->
 
                 <div class="row">
-              
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="religion" class="control-label">Religion</label>
                       <div class="controls">
@@ -155,8 +147,8 @@
                         @enderror
                       </div>
                     </div><!-- form-group -->
-                
-              
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="date_birth" class="control-label">Date of birth</label>
                       <div class="controls">
@@ -171,7 +163,7 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                 
+
                   <div class="form-group col-sm-12 col-md-4">
                       <label for="discount" class="control-label">Discount</label>
                       <div class="controls">
@@ -189,7 +181,7 @@
                 </div><!-- row -->
 
                 <div class="row">
-                  
+
                     <div class="form-group col col-sm-12 col-md-4">
                     <label for="year_id">Year</label>
                     <div class="controls">
@@ -205,8 +197,8 @@
                           Select year
                         </option>
                         @foreach($docs->years as $year)
-                        <option 
-                          value="{{ $year->id}}" 
+                        <option
+                          value="{{ $year->id}}"
                           {{ old('year_id', $docs->student->yearId) == $year->id ? 'selected' : '' }}
                         >
                           {{ $year->name }}
@@ -231,8 +223,8 @@
                           Select gender
                         </option>
                         @foreach($docs->classes as $class)
-                        <option 
-                          value="{{ $class->id}}" 
+                        <option
+                          value="{{ $class->id}}"
                           {{ old('class_id',$docs->student->classId) == $class->id ? 'selected' : '' }}
                         >
                           {{ $class->name }}
@@ -241,7 +233,7 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
+
                   <div class="form-group col col-sm-12 col-md-4">
                     <label>Group</label>
                     <div class="controls">
@@ -257,8 +249,8 @@
                           Select gender
                         </option>
                         @foreach($docs->groups as $group)
-                        <option 
-                          value="{{ $group->id}}" 
+                        <option
+                          value="{{ $group->id}}"
                           {{ old('group_id', $docs->student->groupId) == $group->id ? 'selected' : '' }}
                         >
                           {{ $group->name }}
@@ -267,15 +259,15 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
-                
-                
-                    
-                 
+
+
+
+
+
                 </div><!-- row -->
 
                 <div class="row">
-                  
+
                     <div class="form-group col col-sm-12 col-md-4">
                     <label for="shift_id">Shif</label>
                     <div class="controls">
@@ -291,8 +283,8 @@
                           Select shift
                         </option>
                         @foreach($docs->shifts as $shift)
-                        <option 
-                          value="{{ $shift->id}}" 
+                        <option
+                          value="{{ $shift->id}}"
                           {{ old('shift_id', $docs->student->shiftId) == $shift->id ? 'selected' : '' }}
                         >
                           {{ $shift->name }}
@@ -301,10 +293,10 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
-                  
+
+
                    <!-- image -->
-                 
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="image" class="control-label">Image</label>
                       <div class="controls">
@@ -322,23 +314,23 @@
                     <div class="form-group">
                       <div class="controls">
                         <picture>
-                          <img 
-                            id="show-image" 
-                            src="{{ (!empty($docs->student->imagePath) ? url($docs->student->imagePath ) : url('upload/no_image.jpg')) }}" 
+                          <img
+                            id="show-image"
+                            src="{{ (!empty($docs->student->imagePath) ? url($docs->student->imagePath ) : url('upload/no_image.jpg')) }}"
                             alt="User Avatar"
                             style="width:100px; height:100px; border:1px solid #ddd"
                           >
                         </picture>
                       </div>
                     </div><!-- form group -->
-                 
-                
-                
-                    
-                 
+
+
+
+
+
                 </div><!-- row -->
 
-                <div class="row">  
+                <div class="row">
                   <div class="col-12">
                     <input type="submit" class="btn btn-info" value="Update">
                   </div>
