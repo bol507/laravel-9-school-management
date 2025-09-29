@@ -12,21 +12,21 @@
         <div class="box-body">
           <div class="row">
             <div class="col">
-              <form 
-                method="POST" 
+              <form
+                method="POST"
                 action="{{ route('student.promotion.update',$docs->student->id) }}"
                 enctype="multipart/form-data"
               >
                 @csrf
                 @method('PUT')
                 <div class="row">
-                  
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="name" class="control-label">Student name</label>
                       <span class="text-danger">*</span>
                       <div class="controls">
                         <input
-                          value="{{ old('name',$docs->student->user->name)  }}"
+                          value="{{ old('name',$docs->student->name)  }}"
                           type="text"
                           name="name"
                           class="form-control"
@@ -37,12 +37,12 @@
                         @enderror
                       </div>
                     </div>
-                  
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="father_name" class="control-label">Father's name</label>
                       <div class="controls">
                         <input
-                          value="{{ old('father_name', $docs->student->profile->father_name) }}"
+                          value="{{ old('father_name', $docs->student->fatherName) }}"
                           type="text"
                           name="father_name"
                           class="form-control"
@@ -52,13 +52,13 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                
-                
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="mother_name" class="control-label">Mother's name</label>
                       <div class="controls">
                         <input
-                          value="{{ old('mother_name',$docs->student->profile->mother_name) }}"
+                          value="{{ old('mother_name',$docs->student->motherName) }}"
                           type="text"
                           name="mother_name"
                           class="form-control"
@@ -68,16 +68,16 @@
                         @enderror
                       </div>
                     </div><!-- /.form-group -->
-                 
+
                 </div><!-- row -->
 
                 <div class="row">
-              
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="mobile" class="control-label">Mobile number</label>
                       <div class="controls">
                         <input
-                          value="{{ old('mobile',$docs->student->profile->mobile)  }}"
+                          value="{{ old('mobile',$docs->student->mobile)  }}"
                           type="text"
                           name="mobile"
                           class="form-control"
@@ -87,13 +87,13 @@
                         @enderror
                       </div>
                     </div><!-- form-group -->
-                
-              
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="address" class="control-label">Address</label>
                       <div class="controls">
                         <input
-                          value="{{ old('address',$docs->student->profile->address) }}"
+                          value="{{ old('address',$docs->student->address) }}"
                           type="text"
                           name="address"
                           class="form-control"
@@ -103,7 +103,7 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                 
+
                   <div class="form-group col col-sm-12 col-md-4">
                     <label>Gender</label>
                     <div class="controls">
@@ -119,9 +119,9 @@
                           Select gender
                         </option>
                         @foreach($docs->genderOptions as $value => $label)
-                        <option 
-                          value="{{ $value}}" 
-                          {{ old( 'gender', $docs->student->profile->gender ) == $value ? 'selected' : '' }}
+                        <option
+                          value="{{ $value}}"
+                          {{ old( 'gender', $docs->student->gender ) == $value ? 'selected' : '' }}
                         >
                           {{ $label }}
                         </option>
@@ -132,12 +132,12 @@
                 </div><!-- row -->
 
                 <div class="row">
-              
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="religion" class="control-label">Religion</label>
                       <div class="controls">
                         <input
-                          value="{{ old('religion',$docs->student->profile->religion)  }}"
+                          value="{{ old('religion',$docs->student->religion)  }}"
                           type="text"
                           name="religion"
                           class="form-control"
@@ -147,13 +147,13 @@
                         @enderror
                       </div>
                     </div><!-- form-group -->
-                
-              
+
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="date_birth" class="control-label">Date of birth</label>
                       <div class="controls">
                         <input
-                          value="{{ old('date_birth',$docs->student->profile->date_birth) }}"
+                          value="{{ old('date_birth',$docs->student->dateBirth) }}"
                           type="date"
                           name="date_birth"
                           class="form-control"
@@ -163,12 +163,12 @@
                         @enderror
                       </div>
                     </div> <!-- /.form-group -->
-                 
+
                   <div class="form-group col-sm-12 col-md-4">
                       <label for="discount" class="control-label">Discount</label>
                       <div class="controls">
                         <input
-                          value="{{ old('discount',$docs->student->discount->discount)  }}"
+                          value="{{ old('discount',$docs->student->discount)  }}"
                           type="text"
                           name="discount"
                           class="form-control"
@@ -181,7 +181,7 @@
                 </div><!-- row -->
 
                 <div class="row">
-                  
+
                     <div class="form-group col col-sm-12 col-md-4">
                     <label for="year_id">Year</label>
                     <div class="controls">
@@ -197,9 +197,9 @@
                           Select year
                         </option>
                         @foreach($docs->years as $year)
-                        <option 
-                          value="{{ $year->id}}" 
-                          {{ old('year_id', $docs->student->year_id) == $year->id ? 'selected' : '' }}
+                        <option
+                          value="{{ $year->id}}"
+                          {{ old('year_id', $docs->student->yearId) == $year->id ? 'selected' : '' }}
                         >
                           {{ $year->name }}
                         </option>
@@ -223,9 +223,9 @@
                           Select gender
                         </option>
                         @foreach($docs->classes as $class)
-                        <option 
-                          value="{{ $class->id}}" 
-                          {{ old('class_id',$docs->student->class_id) == $class->id ? 'selected' : '' }}
+                        <option
+                          value="{{ $class->id}}"
+                          {{ old('class_id',$docs->student->classId) == $class->id ? 'selected' : '' }}
                         >
                           {{ $class->name }}
                         </option>
@@ -233,7 +233,7 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
+
                   <div class="form-group col col-sm-12 col-md-4">
                     <label>Group</label>
                     <div class="controls">
@@ -249,9 +249,9 @@
                           Select gender
                         </option>
                         @foreach($docs->groups as $group)
-                        <option 
-                          value="{{ $group->id}}" 
-                          {{ old('group_id', $docs->student->group_id) == $group->id ? 'selected' : '' }}
+                        <option
+                          value="{{ $group->id}}"
+                          {{ old('group_id', $docs->student->groupId) == $group->id ? 'selected' : '' }}
                         >
                           {{ $group->name }}
                         </option>
@@ -259,15 +259,15 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
-                
-                
-                    
-                 
+
+
+
+
+
                 </div><!-- row -->
 
                 <div class="row">
-                  
+
                     <div class="form-group col col-sm-12 col-md-4">
                     <label for="shift_id">Shif</label>
                     <div class="controls">
@@ -283,9 +283,9 @@
                           Select shift
                         </option>
                         @foreach($docs->shifts as $shift)
-                        <option 
-                          value="{{ $shift->id}}" 
-                          {{ old('shift_id', $docs->student->shift_id) == $shift->id ? 'selected' : '' }}
+                        <option
+                          value="{{ $shift->id}}"
+                          {{ old('shift_id', $docs->student->shiftId) == $shift->id ? 'selected' : '' }}
                         >
                           {{ $shift->name }}
                         </option>
@@ -293,10 +293,10 @@
                       </select>
                     </div>
                   </div> <!-- form-group -->
-                  
-                  
+
+
                    <!-- image -->
-                 
+
                     <div class="form-group col-sm-12 col-md-4">
                       <label for="image" class="control-label">Image</label>
                       <div class="controls">
@@ -314,23 +314,23 @@
                     <div class="form-group">
                       <div class="controls">
                         <picture>
-                          <img 
-                            id="show-image" 
-                            src="{{ (!empty($docs->student->profile->image) ? url($docs->student->profile->image ) : url('upload/no_image.jpg')) }}" 
+                          <img
+                            id="show-image"
+                            src="{{ (!empty($docs->student->imagePath) ? url($docs->student->imagePath ) : url('upload/no_image.jpg')) }}"
                             alt="User Avatar"
                             style="width:100px; height:100px; border:1px solid #ddd"
                           >
                         </picture>
                       </div>
                     </div><!-- form group -->
-                 
-                
-                
-                    
-                 
+
+
+
+
+
                 </div><!-- row -->
 
-                <div class="row">  
+                <div class="row">
                   <div class="col-12">
                     <input type="submit" class="btn btn-info" value="Promotion">
                   </div>
@@ -345,9 +345,10 @@
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
+    </section>
   </div>
   <!-- /.container-full -->
 </div>
 <!-- /.content-wrapper -->
-</section>
+
 @endsection

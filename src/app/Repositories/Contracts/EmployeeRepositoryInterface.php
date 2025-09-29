@@ -12,7 +12,7 @@ interface EmployeeRepositoryInterface{
     public function findById(string $id): ?User;
     public function findOrFail(string $id): User;
     public function findDTOOrFail(string $id): EmployeeDTO;
-    // For pagination with search and filters
+
     public function paginate(
         int $perPage = 10,
         ?string $search = null,
@@ -20,4 +20,14 @@ interface EmployeeRepositoryInterface{
         string $orderBy = 'created_at',
         string $orderDirection = 'desc'
     ): LengthAwarePaginator;
+    public function createEmployee(
+        array $userData,
+        array $profileData,
+    ): User;
+
+    public function updateEmployee(
+        string $id,
+        array $userData,
+        array $profileData,
+    ): User;
 }

@@ -147,13 +147,9 @@ class StudentRegistrationController extends Controller
         }
     }
 
-    public function UpdateStudentPromotion(UpdateStudentRegistrationRequest $request, $id){
-
-    }
-
     public function show($id){
         $studentDTO = $this->repository->findDTOOrFail($id);
-        
+
         $year = $studentDTO->yearId ? StudentYear::find($studentDTO->yearId) : null;
         $class = $studentDTO->classId ? StudentClass::find($studentDTO->classId) : null;
         $group = $studentDTO->groupId ? StudentGroup::find($studentDTO->groupId) : null;
@@ -174,12 +170,24 @@ class StudentRegistrationController extends Controller
     }
 
     public function pdf($id){
-        $student = AssignStudent::findOrFail($id);
-        return PDF::loadView('pdfs.student', [
-        'user' => $student->user,
-        'year' => $student->year,
-        'class' => $student->class,
-        'profile' => $student->profile,
-        ])->stream("student_{$student->id}.pdf");
+       $studentDTO = $this->repository->findDTOOrFail($id);
+
+        $year = $studentDTO->yearId ? StudentYear::find($studentDTO->yearId) : null;
+        $class = $studentDTO->classId ? StudentClass::find($studentDTO->classId) : null;
+        $group = $studentDTO->groupId ? StudentGroup::find($studentDTO->groupId) : null;
+        $shift = $studentDTO->shiftId ? StudentShift::find($studentDTO->shiftId) : null;
+
+        $docs = new stdClass();
+        $docs->student = (object) array_merge(
+            get_object_vars($studentDTO),
+            [
+                'yearName' => $year?->name,
+                'className' => $class?->name,
+                'groupName' => $group?->name,
+                'shiftName' => $shift?->name,
+            ]
+        );
+
+        return PDF::loadView('pdfs.student-details', ['docs' => $docs])->stream("student_{$docs->student->idNo}.pdf");
     }
 }

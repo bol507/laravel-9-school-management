@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Student;
 
+use App\DTO\StudentDTO;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\StudentClass;
@@ -9,38 +10,23 @@ use App\Models\StudentGroup;
 use App\Models\StudentShift;
 use App\Models\StudentYear;
 use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Services\Contracts\StudentUpdaterServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use stdClass;
+use Throwable;
 
 class StudentPromotionController extends Controller
 {
     private StudentRepositoryInterface $repository;
+    private StudentUpdaterServiceInterface $updaterService;
 
-    public function __construct(StudentRepositoryInterface $repository){
+    public function __construct(
+        StudentRepositoryInterface $repository,
+        StudentUpdaterServiceInterface $updaterService,
+    ){
         $this->repository = $repository;
-    }
-
-    public function index()
-    {
-        //
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
+        $this->updaterService = $updaterService;
     }
 
 
@@ -59,55 +45,16 @@ class StudentPromotionController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $validated = $request->validated();
-
-            if ($request->hasFile('image')) {
-                $imageUploadService = new ImgBbUploaderService();
-                $validated['image'] = $imageUploadService->upload($request->file('image'));
-            }
-
-            $category = FeeCategory::ensureRegistrationFeeExists();
-            $validated['fee_category_id'] = $category->id;
-            $student = AssignStudent::findOrFail($id);
-            if (!$student) {
-                throw new Exception('Student promotion not found.');
-            }
-
-            $registration = DB::transaction(function () use ($validated, $student) {
-
-
-                $user = User::updateOrCreate(
-                    ['id' => $student->student_id],//match
-                    ['name' => $validated['name']]
-                );
-
-                $profileStudentFactory = new ProfileStudentFactory();
-                $profileStudentFactory->updateOrCreate($user->id, $validated);
-
-                DiscountStudent::updateOrCreate(
-                    ['assign_student_id' => $user->id],
-                    [
-                        'fee_category_id' => $validated['fee_category_id'],
-                        'discount' => $validated['discount']
-                    ]
-                );
-
-                return AssignStudent::updateOrCreate(
-                    ['student_id' => $user->id], //match
-                    [
-                        'year_id' => $validated['year_id'],
-                        'class_id' => $validated['class_id'],
-                        'group_id' => $validated['group_id'],
-                        'shift_id' => $validated['shift_id'],
-                    ]
-                );
-            });
-
-            $notification = $this->createNotification($registration);
+            $dto = new StudentDTO($request->validatedForDTO());
+            $image = $request->file('iamge');
+            $this->updaterService->execute($id,$dto, $image);
             return redirect()
                 ->route('student.registration.view')
-                ->with($notification);
-        } catch (Exception $e) {
+                ->with([
+                    'message' => 'Student promotioned succesfully',
+                    'alert-type' => 'success'
+                ]);
+        } catch (Throwable $e) {
 
             Log::error('An error occurred while processing the request:',[
                 'message' =>  $e->getMessage(),
@@ -115,7 +62,7 @@ class StudentPromotionController extends Controller
             ]);
             return redirect()
                 ->back()
-                ->withInput()
+                ->withInput($request->except(['image']))
                 ->withErrors([
                     'message' => 'An error occurred while saving the promotion: ' . $e->getMessage(),
                     'alert-type' => 'error'
@@ -123,9 +70,4 @@ class StudentPromotionController extends Controller
         }
     }
 
-
-    public function destroy($id)
-    {
-        //
-    }
 }

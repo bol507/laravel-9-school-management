@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$docs->student->name}}</title>
-</head>
-<body>
-    <div class="content-wrapper">
+@extends('admin.main')
+@section('admin')
+<div class="content-wrapper">
     <div class="container-full">
-        <section class="content">
+        <section id="printSection" class="content">
             <div class="box">
 
                 <div class="box-header with-border">
@@ -66,7 +60,17 @@
                             </div>
                         </div>
 
+                        <div class="no-print" >
+                            <a
+                                href="#"
+                                class="btn btn-primary pull-right flex items-center gap-1"
+                                onClick="printDiv('printSection')"
+                            >
 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-printer-icon lucide-printer"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>
+                                Print PDF
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="box-body">
@@ -117,7 +121,7 @@
                                 <div>
                                     <p class="text-sm text-[#bdd1f8]">Date of birth</p>
                                     <p class="font-medium">
-                                        {{ \Carbon\Carbon::parse($docs->student->dateBirth)->locale('es')->isoFormat('D [de] MMMM [de] YYYY') }}
+                                        {{ \Carbon\Carbon::parse($docs->student->dateBirth)->locale('en')->isoFormat('MMMM D, YYYY') }}
                                     </p>
                                 </div>
                             </div>
@@ -209,7 +213,7 @@
                     <div class="mt-8 pt-6 border-t border-[rgba(255,255,255,0.12)]">
                         <p class="text-sm text-[#bdd1f8] text-center">
                             Document generated
-                            {{ \Carbon\Carbon::now()->locale('en')->isoFormat('D [de] MMMM [de] YYYY [a las] HH:mm') }}
+                            {{ \Carbon\Carbon::now()->locale('en')->isoFormat('MMMM D, YYYY  HH:mm') }}
                         </p>
                     </div>
                 </div>
@@ -217,5 +221,63 @@
         </section>
     </div><!-- /.container-full -->
 </div><!-- /.content-wrapper -->
-</body>
-</html>
+
+<script>
+function printDiv(divId) {
+    const printContents = document.getElementById(divId).innerHTML;
+    const originalTitle = document.title;
+    const printWindow = window.open('', '_blank');
+
+    // Estilos básicos para impresión (ajusta según tu diseño)
+    const styles = `
+        <style>
+            @media print {
+                .no-print {
+                    display: none !important;
+                }
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+                line-height: 1.6;
+                padding: 20px;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            .box, .box-header, .box-body {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+            /* Copia aquí cualquier clase crítica de Tailwind o CSS que uses */
+            /* Por ejemplo, si usas clases como 'text-blue-500', asegúrate de incluir los estilos */
+        </style>
+        <!-- Si usas Tailwind en modo JIT, es mejor incluir un CDN para impresión -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    `;
+
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Print - ${originalTitle}</title>
+                ${styles}
+            </head>
+            <body>
+                ${printContents}
+            </body>
+        </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+
+    // Pequeño retraso para asegurar que el contenido se cargue antes de imprimir
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
+</script>
+@endsection

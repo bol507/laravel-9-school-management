@@ -60,7 +60,7 @@
 
                     <x-ui.search :action="route('student.registration.view')" :search="$docs->search"/>
                   </div>
-                    
+
                   <x-ui.data-table
                     class="table-bordered table-striped my-2"
                     :items="$docs->students"
@@ -75,17 +75,16 @@
                     :actions="[
                       'Edit' => fn($doc) => [
                         'href' => route('student.registration.edit',$doc),
-                        'class' => 'btn-info',  
+                        'class' => 'btn-info',
                       ],
                       'Promotion' => fn($doc) => [
                         'href' => route('student.promotion.edit',$doc),
                         'class' => 'btn-primary',
-                         
+
                       ],
                       'Details' => fn($doc) => [
                         'href' => route('student.registration.details',$doc),
                         'class' => 'btn-primary',
-                        'attrs' => ['target' => '_blank'], 
                       ],
                     ] " />
 
@@ -100,7 +99,7 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-      
+
     </section>
   </div><!-- container-full -->
 </div>

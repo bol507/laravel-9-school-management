@@ -61,7 +61,7 @@ class AssignStudent extends Model
 
     public function totalDiscount(): Attribute {
         return Attribute::make(
-            get: fn () => $this->discounts->sum('discount')
+            get: fn () => $this->discount->sum('discount')
         );
     }
 
@@ -187,13 +187,13 @@ class AssignStudent extends Model
     }
 
     public function calculateDiscount(string $id): float {
-        if ($this->relationLoaded('discounts')) {
-            return $this->discounts
+        if ($this->relationLoaded('discount')) {
+            return $this->discount
                 ->where('fee_category_id', $id)
                 ->sum('discount');
         }
 
-        return $this->discounts()
+        return $this->discount()
             ->where('fee_category_id', $id)
             ->sum('discount');
     }

@@ -54,7 +54,7 @@ final class StudentRepository implements StudentRepositoryInterface {
 
         //Search funcionality
         if(!empty($search)){
-            $query->where(function ($q) use ($search){
+            $query->whereHas('user', function ($q) use ($search){
                 $q->where('name', 'LIKE', "%{$search}%");
             });
         }
@@ -77,8 +77,8 @@ final class StudentRepository implements StudentRepositoryInterface {
         return $query
                 ->orderBy($orderBy, $orderDirection)
                 ->paginate($perPage);
-        
-        
+
+
     }
 
     public function createStudent(
@@ -142,7 +142,7 @@ final class StudentRepository implements StudentRepositoryInterface {
                 ]);
             }
 
- 
+
             $assign->load(['user', 'profile', 'discount']);
 
             return $assign;

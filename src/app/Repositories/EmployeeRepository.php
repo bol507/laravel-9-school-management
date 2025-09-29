@@ -3,11 +3,15 @@
 namespace App\Repositories;
 
 use App\DTO\EmployeeDTO;
+use App\Models\EmployeeSalaryChange;
+use App\Models\Sequence;
 use App\Models\User;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 final class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -26,8 +30,7 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     }
 
     // Find employee by email
-    public function findOrFail(string $id): User
-    {
+    public function findOrFail(string $id): User{
         $model = $this->findById($id);
         if (!$model) {
             throw new ModelNotFoundException("Employee with ID {$id} not found.");
@@ -82,6 +85,65 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
             ->paginate($perPage);
     }
 
+    public function createEmployee($userData, $profileData): User{
+
+            $user = User::create($userData);
+            // Generar el siguiente número de forma segura
+            $nextNumber = DB::transaction(function () {
+                $sequence = Sequence::where('name', 'employee_code')->lockForUpdate()->first();
+
+                if (!$sequence) {
+                    $sequence = Sequence::create([
+                        'name' => 'employee_code',
+                        'value' => 1,
+                    ]);
+                    return 1;
+                }
+
+                $sequence->value++;
+                $sequence->save();
+
+                return $sequence->value;
+            });
+
+            $profileData['id_no'] = 'EMP-' . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+
+            $user->profile()->create($profileData);
+
+            if ($profileData['salary'] !== null) {
+                EmployeeSalaryChange::create([
+                    'employee_id' => $user->id,
+                    'previous_salary' => 0,
+                    'present_salary' => $profileData['salary'] ,
+                    'increment_salary' => $profileData['salary'] , // initial salary
+                    'effective_date' => $profileData['date_join']  ?? now(),
+                ]);
+            }
+            return $user;
+
+    }
+
+    public function updateEmployee($id, $userData, $profileData): user{
+
+            $user = $this->findOrFail($id);
+            $user->update($userData);
+            $user->profile()->update($profileData);
+
+
+            if ($profileData['salary'] !== null) {
+                $currentSalary = $user->profile->getOriginal('salary'); // Get the original salary before update
+                // Only update salary track if the salary has changed
+                if (number_format($currentSalary ?? 0, 2, '.', '') !== number_format($profileData['salary'], 2, '.', '')) {
+                    $this->updateSalaryTrack(
+                        employeeId: $id,
+                        newSalary: $profileData['salary'],
+                        effectiveDate: $profileData['date_join'] ?? now()
+                    );
+                }
+            }
+            return $user;
+    }
+
     private function toEmployeeDTO(User $user): EmployeeDTO
     {
         $profile = $user->profile;
@@ -103,5 +165,27 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
             'imagePath'     => $profile?->image_path,
             'designationId' => $profile?->designation_id,
         ]);
+    }
+
+    /**
+     *
+     *
+     * @param integer $employeeId
+     * @param float $newSalary
+     * @param Carbon $effectiveDate
+     * @return void
+     */
+    private function updateSalaryTrack(string $employeeId, float $newSalary, Carbon $effectiveDate): void
+    {
+        $existingRecord = EmployeeSalaryChange::where('employee_id', $employeeId)->first();
+
+        $salaryChange = $existingRecord ?? new EmployeeSalaryChange();
+        $salaryChange->employee_id = $employeeId;
+        $salaryChange->previous_salary = $existingRecord?->present_salary ?? 0;
+        $salaryChange->present_salary = $newSalary;
+        $salaryChange->increment_salary = $newSalary - $salaryChange->previous_salary;
+        $salaryChange->effective_date = $effectiveDate;
+
+        $salaryChange->save();
     }
 }
