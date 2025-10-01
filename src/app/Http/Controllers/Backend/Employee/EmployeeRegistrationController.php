@@ -8,9 +8,9 @@ use App\Http\Requests\StoreEmployeeRegistrationRequest;
 use App\Http\Requests\UpdateEmployeeRegistrationRequest;
 use App\Models\Designation;
 use App\Models\Profile;
-use App\Repositories\EmployeeRepository;
-use App\Services\EmployeeCreatorService;
-use App\Services\EmployeeUpdaterService;
+use App\Repositories\Contracts\EmployeeRepositoryInterface;
+use App\Services\Contracts\EmployeeCreatorServiceInterface;
+use App\Services\Contracts\EmployeeUpdaterServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use stdClass;
@@ -20,14 +20,14 @@ class EmployeeRegistrationController extends Controller
 {
 
 
-    private EmployeeUpdaterService $updaterService;
-    private EmployeeCreatorService $creatorService;
-    private EmployeeRepository $repository;
+    private EmployeeUpdaterServiceInterface $updaterService;
+    private EmployeeCreatorServiceInterface $creatorService;
+    private EmployeeRepositoryInterface $repository;
 
     public function __construct(
-        EmployeeUpdaterService $updaterService,
-        EmployeeCreatorService $creatorService,
-        EmployeeRepository $repository
+        EmployeeUpdaterServiceInterface $updaterService,
+        EmployeeCreatorServiceInterface $creatorService,
+        EmployeeRepositoryInterface $repository
     ) {
         $this->updaterService = $updaterService;
         $this->creatorService = $creatorService;
@@ -52,7 +52,7 @@ class EmployeeRegistrationController extends Controller
             'search' => $request->input('search')
         ];
 
-        return view('backend.employee.registration.view-registration',compact('docs'));
+        return view('backend.employee.registration.view',compact('docs'));
     }
 
     public function create(){
