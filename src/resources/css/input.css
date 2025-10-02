@@ -2,17 +2,16 @@
 
 .lens-left {
     position: absolute;
-    left: 0.75rem;
-    top: 30%;
-    width: 1rem;
-    height: 1rem;
+    left: 0.25rem;
+    top: 10%;
+    width: 24px;
+    height: 24px;
 }
 
 .search-with-lens-left {
     display: flex;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    padding-left: 0.75rem;
     padding-right: 0.75rem;
     padding-left: 2.25rem;
     border-radius: 0.375rem;

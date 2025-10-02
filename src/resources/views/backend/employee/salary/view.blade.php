@@ -1,7 +1,10 @@
 @extends('admin.main')
 @section('admin')
 <section class="content"
-    x-data="salaryIncrease()">
+    x-data="salaryIncrease()"
+    x-init="loadEmployees()"
+    @page-changed.window="loadEmployees($event.detail)"
+>
     <div class="row">
         <div class="col-12">
             <div class="box">
@@ -15,7 +18,7 @@
 
     <div class="grid gap-6 lg:grid-cols-3">
         <div class="lg:col-span-1">
-            <x-ui.employee-list :employees="$docs->employees" :search="$docs->search ?? ''" />
+            @include('backend.employee.salary.partials.employee-list-alpine')
         </div>
         <template x-if="selectedEmployee">
             <div class="lg:col-span-2">
