@@ -197,4 +197,6 @@ Route::prefix('employees')
         Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');
         Route::get('/salary/history/{id}',  [EmployeeSalaryController::class,'show'])->name('employee.salary.show');
         Route::put('/salary/update/{id}'  ,[EmployeeSalaryController::class, 'update'])->name('employee.salary.update');
+        Route::get('/salary/employees', [EmployeeSalaryController::class, 'getEmployees']);
+
     });

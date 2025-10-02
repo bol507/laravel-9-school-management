@@ -1,7 +1,13 @@
 import axios from 'axios';
+import paginationComponent from './pagination.js';  
 
 export default () => ({
+    employees: [],
     selectedEmployee: null,
+    searchTerm: '',
+    pagination: paginationComponent(5),
+
+    //form
     incrementAmount: 0,
     incrementPercentage: 0,
     newSalary: 0,
@@ -9,14 +15,53 @@ export default () => ({
     isSubmitting: false,
     successMessage: null,
     errorMessage: null,
+    
 
     init() {
-        console.log('Salary increase component initialized');
+        this.loadEmployees();
     },
 
-    selectEmployee(employeeData) {
-        this.selectedEmployee = employeeData;
-        this.loadEmployeeSalaryHistory(employeeData.id);
+    async loadEmployees(page = 1) {
+        try {
+            const params = {   
+                limit: this.pagination.perPage, 
+                page,
+                search: this.searchTerm || undefined 
+            };
+
+            if (this.searchTerm) params.search = this.searchTerm;
+
+            const { data } = await axios.get('/employees/salary/employees', { params });
+            
+            this.employees = data.employees; 
+            this.pagination.initPagination(data.pagination);
+        } catch (err) {
+            this.employees = [];
+            this.pagination.initPagination({
+                    current_page: 1,
+                    last_page: 1,
+                    total: 0,
+                    from: 0,
+                    to: 0
+                });
+        }
+    },
+
+    goToPage(page) {
+        this.pagination.setPage(page);  
+        this.loadEmployees(page);        
+    },
+    
+    selectEmployee(employee) {
+        this.selectedEmployee = { ...employee };
+        this.loadEmployeeSalaryHistory(employee.id);
+        // Reset form
+        this.incrementAmount = 0;
+        this.incrementPercentage = 0;
+        this.newSalary = employee.salary;
+        this.effectiveDate = new Date().toISOString().split('T')[0];
+        this.successMessage = null;
+        this.errorMessage = null;
     },
 
     calculateNewSalary() {
@@ -33,6 +78,14 @@ export default () => ({
         const pct = parseFloat(this.incrementPercentage) || 0;
         this.incrementAmount = base ? ((base * pct) / 100).toFixed(2) : 0;
         this.newSalary = (base + parseFloat(this.incrementAmount)).toFixed(2);
+    },
+
+    getInitials(name) {
+        return name
+            .split(' ')
+            .map(w => w[0]?.toUpperCase())
+            .join('')
+            .substring(0, 2);
     },
 
     async submitSalaryIncrease() {
@@ -63,10 +116,17 @@ export default () => ({
             this.incrementAmount = 0;
             this.incrementPercentage = 0;
             this.effectiveDate = new Date().toISOString().split('T')[0];
-            //
+            //update salary in local list.
+            const index = this.employees.findIndex(emp => emp.id === this.selectedEmployee.id);
+            if (index !== -1) {
+                this.employees[index].salary = parseFloat(this.newSalary);
+            }
+            // update selectedEmployee
+            this.selectedEmployee.salary = parseFloat(this.newSalary);
             this.selectedEmployee.presentSalary = this.newSalary;
-            //loadHistory
-            this.loadEmployeeSalaryHistory(this.selectedEmployee.id)
+
+             //  historial
+            this.loadEmployeeSalaryHistory(this.selectedEmployee.id);
 
         } catch (error) {
             this.errorMessage = error.response?.data?.message || 'An error occurred while updating the salary.';

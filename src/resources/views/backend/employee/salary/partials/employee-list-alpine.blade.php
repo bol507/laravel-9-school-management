@@ -7,7 +7,7 @@
             </svg>
             <input
                 x-model.debounce.300ms="searchTerm"
-                @input="loadEmployees()"
+                @input="loadEmployees(1)"
                 placeholder="Search employees..."
                 class="search-with-lens-left"
             />
@@ -40,7 +40,8 @@
             </template>
         </div>
         <div class="flex items-center justify-between px-4 py-3 ">
-            
+            @include('backend.employee.salary.partials.pagination-info-alpine')
+            @include('backend.employee.salary.partials.pagination-alpine')
         </div>
     </div>
 </div>

@@ -29,22 +29,8 @@ class EmployeeSalaryController extends Controller
         $this->updaterService = $updaterService;
     }
 
-    public function index(Request $request){
-        $perPage = (int) $request->input('limit',5);
-        $perPage = max(1,min($perPage,100));
-        $search = $request->input('search');
-
-        $employees = $this->employeeRepository->paginate(
-            perPage: $perPage,
-            search: $search,
-        );
-
-        $docs = (object) [
-            'employees' => $employees,
-            'search' => $request->input('search')
-        ];
-
-        return view('backend.employee.salary.view',compact('docs'));
+    public function index(){
+        return view('backend.employee.salary.view');
     }
 
     public function show(string $id): JsonResponse
@@ -77,5 +63,31 @@ class EmployeeSalaryController extends Controller
         }
 
 
+    }
+
+   
+    public function getEmployees(Request $request)
+    {
+        $perPage = (int) $request->input('limit', 5);
+        $perPage = max(1, min($perPage, 100));
+        $search = $request->input('search');
+
+        $employees = $this->employeeRepository->paginate(
+            perPage: $perPage,
+            search: $search,
+        );
+
+        return response()->json([
+        'employees' => $employees->items(), 
+        'pagination' => [
+            'from' => $employees->firstItem(),
+            'to' => $employees->lastItem(),
+            'total' => $employees->total(),
+            'per_page' => $employees->perPage(),
+            'current_page' => $employees->currentPage(),
+            'last_page' => $employees->lastPage(),
+        ],
+        'search' => $search,
+    ]);
     }
 }
