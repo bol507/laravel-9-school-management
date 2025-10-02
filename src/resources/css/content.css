@@ -1,7 +1,11 @@
-.content-wrapper{
-  padding-top: 70px;
-  background-color: transparent;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  margin-left: 280px  ;
+.content-wrapper {
+    padding-top: 70px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    margin-left: var(--sidebar-width);
+}
+
+.content-wrapper.collapsed {
+    margin-left: 0;
 }

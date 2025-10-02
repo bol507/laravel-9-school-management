@@ -20,8 +20,12 @@
   justify-content: space-between;
   padding: 0;
   min-height: 70px;
-  margin-left: 280px;
+  margin-left: var(--sidebar-width);
   box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1)
+}
+
+.navbar.collapsed {
+  margin-left: 0; /* o 0, según lo que quieras */
 }
 
 .nav {

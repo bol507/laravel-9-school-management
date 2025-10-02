@@ -78,7 +78,7 @@
                                 class="form-control date-right"
                                 id="effective-date"
                                 x-model="effectiveDate"
-                                name="effetive_date"
+                                name="effective_date"
                                 required
                             >
                         </div>

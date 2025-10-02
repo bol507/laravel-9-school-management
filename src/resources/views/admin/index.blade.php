@@ -1,10 +1,5 @@
 @extends('admin.main')
 @section('admin')
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <div class="container-full">
-
-    <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xl-2 col-6">
@@ -504,6 +499,5 @@
       </div>
     </section>
     <!-- /.content -->
-  </div>
-</div>
+
 @endsection

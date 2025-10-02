@@ -8,9 +8,11 @@ import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
 
 import salaryIncrease from './components/salary-increase';
+import sidebarState from './components/sidebar';
 
 window.Alpine = Alpine;
 
 Alpine.plugin(focus);
 Alpine.data('salaryIncrease', salaryIncrease);
+Alpine.data('sidebarState', sidebarState);
 Alpine.start();
