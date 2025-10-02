@@ -5,17 +5,21 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\PDF\PDF as CustomPDF;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
+use App\Repositories\Contracts\SalaryRepositoryInterface;
 use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\SalaryRepository;
 use App\Repositories\StudentRepository;
 use App\Services\Contracts\EmployeeCreatorServiceInterface;
 use App\Services\Contracts\EmployeeUpdaterServiceInterface;
 use App\Services\Contracts\ImageUploaderInterface;
+use App\Services\Contracts\SalaryUpdaterServiceInterface;
 use App\Services\Contracts\StudentCreatorServiceInterface;
 use App\Services\Contracts\StudentUpdaterServiceInterface;
 use App\Services\EmployeeCreatorService;
 use App\Services\EmployeeUpdaterService;
 use App\Services\ImgBbUploaderService;
+use App\Services\SalaryUpdaterService;
 use App\Services\StudentCreatorService;
 use App\Services\StudentUpdaterService;
 
@@ -72,6 +76,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             EmployeeUpdaterServiceInterface::class,
             EmployeeUpdaterService::class
+        );
+
+        $this->app->bind(
+            SalaryRepositoryInterface::class,
+            SalaryRepository::class
+        );
+
+        $this->app->bind(
+            SalaryUpdaterServiceInterface::class,
+            SalaryUpdaterService::class
         );
     }
 

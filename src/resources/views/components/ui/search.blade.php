@@ -7,7 +7,7 @@
       Search:
     </span>
     <input
-      type="search"
+      type="text"
       name="search"
       class="form-control form-control-sm"
       id="searchInput"
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   input.addEventListener('input', () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      
+
       const url = new URL('{{ $action }}', location.origin);
       url.search = new URLSearchParams(new FormData(input.form)).toString();
       location.href = url.toString();

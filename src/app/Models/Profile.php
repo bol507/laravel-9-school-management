@@ -12,8 +12,8 @@ class Profile extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     //for uuid
-    protected $keyType = 'string'; 
-    public $incrementing = false; 
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'father_name',
@@ -38,6 +38,11 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
     }
 
     public static function genderOptions()

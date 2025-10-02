@@ -15,11 +15,18 @@ class EmployeeSalaryChange extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'employee_id',
         'previous_salary',
         'present_salary',
         'increment_salary',
-        'effected_salary',
+        'effective_date',
+        'created_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'employee_id');
+    }
 
 }
