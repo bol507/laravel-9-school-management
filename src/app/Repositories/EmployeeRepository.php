@@ -17,7 +17,7 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
 {
     // Base query for employees
     private function baseQuery() {
-        return User::with('profile')
+        return User::with(['profile.designation','salaryChange'])
             ->where('user_type', 'employee');
     }
     // Get all employees
@@ -60,7 +60,7 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
                 $q->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%")
                     ->orWhereHas('profile', function ($q) use ($search) {
-                        $q->where('phone', 'LIKE', "%{$search}%")
+                        $q->where('mobile', 'LIKE', "%{$search}%")
                             ->orWhere('address', 'LIKE', "%{$search}%");
                     });
             });
@@ -81,8 +81,18 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
 
         $orderDirection = strtolower($orderDirection) === 'desc' ? 'desc' : 'asc';
 
-        return $query->orderBy($orderBy, $orderDirection)
+        $paginator = $query
+            ->orderBy($orderBy, $orderDirection)
             ->paginate($perPage);
+
+        $dtoCollection = $paginator
+            ->getCollection()
+            ->map(
+                fn(User $user) => $this->toEmployeeDTO($user)
+            );
+
+        return $paginator->setCollection($dtoCollection);
+
     }
 
     public function createEmployee($userData, $profileData): User{
@@ -147,34 +157,33 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     private function toEmployeeDTO(User $user): EmployeeDTO
     {
         $profile = $user->profile;
+        $salaryChange = $user->salaryChange->first();
 
         return new EmployeeDTO([
-            'id'            => $user->id,
-            'name'          => $user->name,
-            'gender'        => $profile?->gender,
-            'fatherName'    => $profile?->father_name,
-            'motherName'    => $profile?->mother_name,
-            'mobile'        => $profile?->mobile,
-            'address'       => $profile?->address,
-            'religion'      => $profile?->religion,
-            'dateBirth'     => $profile?->date_birth,
-            'dateJoin'      => $profile?->date_join,
-            'salary'        => $profile?->salary !== null ? (float) $profile->salary : null,
-            'idNo'          => $profile?->id_no !== null ? (string) $profile->id_no : null,
-            'code'          => $profile?->code,
-            'imagePath'     => $profile?->image_path,
-            'designationId' => $profile?->designation_id,
+            'id'                => $user->id,
+            'employeeId'        => $profile?->user_id,
+            'name'              => $user->name,
+            'gender'            => $profile?->gender,
+            'fatherName'        => $profile?->father_name,
+            'motherName'        => $profile?->mother_name,
+            'mobile'            => $profile?->mobile,
+            'address'           => $profile?->address,
+            'religion'          => $profile?->religion,
+            'dateBirth'         => $profile?->date_birth,
+            'dateJoin'          => $profile?->date_join,
+            'salary'            => $profile?->salary !== null ? (float) $profile->salary : null,
+            'idNo'              => $profile?->id_no !== null ? (string) $profile->id_no : null,
+            'code'              => $profile?->code,
+            'imagePath'         => $profile?->image_path,
+            'designationId'     => $profile?->designation_id,
+            'designationName'   => $profile?->designation?->name,
+            'presentSalary'     => $salaryChange?->present_salary,
+            'previousSalary'    => $salaryChange?->previous_salary,
+            'incrementSalary'   => $salaryChange?->increment_salary,
+            'effectiveDate'    => $salaryChange?->effective_date,
         ]);
     }
 
-    /**
-     *
-     *
-     * @param integer $employeeId
-     * @param float $newSalary
-     * @param Carbon $effectiveDate
-     * @return void
-     */
     private function updateSalaryTrack(string $employeeId, float $newSalary, Carbon $effectiveDate): void
     {
         $existingRecord = EmployeeSalaryChange::where('employee_id', $employeeId)->first();

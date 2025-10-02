@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,8 +78,8 @@ class User extends Authenticatable
         'profile_data'
     ];
 
-    
-    
+
+
 
     /**
      * Get the profile for the user.
@@ -99,8 +100,12 @@ class User extends Authenticatable
     {
         //return json_decode($this->profile->attributes['profile']);
         return $this->profile()->firstOrCreate([]);
-    
+
     }
 
-  
+    public function salaryChange(): HasMany {
+        return $this->hasMany(EmployeeSalaryChange::class,'employee_id','id');
+    }
+
+
 }

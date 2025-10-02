@@ -30,19 +30,20 @@
                                     <p>No employees found for the selected criteria.</p>
                                     @else
                                     @php
-                                    
+
                                     $columns = [
                                     'name' => 'Name',
-                                    'profile.id_no' => 'Id No',
-                                    'profile.mobile' => 'Mobile',
-                                    'profile.gender' => 'Gender',
-                                    'profile.date_join' => 'Date join',
-                                    'profile.salary' => 'Salary',
+                                    'idNo' => 'Id No',
+                                    'mobile' => 'Mobile',
+                                    'gender' => 'Gender',
+                                    'dateJoin' => fn($dto) => $dto->getDateJoinForInput(),
+                                    'salary' => 'Salary',
                                     ];
 
-                                    
-                                    if (auth()->check() && auth()->user()->user_type === 'admin') {
-                                        $columns['profile.code'] = 'Code';
+
+
+                                    if (auth()->check() && auth()->user()->user_type === 'Admin') {
+                                        $columns['code'] = 'Code';
                                     }
                                     @endphp
                                     <x-ui.data-table
@@ -51,7 +52,7 @@
                                         :columns="$columns"
                                         :actions="[
                                             'Edit' => fn($doc) => [
-                                                'href' => route('employee.registration.edit',$doc),
+                                                'href' => route('employee.registration.edit',$doc->id),
                                                 'class' => 'btn-info',
                                             ],
                                             'Delete' => fn($doc) => [
@@ -59,11 +60,11 @@
                                                 'class' => 'btn-danger',
                                                 'attrs' => [
                                                 'data-modal-confirm' => 'deleteEmployee',
-                                                'data-url' => route('designation.destroy',$doc),
+                                                'data-url' => route('designation.destroy',$doc->id),
 
                                                 ],
                                             ]
-                                            ] " 
+                                            ] "
                                     />
                                     @endif
                                     <div class="row items-center justify-between">

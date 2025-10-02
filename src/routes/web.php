@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\Employee\EmployeeRegistrationController;
+use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
@@ -185,10 +186,15 @@ Route::prefix('employees')
         'verified'
     ])
     ->group( function (){
-        //employee registration
+        //Registration
         Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
         Route::get('/registration/add', [EmployeeRegistrationController::class, 'create'])->name('employee.registration.add');
         Route::post('/registration/store', [EmployeeRegistrationController::class, 'store'])->name('employee.registration.store');
         Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'edit'])->name('employee.registration.edit');
         Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'update'])->name('employee.registration.update');
+
+        //Salary
+        Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');
+        Route::get('/salary/history/{id}',  [EmployeeSalaryController::class,'show'])->name('employee.salary.show');
+        Route::put('/salary/update/{id}'  ,[EmployeeSalaryController::class, 'update'])->name('employee.salary.update');
     });

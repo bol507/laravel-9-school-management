@@ -7,7 +7,7 @@
         <tr >
             <th >SL</th>
             @foreach ($columns as $label)
-            <th >{{ $label }}</th>
+                <th>{{ is_string($label) ? $label : '' }}</th>
             @endforeach
             @if($actions)
                 <th >Actions</th>
@@ -23,13 +23,23 @@
             {{-- Dinamic columns --}}
             @foreach ($columns as $colKey => $label)
                 <td>
-                    @if (in_array($colKey, $images, true) && data_get($row, $colKey))
-                       <img src="{{ data_get($row, $colKey) }}"
-                            alt="{{ $label }}"
+                    @php
+
+                        if (is_callable($label)) {
+                            $value = $label($row);
+                        } else {
+
+                            $value = data_get($row, $colKey);
+                        }
+                    @endphp
+
+                    @if (in_array($colKey, $images, true) && $value)
+                        <img src="{{ $value }}"
+                            alt="{{ is_string($label) ? $label : '' }}"
                             loading="lazy"
-                            style="max-height: 60px; max-width:60px;">
+                            style="max-height: 60px; max-width: 60px;">
                     @else
-                        {{ e(data_get($row, $colKey)) }}
+                        {{ $value ?? '' }}
                     @endif
                 </td>
             @endforeach

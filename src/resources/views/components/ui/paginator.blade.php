@@ -11,7 +11,9 @@
                     @else
                     <a href="{{ $docs->previousPageUrl() }}" aria-controls="table" class="page-link" role="button" rel="prev">
                         @endif
-                        Previous
+                        <svg class=" h-4 w-4">
+                            <use href="{{ asset('assets/icons/icons.svg#lucide-chevron-left') }}"></use>
+                        </svg>
                         @if ($docs->currentPage() == 1)</span>@else</a>@endif
             </li>
             @php
@@ -54,7 +56,9 @@
                             @else
                             <a href="{{ $docs->nextPageUrl() }}" aria-controls="table" class="page-link" role="button" rel="next">
                                 @endif
-                                Next
+                                <svg class=" h-4 w-4">
+                                    <use href="{{ asset('assets/icons/icons.svg#lucide-chevron-right') }}"></use>
+                                </svg>
                                 @if ($docs->currentPage() == $docs->lastPage())</span>@else</a>@endif
                     </li>
         </ul>
