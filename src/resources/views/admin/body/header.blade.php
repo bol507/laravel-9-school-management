@@ -3,12 +3,14 @@
 @endphp
 <header class="main-header">
   <!-- Header Navbar -->
-  <nav class="navbar pl-8 ">
+  <nav class="navbar" :class="{ 'collapsed': !sidebarOpen }">
     <!-- Sidebar toggle button-->
     <div>
       <ul class="nav mb-0 pl-0">
         <li class="relative inline-flex align-middle">
-            <x-ui.buttons.icon icon="menu" href="#" />
+            <button @click="sidebarOpen = !sidebarOpen" title="Toggle Sidebar">
+                <x-ui.buttons.icon icon="menu" />
+            </button>
         </li>
         <li class="relative inline-flex align-middle">
             <x-ui.buttons.icon icon="crop-free" href="#" title="Full Screen" />

@@ -1,7 +1,5 @@
 @extends('admin.main')
 @section('admin')
-<div class="content-wrapper">
-  <div class="container-full">
     <section class="content">
       <div class="box">
         <div class="box-header with-border">
@@ -100,9 +98,5 @@
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
-  </div>
-  <!-- /.container-full -->
-</div>
-<!-- /.content-wrapper -->
 </section>
 @endsection

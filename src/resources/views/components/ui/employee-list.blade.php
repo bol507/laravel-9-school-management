@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="box-body">
-        <div class="overflow-y-auto max-h-[400px]">
+        <div class="overflow-y-auto max-h-[480px]">
             @foreach($employees as $employee)
                 <button type="button"
                     class="button-employee"

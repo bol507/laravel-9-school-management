@@ -284,11 +284,7 @@ a {
   background-color: var(--body-dark);
 }
 
-.wrapper {
-  position: relative;
-  background-color: transparent;
-  overflow: hidden;
-}
+
 
 
 .content {
@@ -354,6 +350,9 @@ a.btn {
 .fixed    .content-wrapper{
         padding-top: var(--main-hed-nav) + 10;
     }
+.fixed .content-wrapper.collapsed{
+    
+}
 .fixed    .right-side{
         padding-top: var(--main-hed-nav) + 10;
     }

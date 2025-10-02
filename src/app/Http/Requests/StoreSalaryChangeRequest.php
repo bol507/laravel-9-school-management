@@ -32,9 +32,14 @@ class StoreSalaryChangeRequest extends FormRequest
 
     public function messages(){
         return [
-            'increment_amount' => 'The increment amount must be a number and greater than zero',
-            'new_salary' => 'The new salary must be a number and greater than zero',
+            'increment_amount.required' => 'The increment amount is required',
+            'increment_amount.numeric' => 'The increment amount must be a number',
+            'increment_amount.min' => 'The increment amount must be greater than or equal to zero',
+            'new_salary.required' => 'The new salary is required',
+            'new_salary.numeric' => 'The new salary must be a number',
+            'new_salary.min' => 'The new salary must be greater than or equal to zero',
             'effective_date.required' => 'The effective date is required',
+            'effective_date.date' => 'The effective date must be a valid date',
         ];
     }
 

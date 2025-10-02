@@ -3,7 +3,7 @@ $prefix = Request::route()->getPrefix();
 $route = Route::current()->getName();
 @endphp
 <!-- Left side column. contains the logo and sidebar -->
-<aside class=" main-sidebar">
+<aside class="main-sidebar" :class="{ 'collapsed': !sidebarOpen }">
 
   <section class="sidebar">
 
@@ -12,7 +12,7 @@ $route = Route::current()->getName();
         <a href="{{ route('dashboard') }}">
           <!-- logo for regular state and mobile devices -->
           <div class="flex items-center justify-center">
-            <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo">
+            <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo" >
             <h3><b>School</b> admin</h3>
           </div>
         </a>

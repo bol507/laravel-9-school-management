@@ -1,7 +1,5 @@
 @extends('admin.main')
 @section('admin')
-<div class="content-wrapper">
-    <div class="container-full">
         <section id="printSection" class="content">
             <div class="box">
 
@@ -219,8 +217,6 @@
                 </div>
             </div>
         </section>
-    </div><!-- /.container-full -->
-</div><!-- /.content-wrapper -->
 
 <script>
 function printDiv(divId) {
