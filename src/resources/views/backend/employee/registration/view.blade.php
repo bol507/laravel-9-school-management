@@ -1,11 +1,15 @@
 @extends('admin.main')
 @section('admin')
 
-<section class="content">
+<section 
+    class="content"
+    x-data="employee()"
+    x-init="loadEmployees()"
+>
 
     <div class="row">
         <div class="col-12">
-            <div class="box">
+            <div class="box border">
                 <div class="box-header">
                     <div class="flex items-center justify-between">
                         
@@ -28,7 +32,7 @@
     
     <main class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
+            @include('backend.employee.registration.partials.employee-card-alpine')
         </div>
     </main>
     
