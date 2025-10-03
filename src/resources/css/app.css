@@ -30,6 +30,8 @@
 
   --color-light: #ffffff;
   --background-dark: #272e48;
+  --foreground-dark: #bdd1f8;
+
   --background-light: #ffffff;
   /*Theme Colors For Dark*/
   --body-dark: #1a233a;
@@ -37,6 +39,7 @@
   --body-dark-l-40: #667eba;
   --body-dark-l-60: #acb9da;
   --dark-text: #8a99b5;
+  --dark-text-foreground: #1a233a;
   --dark-title: #bdd1f8;
   --dark: #475f7b;
   --dark-l-10: #536e8f;
@@ -52,7 +55,7 @@
   /*Sidebar*/
   --sidebar-width: 280px;
   --default-border-radius: 15px;
-  --border: #0f171f;
+  --border: #475f7b; /*#0f171f */
   --fct-border-radius: 10px;
 
   --dx-blue: #485e90;
@@ -389,4 +392,9 @@ a.btn {
 .vertical-line:last-child {
   padding-bottom: 0;
   border-left-width: 0;
+}
+
+
+.dark-text-foreground{
+    color: var(--dark-text-foreground);
 }

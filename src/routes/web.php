@@ -179,6 +179,20 @@ Route::prefix('students')->middleware([
 
 });
 
+Route::prefix('ajax')
+    ->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])
+    ->group(function (){
+        Route::get('/employees', [EmployeeSalaryController::class, 'getEmployees']);
+        Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']);
+        Route::put('/employees/{id}'  ,[EmployeeSalaryController::class, 'update']);
+    });
+
+
+
 Route::prefix('employees')
     ->middleware([
         'auth:sanctum',
@@ -195,8 +209,8 @@ Route::prefix('employees')
 
         //Salary
         Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');
-        Route::get('/salary/history/{id}',  [EmployeeSalaryController::class,'show'])->name('employee.salary.show');
-        Route::put('/salary/update/{id}'  ,[EmployeeSalaryController::class, 'update'])->name('employee.salary.update');
-        Route::get('/salary/employees', [EmployeeSalaryController::class, 'getEmployees']);
+        
+        
+        
 
     });

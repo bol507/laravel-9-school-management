@@ -10,7 +10,7 @@
                     <h3 class="box-title">Process Salary Increase</h3>
                 </div>
                 <div class="text-muted-foreground text-md">
-                    Employee: <span class="font-medium text-foreground" x-text="selectedEmployee.name"></span> •
+                    Employee: <span class="font-medium " x-text="selectedEmployee.name"></span> •
                     <span x-text="selectedEmployee.designationName"></span>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                                 id="present-salary"
                                 name="present_salary"
                                 disabled
-                                x-model="selectedEmployee.presentSalary"
+                                x-model="selectedEmployee.salary"
                             >
                         </div>
                         <div class="space-y-2 col-6">

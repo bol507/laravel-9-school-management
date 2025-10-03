@@ -2,78 +2,36 @@
 @section('admin')
 
 <section class="content">
+
     <div class="row">
         <div class="col-12">
             <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Employee list</h3>
-                    <a
-                        href="{{route('employee.registration.add')}}"
-                        class="btn btn-success pull-right">
-                        Add employee
-                    </a>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <div class="container-fluid">
-                            <div class="row justify-between">
-                                <x-ui.show-entries
-                                    :action="route('employee.registration.view')"
-                                    :docs="$docs->employees" />
-                                <x-ui.search :action="route('employee.registration.view')" />
-                            </div>
-                            @if($docs->employees->isEmpty())
-                            <p>No employees found for the selected criteria.</p>
-                            @else
-                            @php
-
-                            $columns = [
-                            'name' => 'Name',
-                            'idNo' => 'Id No',
-                            'mobile' => 'Mobile',
-                            'gender' => 'Gender',
-                            'dateJoin' => fn($dto) => $dto->getDateJoinForInput(),
-                            'salary' => 'Salary',
-                            ];
-
-
-
-                            if (auth()->check() && auth()->user()->user_type === 'Admin') {
-                            $columns['code'] = 'Code';
-                            }
-                            @endphp
-                            <x-ui.data-table
-                                class="table-bordered table-striped my-2"
-                                :items="$docs->employees"
-                                :columns="$columns"
-                                :actions="[
-                                            'Edit' => fn($doc) => [
-                                                'href' => route('employee.registration.edit',$doc->id),
-                                                'class' => 'btn-info',
-                                            ],
-                                            'Delete' => fn($doc) => [
-                                                'href' => 'javascript:void(0);',
-                                                'class' => 'btn-danger',
-                                                'attrs' => [
-                                                'data-modal-confirm' => 'deleteEmployee',
-                                                'data-url' => route('designation.destroy',$doc->id),
-
-                                                ],
-                                            ]
-                                            ] " />
-                            @endif
-                            <div class="row items-center justify-between">
-                                <x-ui.pagination-info :docs="$docs->employees" class="text-muted" />
-                                <x-ui.paginator :docs="$docs->employees" />
-                            </div>
-
+                <div class="box-header">
+                    <div class="flex items-center justify-between">
+                        
+                        <div class="flex flex-col gap-3">
+                            <h2 class="box-title">Employee Management</h2>
+                            <p>Complete directory of school staff</p>
                         </div>
-                    </div><!-- table-responsive -->
-                </div> <!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+                        
+                        <button class="btn btn-default btn-icon pull-right">
+                            <svg class="h-6 w-6 dark-text-foreground">
+                                <use href="{{ asset('assets/icons/icons.svg#lucide-plus') }}"></use>
+                            </svg>
+                            New employee
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+        </div>
+    </main>
+    
     <x-ui.dialog
         id="deleteEmployee"
         method="DELETE"

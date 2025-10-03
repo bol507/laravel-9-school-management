@@ -9,7 +9,8 @@
     height: 100svh;
     min-height: 100%;
     width: var(--sidebar-width);
-    background-color: var(--background-dark);
+    background-color: color-mix(in oklab, var(--background-dark) 50%, transparent);
+    backdrop-filter: blur(4px);
     z-index: 810;
     -webkit-tap-highlight-color: transparent;
     transition: transform .3s ease-in-out, width .3s ease-in-out;
