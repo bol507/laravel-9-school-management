@@ -136,6 +136,12 @@ class EmployeeRegistrationController extends Controller
         $search = $request->input('search');
         $gender = $request->input('gender');
 
+        // Validate gender against allowed options
+        $allowedGenders = array_keys(Profile::genderOptions());
+        if ($gender !== null && !in_array($gender, $allowedGenders, true)) {
+            $gender = null;
+        }
+
         $employees = $this->repository->paginate(
             perPage: $perPage,
             search: $search,

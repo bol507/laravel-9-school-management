@@ -1,5 +1,3 @@
-
-264 / 5.000
 /**
 * Create a generic handler for a custom select in Alpine.js
 *
