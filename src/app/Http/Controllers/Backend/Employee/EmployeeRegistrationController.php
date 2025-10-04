@@ -134,10 +134,12 @@ class EmployeeRegistrationController extends Controller
         $perPage = (int) $request->input('limit', 5);
         $perPage = max(1, min($perPage, 100));
         $search = $request->input('search');
+        $gender = $request->input('gender');
 
         $employees = $this->repository->paginate(
             perPage: $perPage,
             search: $search,
+            filters: ['gender' => $gender],
         );
         $genders = Profile::genderOptions();
 

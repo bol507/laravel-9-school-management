@@ -43,46 +43,43 @@
                     placeholder="Search employees..."
                     class="search-with-lens-left" />
             </div>
+            {{-- Select Gender --}}
             <div
                 x-on:click.away="openGender = false"
-                class="relative"
-            >
+                class="relative">
                 <button
                     type="button"
                     x-on:click="openGender = !openGender"
                     class="select-trigger"
+                    :aria-expanded="openGender">
 
-                    :aria-expanded="open"
-                    role="combobox">
                     <svg  class="h-4 w-4 mr-2">
                     <use href="{{ asset('assets/icons/icons.svg#lucide-filter') }}"></use>
                     </svg>
 
-                    <span x-text="genderText"></span>
+                    <span x-text="getGenderText('Gender')"></span>
 
                     <svg  class="h-4 w-4 opacity-50" >
                         <use href="{{ asset('assets/icons/icons.svg#lucide-chevron-down') }}"></use>
                     </svg>
                 </button>
-                <!-- Dropdown (SelectContent + SelectItem) -->
+                {{--Dropdown (SelectContent + SelectItem)  --}}
                 <div
                     x-show="openGender"
                     x-transition
                     class="select-content"
                 >
                     <ul class="py-1">
-                    <template x-for="gender in genders" :key="gender">
+                    <template x-for="option in GenderOptions" :key="option">
                         <li>
                         <button
                             type="button"
-                            x-on:click="select(gender)"
+                            x-on:click="selectGender(option)"
                             class="select-item"
 
                         >
-                            <!-- Texto del género -->
-                            <span x-text="gender"></span>
-                             <!-- Ícono de check (solo si está seleccionado) -->
-                            <span x-show="selectedGender === gender" class="select-item-indicator">
+                            <span x-text="option"></span>
+                            <span x-show="selectedGender === option" class="select-item-indicator">
                                 <svg class="w-4 h-4">
                                     <use href="{{ asset('assets/icons/icons.svg#lucide-check') }}"></use>
                                 </svg>

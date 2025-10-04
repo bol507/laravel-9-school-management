@@ -69,7 +69,9 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
         // Apply filters
         foreach ($filters as $key => $value) {
             if ($value !== null && $value !== '') {
-                $query->where($key, $value);
+                $query->whereHas('profile', function ($q) use ($key,$value) {
+                    $q->where($key,'LIKE',"%{$value}%" );
+                });
             }
         }
 
