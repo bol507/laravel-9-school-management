@@ -65,7 +65,7 @@ final class EmployeeUpdaterService implements EmployeeUpdaterServiceInterface
                 }
             } else {
                 // keep actual image.
-                $profileData['image_path'] = $existingStudent->profile->image_path ?? null;
+                $profileData['image_path'] = $existingUser->profile->image_path;
             }
 
             $userUpdated = $this->repository->updateEmployee($id,$userData,$profileData);

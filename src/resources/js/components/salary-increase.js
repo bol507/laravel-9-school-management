@@ -31,7 +31,7 @@ export default () => ({
 
             if (this.searchTerm) params.search = this.searchTerm;
 
-            const { data } = await axios.get('/employees/salary/employees', { params });
+            const { data } = await axios.get('/ajax/employees', { params });
             
             this.employees = data.employees; 
             this.pagination.initPagination(data.pagination);
@@ -58,7 +58,7 @@ export default () => ({
         // Reset form
         this.incrementAmount = 0;
         this.incrementPercentage = 0;
-        this.newSalary = employee.salary;
+        this.newSalary = 0;
         this.effectiveDate = new Date().toISOString().split('T')[0];
         this.successMessage = null;
         this.errorMessage = null;
@@ -66,7 +66,7 @@ export default () => ({
 
     calculateNewSalary() {
         if (!this.selectedEmployee) return;
-        const base = parseFloat(this.selectedEmployee.presentSalary);
+        const base = parseFloat(this.selectedEmployee.salary);
         const inc = parseFloat(this.incrementAmount) || 0;
         this.newSalary = (base + inc).toFixed(2);
         this.incrementPercentage = base ? ((inc / base) * 100).toFixed(2) : 0;
@@ -74,7 +74,7 @@ export default () => ({
 
     calculateNewSalaryFromPercentage() {
         if (!this.selectedEmployee) return;
-        const base = parseFloat(this.selectedEmployee.presentSalary);
+        const base = parseFloat(this.selectedEmployee.salary);
         const pct = parseFloat(this.incrementPercentage) || 0;
         this.incrementAmount = base ? ((base * pct) / 100).toFixed(2) : 0;
         this.newSalary = (base + parseFloat(this.incrementAmount)).toFixed(2);
@@ -100,7 +100,7 @@ export default () => ({
 
         try {
             const response = await axios.put(
-                `/employees/salary/update/${this.selectedEmployee.id}`,
+                `/ajax/employees/${this.selectedEmployee.id}`,
                 {
                     _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                     increment_amount: this.incrementAmount,
@@ -121,9 +121,9 @@ export default () => ({
             if (index !== -1) {
                 this.employees[index].salary = parseFloat(this.newSalary);
             }
-            // update selectedEmployee
+            
             this.selectedEmployee.salary = parseFloat(this.newSalary);
-            this.selectedEmployee.presentSalary = this.newSalary;
+            this.newSalary = 0;
 
              //  historial
             this.loadEmployeeSalaryHistory(this.selectedEmployee.id);
@@ -133,6 +133,7 @@ export default () => ({
             console.error(error);
         } finally {
             this.isSubmitting = false;
+            
         }
     },
 
@@ -140,7 +141,7 @@ export default () => ({
         if (!employeeId) return;
 
             try {
-                const { data } = await axios.get(`/employees/salary/history/${employeeId}`);
+                const { data } = await axios.get(`/ajax/employees/${employeeId}`);
                 this.selectedEmployee = {
                     ...this.selectedEmployee,
                     salaryChanges: data
