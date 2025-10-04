@@ -4,8 +4,8 @@
         x-show="employee"
         x-cloak>
         <!-- Card Header -->
-        <div class="liquid-glass-container ">
-            <div class="flex items-start gap-4">
+        <div class="liquid-glass-container">
+            <div class="flex items-center gap-4">
                 <!-- Avatar -->
                 <div class="relative">
                     <img
@@ -17,33 +17,36 @@
                     <div
                         class="h-16 w-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-lg font-semibold"
                         x-show="!employee.imagePath">
-                        <span x-text="getInitials(employee.name)"></span>
+                        <span class="flex size-full items-center justify-center rounded-full bg-blue-500 text-white">
+                            <span x-text="getInitials(employee.name)"></span>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="flex flex-col flex-1">
+                    <!-- Info -->
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-lg text-balance leading-tight" x-text="employee.name"></h3>
+
+                        <template x-if="employee.designationName">
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <svg class="h-4 w-4">
+                                    <use href="{{ asset('assets/icons/icons.svg#lucide-briefcase') }}"></use>
+                                </svg>
+                                <span class="text-md" x-text="employee.designationName"></span>
+                            </div>
+                        </template>
+
+                        <template x-if="employee.employeeId">
+                            <span class="badge badge-default">
+                                ID: <span  x-text="employee.idNo"></span>
+                            </span>
+                        </template>
                     </div>
                 </div>
 
-                <!-- Info -->
-                <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-lg text-balance leading-tight" x-text="employee.name"></h3>
-
-                    <template x-if="employee.designationName">
-                        <div class="flex items-center gap-1.5 mt-1 text-muted-foreground">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase">
-                                <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                                <path d="M22 20H2" />
-                            </svg>
-                            <span class="text-sm" x-text="employee.designationName"></span>
-                        </div>
-                    </template>
-
-                    <template x-if="employee.employeeId">
-                        <span class="inline-block mt-2 px-2 py-0.5 text-xs bg-secondary text-secondary-foreground rounded">
-                            ID: <span x-text="employee.employeeId"></span>
-                        </span>
-                    </template>
-                </div>
-
                 <!-- Actions -->
-                <div class="flex gap-1">
+                <div class="flex gap-1 shrink-0">
                     <button
                         @click="editEmployee()"
                         class="h-8 w-8 rounded-md hover:bg-accent flex items-center justify-center"
@@ -63,6 +66,7 @@
                         </svg>
                     </button>
                 </div>
+
             </div>
         </div>
 
@@ -71,47 +75,43 @@
             <!-- Contact Info -->
             <div class="space-y-2">
                 <template x-if="employee.mobile">
-                    <div class="flex items-center gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone text-muted-foreground">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    <div class="flex items-center gap-2 text-md">
+                        <svg class="h-4 w-4">
+                            <use href="{{ asset('assets/icons/icons.svg#lucide-phone') }}"></use>
                         </svg>
-                        <span x-text="employee.mobile"></span>
+                        <span class="dark-title" x-text="employee.mobile"></span>
                     </div>
                 </template>
 
                 <template x-if="employee.address">
-                    <div class="flex items-start gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-muted-foreground mt-0.5">
-                            <path d="M20 10c0-4.42-3.58-8-8-8s-8 3.58-8 8c0 2.5 1.2 4.71 3.09 6.14L12 22l4.91-3.86C18.8 16.71 20 14.5 20 10z" />
+                    <div class="flex items-start gap-2 ">
+                        <svg class="h-4 w-4">
+                            <use href="{{ asset('assets/icons/icons.svg#lucide-map-pin') }}"></use>
                         </svg>
-                        <span class="text-pretty" x-text="employee.address"></span>
+                        <span class="dark-title" x-text="employee.address"></span>
                     </div>
                 </template>
             </div>
 
             <!-- Personal Details -->
             <template x-if="employee.gender || employee.dateBirth">
-                <div class="pt-2 border-t space-y-1.5">
+                <div class="pt-2 border-top space-y-1.5">
                     <template x-if="employee.gender">
-                        <div class="flex items-center gap-2 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user text-muted-foreground">
-                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                                <circle cx="12" cy="7" r="4" />
+                        <div class="flex items-center gap-2 text-md">
+                            <svg class="h-4 w-4">
+                                <use href="{{ asset('assets/icons/icons.svg#lucide-user') }}"></use>
                             </svg>
-                            <span class="text-muted-foreground">Género:</span>
-                            <span x-text="employee.gender"></span>
+                            <span class="dark-text">Gender:</span>
+                            <span class="dark-title" x-text="employee.gender"></span>
                         </div>
                     </template>
                     <template x-if="employee.dateBirth">
-                        <div class="flex items-center gap-2 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar text-muted-foreground">
-                                <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                                <path d="M16 2v4" />
-                                <path d="M8 2v4" />
-                                <path d="M3 10h18" />
+                        <div class="flex items-center gap-2 text-md ">
+                            <svg class="h-4 w-4">
+                                <use href="{{ asset('assets/icons/icons.svg#lucide-calendar') }}"></use>
                             </svg>
-                            <span class="text-muted-foreground">Nacimiento:</span>
-                            <span x-text="formatDate(employee.dateBirth)"></span>
+                            <span class="dark-text">Birth date:</span>
+                            <span class="dark-title" x-text="formatDate(employee.dateBirth)"></span>
                         </div>
                     </template>
                 </div>
@@ -119,35 +119,31 @@
 
             <!-- Employment Info -->
             <template x-if="employee.dateJoin">
-                <div class="pt-2 border-t">
-                    <div class="flex items-center gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar text-muted-foreground">
-                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                            <path d="M16 2v4" />
-                            <path d="M8 2v4" />
-                            <path d="M3 10h18" />
+                <div class="pt-2 border-top">
+                    <div class="flex items-center gap-2 text-md">
+                        <svg class="h-4 w-4">
+                            <use href="{{ asset('assets/icons/icons.svg#lucide-calendar') }}"></use>
                         </svg>
-                        <span class="text-muted-foreground">Fecha de ingreso:</span>
-                        <span class="font-medium" x-text="formatDate(employee.dateJoin)"></span>
+                        <span class="dark-text">Join date:</span>
+                        <span class="font-medium dark-title" x-text="formatDate(employee.dateJoin)"></span>
                     </div>
                 </div>
             </template>
 
             <!-- Salary Info -->
             <template x-if="employee.salary">
-                <div class="pt-2 border-t space-y-2">
+                <div class="pt-2 border-top space-y-2">
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign">
-                                <line x1="12" x2="12" y1="2" y2="22" />
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        <div class="flex items-center gap-2 text-md">
+                            <svg class="h-4 w-4">
+                                <use href="{{ asset('assets/icons/icons.svg#lucide-dollar') }}"></use>
                             </svg>
-                            <span>Salario actual:</span>
+                            <span>Present salary:</span>
                         </div>
-                        <span class="font-semibold text-primary" x-text="formatCurrency( employee.salary)"></span>
+                        <span class="font-semibold text-lg dark-title" x-text="formatCurrency( employee.salary)"></span>
                     </div>
 
-                    
+
                 </div>
             </template>
         </div>

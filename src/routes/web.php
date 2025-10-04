@@ -186,9 +186,9 @@ Route::prefix('ajax')
         'verified'
     ])
     ->group(function (){
-        Route::get('/employees', [EmployeeSalaryController::class, 'getEmployees']);
-        Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']);
-        Route::put('/employees/{id}'  ,[EmployeeSalaryController::class, 'update']);
+        Route::get('/employees', [EmployeeRegistrationController::class, 'getEmployees']);
+        Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']); //view salary via ajax
+        Route::put('/employees/{id}'  ,[EmployeeSalaryController::class, 'update']); //update salary via ajax
     });
 
 
@@ -209,8 +209,8 @@ Route::prefix('employees')
 
         //Salary
         Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');
-        
-        
-        
+
+
+
 
     });

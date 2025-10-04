@@ -1,25 +1,24 @@
 @extends('admin.main')
 @section('admin')
 
-<section 
+<section
     class="content"
     x-data="employee()"
-    x-init="loadEmployees()"
->
+    x-init="loadEmployees()">
 
     <div class="row">
         <div class="col-12">
             <div class="box border">
                 <div class="box-header">
                     <div class="flex items-center justify-between">
-                        
+
                         <div class="flex flex-col gap-3">
                             <h2 class="box-title">Employee Management</h2>
                             <p>Complete directory of school staff</p>
                         </div>
-                        
+
                         <button class="btn btn-default btn-icon pull-right">
-                            <svg class="h-6 w-6 dark-text-foreground">
+                            <svg class="h-4 w-4 dark-text-foreground">
                                 <use href="{{ asset('assets/icons/icons.svg#lucide-plus') }}"></use>
                             </svg>
                             New employee
@@ -29,13 +28,86 @@
             </div>
         </div>
     </div>
-    
+
     <main class="container mx-auto px-4 py-8">
+
+        <div class="mb-6 flex flex-col md:flex-row gap-4">
+            {{-- Search --}}
+            <div class="relative flex-1">
+                <svg class="lens-left">
+                    <use href="{{ asset('assets/icons/icons.svg#lucide-search-icon') }}"></use>
+                </svg>
+                <input
+                    x-model.debounce.300ms="searchTerm"
+                    @input="loadEmployees(1)"
+                    placeholder="Search employees..."
+                    class="search-with-lens-left" />
+            </div>
+            <div
+                x-on:click.away="openGender = false"
+                class="relative"
+            >
+                <button
+                    type="button"
+                    x-on:click="openGender = !openGender"
+                    class="select-trigger"
+
+                    :aria-expanded="open"
+                    role="combobox">
+                    <svg  class="h-4 w-4 mr-2">
+                    <use href="{{ asset('assets/icons/icons.svg#lucide-filter') }}"></use>
+                    </svg>
+
+                    <span x-text="genderText"></span>
+
+                    <svg  class="h-4 w-4 opacity-50" >
+                        <use href="{{ asset('assets/icons/icons.svg#lucide-chevron-down') }}"></use>
+                    </svg>
+                </button>
+                <!-- Dropdown (SelectContent + SelectItem) -->
+                <div
+                    x-show="openGender"
+                    x-transition
+                    class="select-content"
+                >
+                    <ul class="py-1">
+                    <template x-for="gender in genders" :key="gender">
+                        <li>
+                        <button
+                            type="button"
+                            x-on:click="select(gender)"
+                            class="select-item"
+
+                        >
+                            <!-- Texto del género -->
+                            <span x-text="gender"></span>
+                             <!-- Ícono de check (solo si está seleccionado) -->
+                            <span x-show="selectedGender === gender" class="select-item-indicator">
+                                <svg class="w-4 h-4">
+                                    <use href="{{ asset('assets/icons/icons.svg#lucide-check') }}"></use>
+                                </svg>
+                            </span>
+                        </button>
+                        </li>
+                    </template>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-6 flex items-center justify-between">
+            @include('components.ui.alpine.pagination-info')
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @include('backend.employee.registration.partials.employee-card-alpine')
         </div>
+        <div>
+            @include('components.ui.alpine.pagination')
+        </div>
     </main>
-    
+
     <x-ui.dialog
         id="deleteEmployee"
         method="DELETE"

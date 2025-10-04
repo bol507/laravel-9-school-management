@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Employee;
 use App\DTO\SalaryDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSalaryChangeRequest;
-use App\Repositories\Contracts\EmployeeRepositoryInterface;
 use App\Repositories\Contracts\SalaryRepositoryInterface;
 use App\Services\Contracts\SalaryUpdaterServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -15,16 +14,14 @@ use Throwable;
 
 class EmployeeSalaryController extends Controller
 {
-    private EmployeeRepositoryInterface $employeeRepository;
+
     private SalaryRepositoryInterface $salaryRepository;
     private SalaryUpdaterServiceInterface $updaterService;
 
     public function __construct(
-        EmployeeRepositoryInterface $employeeRepository,
         SalaryRepositoryInterface $salaryRepository,
         SalaryUpdaterServiceInterface $updaterService
     ) {
-        $this->employeeRepository = $employeeRepository;
         $this->salaryRepository = $salaryRepository;
         $this->updaterService = $updaterService;
     }
@@ -35,9 +32,9 @@ class EmployeeSalaryController extends Controller
 
     public function show(string $id): JsonResponse
     {
-        
+
         $dto= $this->salaryRepository->getSalaryHistoryByEmployeeId($id);
-        
+
         if (!$dto) {
             return response()->json(['message' => 'Empleado no encontrado'], 404);
         }
@@ -65,29 +62,6 @@ class EmployeeSalaryController extends Controller
 
     }
 
-   
-    public function getEmployees(Request $request)
-    {
-        $perPage = (int) $request->input('limit', 5);
-        $perPage = max(1, min($perPage, 100));
-        $search = $request->input('search');
 
-        $employees = $this->employeeRepository->paginate(
-            perPage: $perPage,
-            search: $search,
-        );
 
-        return response()->json([
-        'employees' => $employees->items(), 
-        'pagination' => [
-            'from' => $employees->firstItem(),
-            'to' => $employees->lastItem(),
-            'total' => $employees->total(),
-            'per_page' => $employees->perPage(),
-            'current_page' => $employees->currentPage(),
-            'last_page' => $employees->lastPage(),
-        ],
-        'search' => $search,
-    ]);
-    }
 }

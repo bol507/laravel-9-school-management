@@ -31,3 +31,9 @@
     border-color: var(--theme-primary-primary);
     opacity: 0.5;
 }
+
+.badge-default {
+    background-color: var(--dark);
+    border-color: var(--border);
+    color: var(--foreground-dark);
+}

@@ -1,9 +1,14 @@
 import axios from 'axios';
-import paginationComponent from './pagination.js';  
+import paginationComponent from './pagination.js';
 
 export default () => ({
     employees: [],
     pagination: paginationComponent(5),
+    searchTerm: '',
+
+    genders: [],
+    selectedGender: null,
+    openGender: false,
 
     init() {
         this.loadEmployees();
@@ -12,18 +17,19 @@ export default () => ({
 
     async loadEmployees(page = 1) {
         try {
-            const params = {   
-                limit: this.pagination.perPage, 
+            const params = {
+                limit: this.pagination.perPage,
                 page,
-                search: this.searchTerm || undefined 
+                search: this.searchTerm || undefined
             };
 
             if (this.searchTerm) params.search = this.searchTerm;
 
             const { data } = await axios.get('/ajax/employees', { params });
-            
-            this.employees = data.employees; 
+
+            this.employees = data.employees;
             this.pagination.initPagination(data.pagination);
+            this.genders = data.genders;
         } catch (err) {
             this.employees = [];
             this.pagination.initPagination({
@@ -53,6 +59,27 @@ export default () => ({
             .join('')
             .toUpperCase()
             .substring(0, 2);
+    },
+
+    goToPage(page) {
+        this.pagination.setPage(page);
+        this.loadEmployees(page);
+    },
+
+    get genderText() {
+        if (this.selectedGender === null) return 'Gender';
+        return this.selectedGender
+    },
+
+    select(gender) {
+        this.selectedGender = gender;
+        this.openGender = false;
+      //$dispatch('gender-filter-changed', this.selectedGender);
+    },
+
+    clearGender() {
+        this.selectedGender = null;
+        this.openGender = false;
     },
 
     formatDate(dateString) {
