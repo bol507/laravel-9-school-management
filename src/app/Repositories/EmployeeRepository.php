@@ -70,7 +70,12 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
         foreach ($filters as $key => $value) {
             if ($value !== null && $value !== '') {
                 $query->whereHas('profile', function ($q) use ($key,$value) {
-                    $q->where($key,'LIKE',"%{$value}%" );
+                    if (in_array($key, ['gender'], true)) {
+                        $q->where($key, $value);
+                    } else {
+                        $escapedValue = addcslashes($value, '%_\\');
+                        $q->where($key, 'LIKE', "%{$escapedValue}%");
+                    }
                 });
             }
         }

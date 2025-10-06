@@ -61,7 +61,7 @@
     box-shadow: none;
 }
 
-btn:hover {
+.btn:hover {
     cursor: pointer;
     transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;

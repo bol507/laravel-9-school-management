@@ -148,6 +148,7 @@ class EmployeeRegistrationController extends Controller
             filters: ['gender' => $gender],
         );
         $genders = Profile::genderOptions();
+        $designations = Designation::all();
 
         return response()->json([
         'employees' => $employees->items(),
@@ -161,6 +162,7 @@ class EmployeeRegistrationController extends Controller
         ],
         'search' => $search,
         'genders' => $genders,
+        'designations' => $designations,
     ]);
     }
 

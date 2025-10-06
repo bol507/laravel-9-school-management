@@ -13,6 +13,7 @@
 @import 'input.css';
 @import 'badge.css';
 @import 'border.css';
+@import 'dialog.css';
 
 @tailwind base;
 @tailwind components;
@@ -30,8 +31,8 @@
 
 
   --color-light: #ffffff;
-  --background-dark: #272e48;
-  --foreground-dark: #bdd1f8;
+  --background-dark: #272F49;
+  --foreground-dark: #D5E2FB;
   --muted-foreground: #8a99b5;
 
   --background-light: #ffffff;
@@ -49,6 +50,7 @@
   --dark-l-40: #b8c6d6;
   --dark2: #566f9e;
   --dark3: #272e48;
+  --foreground-dark3:#F8F9FA;
   --light: #d5dfea;
   --light-d-10: #b3c5d9;
   --light2: #fafafa;
@@ -189,7 +191,7 @@ h6,
 
   font-family: inherit;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 h1 small,
@@ -289,16 +291,6 @@ a {
   background-color: var(--body-dark);
 }
 
-
-
-
-.content {
-  min-height: 250px;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 30px 30px 0px;
-}
-
 .content-header {
   position: relative;
   padding: 30px 30px 0px;
@@ -353,14 +345,12 @@ a.btn {
         position: fixed;
     }
 .fixed    .content-wrapper{
-        padding-top: var(--main-hed-nav) + 10;
-    }
-.fixed .content-wrapper.collapsed{
-
+    padding-top: var(--main-hed-nav) + 10;
 }
+
 .fixed    .right-side{
-        padding-top: var(--main-hed-nav) + 10;
-    }
+    padding-top: var(--main-hed-nav) + 10;
+}
 
 
 @media print {
@@ -407,4 +397,29 @@ a.btn {
 
 .dark-title{
     color: var(--dark-title);
+}
+
+.foreground-dark{
+    color: var(--foreground-dark);
+}
+/*--- wrapper ---*/
+.wrapper {
+    container-type: inline-size;
+}
+
+@container (max-width: 768px) {
+
+    .main-sidebar  {
+        display: none !important;
+        overflow: hidden;
+        margin-left: 0;
+    }
+    .navbar{
+        margin-left: 0;
+    }
+    .content-wrapper{
+        margin-left:0;
+    }
+
+
 }

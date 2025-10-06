@@ -1,0 +1,42 @@
+.dialog {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    z-index: 50;
+    width: 60svw;
+    max-width: 72rem;       /* max-w-3xl → 72rem (1152px) */
+    max-height: 90vh;       /* max-h-[90vh] */
+    overflow-y: auto;
+    transform: translateX(-50%) translateY(-50%);
+    gap: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--muted-foreground);;
+    padding: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+    transition-duration: 200ms;
+    background-image: linear-gradient(
+        to bottom right,
+        color-mix(in srgb, var(--dark) 50%, transparent),
+        color-mix(in srgb, var(--background-dark) 70%, transparent)
+    );
+    backdrop-filter: blur(4px);
+}
+
+.dialog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.dialog-title {
+  font-size: var(--fs-20);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .dialog-header {
+    text-align: left;
+  }
+}

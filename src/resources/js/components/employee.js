@@ -5,16 +5,51 @@ import createSelect from '../utils/create-select.js';
 export default () => {
 
     const genderSelect = createSelect('Gender',null);// 'Gender' -> selectGender, openGender, GenderOptions
-
+    const genderForm = createSelect('GenderForm', null);
+    const designationForm = createSelect('DesignationForm',null)
     return {
         employees: [],
         pagination: paginationComponent(5),
         searchTerm: '',
+        //form state
+        isEditing: false,
+        employeeId: null,
+        employeeForm: {
+            name: '',
+            email: '',
+            salary: '',
+            hire_date: '',
+        },
 
+        //filter
         ...genderSelect,
+        //form
+        ...genderForm,
+        ...designationForm,
 
         init() {
             this.loadEmployees();
+        },
+
+        loadSelects(genders,designations) {
+            try {
+                const genderOptions = Object.entries(genders).map(([key, label]) => ({
+                    value: key,
+                    label: label
+                }));
+                const designationOptions = designations.map(d => ({
+                    value: d.id,
+                    label: d.name
+                }));
+                this.initGenderOptions(genderOptions);
+                this.initGenderFormOptions(genderOptions);
+                this.initDesignationFormOptions(designationOptions);
+            } catch (err) {
+                console.error('Error loading genders:', err);
+                this.initGenderOptions([]);
+                this.initGenderFormOptions([]);
+                this.initDesignationFormOptions([])
+            }
         },
 
 
@@ -33,7 +68,7 @@ export default () => {
 
                 this.employees = data.employees;
                 this.pagination.initPagination(data.pagination);
-                this.initGenderOptions(data.genders);
+                this.loadSelects(data.genders,data.designations);
             } catch (err) {
                 this.employees = [];
                 this.pagination.initPagination({
@@ -43,7 +78,7 @@ export default () => {
                         from: 0,
                         to: 0
                     });
-                this.initGenderOptions([]);
+
             }
         },
 
@@ -66,9 +101,45 @@ export default () => {
                 .substring(0, 2);
         },
 
+
+
         goToPage(page) {
             this.pagination.setPage(page);
             this.loadEmployees(page);
+        },
+
+        openCreateForm() {
+            this.isEditing = false;
+            this.employeeId = null;
+            this.resetForm();
+            this.clearGenderForm();
+        },
+
+        resetForm() {
+            this.employeeForm = {
+                name: '',
+                email: '',
+                salary: '',
+                hire_date: '',
+            };
+        },
+
+        async saveEmployee() {
+            const payload = {
+                ...this.employeeForm,
+                gender: this.getGenderFormValue(),
+            };
+
+            try {
+                if (this.isEditing) {
+                    await axios.put(`/ajax/employees/${this.employeeId}`, payload);
+                } else {
+                    await axios.post('/ajax/employees', payload);
+                }
+                this.loadEmployees();
+            } catch (err) {
+                console.error('Error saving employee:', err);
+            }
         },
 
         formatDate(dateString) {

@@ -14,7 +14,7 @@ export default function createSelect(name, initialSelected = null) {
 
         // Metods
         [`init${name}Options`](options) {
-            this[`${name}Options`] = options || [];
+            this[`${name}Options`] = Array.isArray(options) ? options : [];
         },
 
         [`select${name}`](value) {
@@ -31,7 +31,22 @@ export default function createSelect(name, initialSelected = null) {
         // Accesor for text to show (x-text)
         [`get${name}Text`](placeholder = 'Select...') {
             const selected = this[`selected${name}`];
-            return selected !== null && selected !== undefined ? selected : placeholder;
+            if (selected == null) return placeholder;
+
+            const options = this[`${name}Options`];
+
+            const option = options.find(opt =>
+                typeof opt === 'object' && opt !== null && 'value' in opt
+                    ? opt.value === selected
+                    : opt === selected
+            );
+
+            if (option && typeof option === 'object' && 'label' in option) {
+                return option.label;
+            }
+
+
+            return selected;
         },
 
         [`get${name}Value`]() {
