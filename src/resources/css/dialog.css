@@ -4,39 +4,81 @@
     left: 50%;
     z-index: 50;
     width: 60svw;
-    max-width: 72rem;       /* max-w-3xl → 72rem (1152px) */
-    max-height: 90svh;       /* max-h-[90vh] */
+    max-width: 72rem;
+    /* max-w-3xl → 72rem (1152px) */
+    max-height: 90svh;
+    /* max-h-[90vh] */
     overflow-y: auto;
     transform: translateX(-50%) translateY(-50%);
     gap: 1rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--muted-foreground);;
+    border: 1px solid var(--muted-foreground);
+    ;
     padding: 1.5rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
     transition-duration: 200ms;
-    background-image: linear-gradient(
-        to bottom right,
-        color-mix(in srgb, var(--dark) 50%, transparent),
-        color-mix(in srgb, var(--background-dark) 70%, transparent)
-    );
+    background-image: linear-gradient(to bottom right,
+            color-mix(in srgb, var(--dark) 50%, transparent),
+            color-mix(in srgb, var(--background-dark) 70%, transparent));
     backdrop-filter: blur(4px);
 }
 
 .dialog-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
 }
 
 .dialog-title {
-  font-size: var(--fs-20);
-  line-height: 1.5;
-  font-weight: 600;
+    font-size: var(--fs-20);
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.dialog-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 0.125rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    color: var(--foreground-dark);
+    background-color: transparent;
+}
+
+/* Hover */
+.dialog-close:hover {
+    opacity: 1;
+}
+
+/* Focus */
+.dialog-close:focus {
+    outline: none;
+    /* focus:outline-hidden */
+    box-shadow:
+        0 0 0 2px var(--foreground-dark, #3b82f6),
+        /* focus:ring-2 (azul por defecto si no se define --ring-color) */
+        0 0 0 2px var(--muted-foreground, #ffffff);
+    /* focus:ring-offset-2 + ring-offset-background */
+}
+
+/* Disabled */
+.dialog-close:disabled,
+.dialog-close[disabled] {
+    pointer-events: none;
+    /* disabled:pointer-events-none */
+}
+
+.dialog-close svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
 }
 
 @media (min-width: 640px) {
-  .dialog-header {
-    text-align: left;
-  }
+    .dialog-header {
+        text-align: left;
+    }
 }

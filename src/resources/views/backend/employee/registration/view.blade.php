@@ -3,8 +3,9 @@
 
 <section
     class="content"
-    x-data="employee()"
-    x-init="loadEmployees()">
+    x-data="employee"
+    x-init="loadEmployees()"
+    @edit-employee.window="editEmployee($event.detail.employee)">
 
     <div class="row">
         <div class="col-12">

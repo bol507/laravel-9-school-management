@@ -145,19 +145,6 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
             $user = $this->findOrFail($id);
             $user->update($userData);
             $user->profile()->update($profileData);
-
-
-            if ($profileData['salary'] !== null) {
-                $currentSalary = $user->profile->getOriginal('salary'); // Get the original salary before update
-                // Only update salary track if the salary has changed
-                if (number_format($currentSalary ?? 0, 2, '.', '') !== number_format($profileData['salary'], 2, '.', '')) {
-                    $this->updateSalaryTrack(
-                        employeeId: $id,
-                        newSalary: $profileData['salary'],
-                        effectiveDate: $profileData['date_join'] ?? now()
-                    );
-                }
-            }
             return $user;
     }
 
@@ -189,19 +176,5 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
             'incrementSalary'   => $salaryChange?->increment_salary,
             'effectiveDate'    => $salaryChange?->effective_date,
         ]);
-    }
-
-    private function updateSalaryTrack(string $employeeId, float $newSalary, Carbon $effectiveDate): void
-    {
-        $existingRecord = EmployeeSalaryChange::where('employee_id', $employeeId)->first();
-
-        $salaryChange = $existingRecord ?? new EmployeeSalaryChange();
-        $salaryChange->employee_id = $employeeId;
-        $salaryChange->previous_salary = $existingRecord?->present_salary ?? 0;
-        $salaryChange->present_salary = $newSalary;
-        $salaryChange->increment_salary = $newSalary - $salaryChange->previous_salary;
-        $salaryChange->effective_date = $effectiveDate;
-
-        $salaryChange->save();
     }
 }

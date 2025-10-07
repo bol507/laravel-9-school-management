@@ -129,8 +129,7 @@ class EmployeeRegistrationController extends Controller
         }
     }
 
-    public function getEmployees(Request $request)
-    {
+    public function getEmployees(Request $request) {
         $perPage = (int) $request->input('limit', 5);
         $perPage = max(1, min($perPage, 100));
         $search = $request->input('search');

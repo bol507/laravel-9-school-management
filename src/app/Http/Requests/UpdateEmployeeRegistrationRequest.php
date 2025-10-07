@@ -7,12 +7,12 @@ use Illuminate\Support\Arr;
 
 class UpdateEmployeeRegistrationRequest extends FormRequest
 {
-    
+
     public function authorize()
     {
         return true;
     }
-    
+
     public function rules()
     {
         return [
@@ -21,7 +21,7 @@ class UpdateEmployeeRegistrationRequest extends FormRequest
             'mother_name' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:20',
             'designation_id' => 'required|exists:designations,id',
-            'salary' => 'required|numeric|min:0',
+            'salary' => 'nullable|numeric|min:0',
             'address' => 'required|string|max:255',
             'gender' => 'required|string|in:Male,Female,Other',
             'religion' => 'nullable|string|max:50',
@@ -78,7 +78,7 @@ class UpdateEmployeeRegistrationRequest extends FormRequest
     public function validatedForDto(): array
     {
         $data = $this->validated();
-        
+
         return [
             'id'            => $this->route('id'),
             'name'          => $data['name'] ?? null,

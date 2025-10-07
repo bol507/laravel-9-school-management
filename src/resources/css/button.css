@@ -1,21 +1,19 @@
 .btn {
+    /* Layout */
     display: inline-flex;
     position: relative;
-
     align-items: center;
     justify-content: center;
-
     height: 3rem;
-
     padding-left: 2rem;
     padding-right: 2rem;
     gap: 0.5rem;
-
     white-space: nowrap;
-    font-size: var(--fs-16);
+    /* Text */
+    font-size: var(--fs-14);
     font-weight: var(--fw-500);
     line-height: inherit;
-
+    /* Border */
     border-radius: 4px;
     border: 1px solid transparent;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -480,6 +478,18 @@ btn-info.disabled {
 /* Hover */
 .btn-default:not(:disabled):not([disabled]):hover {
     background-color: color-mix(in srgb, var(--foreground-dark) 80%, transparent);
+}
+
+/*--- Default Outline Button ---*/
+.btn-default-outline {
+    background-color: var(--body-dark);
+    border-color: var(--border);
+    color: var(--foreground-dark);
+}
+
+/* Hover */
+.btn-default-outline:not(:disabled):not([disabled]):hover {
+    background-color: color-mix(in srgb, var(--dark) 80%, transparent);
 }
 
 

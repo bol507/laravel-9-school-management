@@ -60,6 +60,7 @@
     --sidebar-width: 280px;
     --default-border-radius: 15px;
     --border: #475f7b;
+    --ring: #8a99b5;
     /*#0f171f */
     --fct-border-radius: 10px;
 
@@ -426,14 +427,14 @@ a.btn {
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a233a;
+    background: var(--body-dark);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #475f7b;
+    background: var(--dark);
     border-radius: 10px;
-    border: 2px solid #1a233a;
+    border: 2px solid var(--body-dark);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -443,7 +444,7 @@ a.btn {
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #475f7b #1a233a;
+    scrollbar-color: var(--dark) var(--body-dark);
 }
 
 @container (max-width: 768px) {
