@@ -89,7 +89,7 @@
 
                     </div>
                 </div><!-- grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label for="religion">Religion</label>
                         <input
@@ -108,6 +108,11 @@
                             </svg>
                         </div>
                     </div>
+
+                </div> <!-- grid -->
+                {{-- Employment Information --}}
+                <h3 class="text-lg font-semibold text-foreground">Employment information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         {{-- Select Gender --}}
                         <label for="designation-id">Designations</label>
@@ -117,7 +122,7 @@
                             <button
                                 type="button"
                                 x-on:click="openDesignationForm = !openDesignationForm"
-                                class="select-trigger"
+                                class="select-trigger "
                                 :aria-expanded="openDesignationForm">
 
                                 <span x-text="getDesignationFormText('Select designation')"></span>
@@ -152,19 +157,7 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- grid -->
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="space-y-2">
-                        <label for="salary">Salary</label>
-
-                        <input
-                            type="number"
-                            name="salary"
-                            class="input-glass">
-
-
-                    </div><!-- space-y-2 -->
                     <div class="space-y-2">
                         <label for="date_join">Join date</label>
                         <div class="relative flex-1">
@@ -177,8 +170,46 @@
                             </svg>
                         </div>
                     </div><!-- space-y-2 -->
+                </div><!-- grid -->
+
+                {{-- Salary Information --}}
+                <h3 class="text-lg font-semibold text-foreground">Salary information</h3>
+                <div class="grid grid-cols-1  gap-4">
+                    <div class="space-y-2">
+                        <label for="salary">Salary</label>
+                        <input
+                            type="number"
+                            name="salary"
+                            class="input-glass">
+                    </div><!-- space-y-2 -->
                 </div>
-            </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label for="image">Image</label>
+
+                    <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        class="input-glass">
+
+
+
+                    <picture>
+                        <img
+                            id="show-image"
+                            src="{{ (!empty($docs->profile_data->image) ? url('upload/user_images/'.$docs->profile_data->image ) : url('upload/no_image.jpg')) }}"
+                            alt="User Avatar"
+                            style="width:100px; height:100px; border:1px solid #ddd">
+                    </picture>
+                    </div>
+
+
+
+
+                </div>
+            </div> <!-- space-y-4 -->
         </form>
     </div>
 </dialog>
