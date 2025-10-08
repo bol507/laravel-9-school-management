@@ -156,6 +156,133 @@
 
 }
 
+[data-theme="dark"] {
+
+    --background: #1a233a;
+    --foreground: #d5e2fb;
+    /* principal text*/
+    --muted: #8a99b5;
+    /*secondary text */
+    --title: #bdd1f8;
+    --surface: #272f49;
+    /* box cards */
+    --surface-foreground: #bdd1f8;
+    --primary: #475f7b;
+    --primary-foreground: #bdd1f8;
+    --primary-disabled: #3a4b66;
+    --border: #475f7b;
+    --accent: #475f7b;
+    --accent-foreground: #bdd1f8;
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: #bdd1f8;
+
+    --primary-hover: #5a7090;
+}
+
+[data-theme="light"] {
+    --background: #ffffff;
+    /* fondo limpio */
+    --foreground: #1a233a;
+    /* texto oscuro (inverso del foreground dark) */
+    --muted: #64748b;
+    /* gris suave (equivalente a #8a99b5 en claridad) */
+    --title: #1e293b;
+    /* títulos más oscuros que el texto normal */
+    --surface: #f8fafc;
+    /* fondo de cards (muy claro, con toque azul) */
+    --surface-foreground: #1a233a;
+    /* texto sobre surface */
+    --primary: #3b82f6;
+    /* azul vibrante (Tailwind blue-500) */
+    --primary-foreground: #ffffff;
+    /* texto blanco sobre primary */
+    --primary-disabled: #94a3b8;
+    --border: #cbd5e1;
+    /* gris suave para bordes */
+    --accent: #3b82f6;
+    /* mismo que primary */
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    /* rojo accesible (Tailwind red-500) */
+    --destructive-foreground: #ffffff;
+    --primary-hover: #2563eb;
+    /* azul más oscuro para hover */
+}
+
+[data-theme="blue"] {
+  --background: #0f172a;        /* slate-900 (más oscuro que tu dark) */
+  --foreground: #e0f2fe;        /* blue-100 (texto claro con toque azul) */
+  --muted: #94a3b8;             /* slate-400 */
+  --title: #bae6fd;             /* blue-300 */
+  --surface: #1e293b;           /* slate-800 */
+  --surface-foreground: #bae6fd;
+  --primary: #38bdf8;           /* blue-400 (¡vibrante pero no chillón!) */
+  --primary-foreground: #0f172a; /* texto oscuro sobre azul claro */
+  --primary-disabled: #7dd3fc;  /* blue-300 (apagado) */
+  --border: #38bdf8;
+  --accent: #38bdf8;
+  --accent-foreground: #0f172a;
+  --destructive: oklch(0.577 0.245 27.325); /* mantenemos tu rojo/naranja */
+  --destructive-foreground: #f8fafc;
+  --primary-hover: #7dd3fc;     /* blue-300 */
+}
+
+[data-theme="green"] {
+  --background: #0c0f0e;        /* casi negro con toque verde */
+  --foreground: #dcfce7;        /* green-100 */
+  --muted: #94a3b8;             /* slate-400 (neutral para texto secundario) */
+  --title: #a7f3d0;             /* green-300 */
+  --surface: #1a1f1d;           /* verde muy oscuro */
+  --surface-foreground: #a7f3d0;
+  --primary: #22c55e;           /* green-500 (estándar accesible) */
+  --primary-foreground: #0c0f0e; /* texto oscuro sobre verde claro */
+  --primary-disabled: #86efac;  /* green-300 */
+  --border: #22c55e;
+  --accent: #22c55e;
+  --accent-foreground: #0c0f0e;
+  --destructive: oklch(0.577 0.245 27.325); /* mismo rojo/naranja */
+  --destructive-foreground: #f0fdf4;
+  --primary-hover: #86efac;     /* green-300 */
+}
+
+[data-theme="black"] {
+  /* Fondo de la página: negro puro o casi negro */
+  --background: #000000;        /* negro absoluto */
+
+  /* Texto principal: gris claro suave (no blanco puro para reducir fatiga) */
+  --foreground: #e2e8f0;        /* slate-200 */
+
+  /* Texto secundario / atenuado */
+  --muted: #94a3b8;             /* slate-400 */
+
+  /* Títulos: ligeramente más brillantes que el texto normal */
+  --title: #f1f5f9;             /* slate-100 */
+
+  /* Superficies: cards, sidebar, navbar (gris muy oscuro) */
+  --surface: #0f0f0f;           /* casi negro, pero distinguible del fondo */
+
+  /* Texto sobre superficies */
+  --surface-foreground: #e2e8f0;
+
+  /* Color primario: mantenemos tu azul oscuro o usamos un acento neutro */
+  --primary: #475f7b;           /* tu color original (azul grisáceo) */
+  --primary-foreground: #f1f5f9; /* texto claro sobre primary */
+  --primary-disabled: #334155;  /* slate-700 */
+  --primary-hover: #5a7090;
+
+  /* Bordes: grises sutiles */
+  --border: #1e293b;            /* slate-800 */
+
+  /* Acento: igual que primary (a menos que quieras otro) */
+  --accent: #475f7b;
+  --accent-foreground: #f1f5f9;
+
+  /* Destructivo: mantenemos tu rojo/naranja accesible */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #f8fafc;
+}
+
+
 * {
     box-sizing: border-box;
 }
@@ -271,27 +398,25 @@ a {
     background-color: transparent;
 }
 
-.dark-skin {
-    background-color: var(--body-dark);
-    color: var(--dark-text);
+body {
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
-.dark-skin h1,
-.dark-skin h2,
-.dark-skin h3,
-.dark-skin h4,
-.dark-skin h5,
-.dark-skin h6 {
-    color: var(--dark-title);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--title);
 }
 
-.dark-skin label {
-    color: var(--dark-title);
+label {
+    color: var(--title);
 }
 
-.bg-dark-body {
-    background-color: var(--body-dark);
-}
+
 
 .content-header {
     position: relative;
@@ -302,8 +427,8 @@ a {
 
 .main-footer {
     position: relative;
-    background-color: var(--body-dark);
-    color: var(--white);
+    background-color: var(--background);
+    color: var(--foreground);
     border-color: rgba(--white, 0.12);
     margin-left: var(--sidebar-width);
     padding: 15px 30px;
@@ -398,21 +523,19 @@ a.btn {
 }
 
 
-.dark-text-foreground {
-    color: var(--dark-text-foreground);
+.foreground {
+    color: var(--foreground);
 }
 
-.dark-text {
-    color: var(--dark-text);
+.text {
+    color: var(--foreground);
 }
 
-.dark-title {
-    color: var(--dark-title);
+.title {
+    color: var(--title);
 }
 
-.foreground-dark {
-    color: var(--foreground-dark);
-}
+
 
 /*--- wrapper ---*/
 .wrapper {

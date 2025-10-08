@@ -116,21 +116,21 @@ dialog::backdrop {
 }
 
 .modal-body > p {
-	color: var(--dark-text);  
+	color: var(--foreground);
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 .modal-footer {
-    border-top-color: var(--light);
+    border-top-color: var(--border);
     display: inline-block;
 }
 .modal-footer {
     display: inline-block;
     padding: 0.75rem;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid var(--border);
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
 }

@@ -79,7 +79,7 @@
                         <svg class="h-4 w-4">
                             <use href="{{ asset('assets/icons/icons.svg#lucide-phone') }}"></use>
                         </svg>
-                        <span class="dark-title" x-text="employee.mobile"></span>
+                        <span class="title" x-text="employee.mobile"></span>
                     </div>
                 </template>
 
@@ -88,7 +88,7 @@
                         <svg class="h-4 w-4">
                             <use href="{{ asset('assets/icons/icons.svg#lucide-map-pin') }}"></use>
                         </svg>
-                        <span class="dark-title" x-text="employee.address"></span>
+                        <span class="title" x-text="employee.address"></span>
                     </div>
                 </template>
             </div>
@@ -101,8 +101,8 @@
                             <svg class="h-4 w-4">
                                 <use href="{{ asset('assets/icons/icons.svg#lucide-user') }}"></use>
                             </svg>
-                            <span class="dark-text">Gender:</span>
-                            <span class="dark-title" x-text="employee.gender"></span>
+                            <span class="text">Gender:</span>
+                            <span class="title" x-text="employee.gender"></span>
                         </div>
                     </template>
                     <template x-if="employee.dateBirth">
@@ -110,8 +110,8 @@
                             <svg class="h-4 w-4">
                                 <use href="{{ asset('assets/icons/icons.svg#lucide-calendar') }}"></use>
                             </svg>
-                            <span class="dark-text">Birth date:</span>
-                            <span class="dark-title" x-text="formatDate(employee.dateBirth)"></span>
+                            <span class="text">Birth date:</span>
+                            <span class="title" x-text="formatDate(employee.dateBirth)"></span>
                         </div>
                     </template>
                 </div>
@@ -124,8 +124,8 @@
                         <svg class="h-4 w-4">
                             <use href="{{ asset('assets/icons/icons.svg#lucide-calendar') }}"></use>
                         </svg>
-                        <span class="dark-text">Join date:</span>
-                        <span class="font-medium dark-title" x-text="formatDate(employee.dateJoin)"></span>
+                        <span class="text">Join date:</span>
+                        <span class="font-medium title" x-text="formatDate(employee.dateJoin)"></span>
                     </div>
                 </div>
             </template>
@@ -140,7 +140,7 @@
                             </svg>
                             <span>Present salary:</span>
                         </div>
-                        <span class="font-semibold text-lg dark-title" x-text="formatCurrency( employee.salary)"></span>
+                        <span class="font-semibold text-lg title" x-text="formatCurrency( employee.salary)"></span>
                     </div>
 
 

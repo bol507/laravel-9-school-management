@@ -8,10 +8,6 @@ input[type="url"] {
     height: 2.25rem;
     width: 100%;
 
-
-    /*border: 1px;
-    border-color: var(--muted-foreground);*/
-
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     padding-top: 0.25rem;
@@ -19,8 +15,6 @@ input[type="url"] {
 
     font-size: 1rem;
     line-height: 1.5rem;
-    /*background-color: transparent !important;
-    color: var(--foreground);*/
     appearance: none;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
@@ -67,12 +61,12 @@ input[type="url"] {
 }
 
 .search-with-lens-left::placeholder {
-    color: var(--muted-foreground);
+    color: var(--muted);
 }
 
 .search-with-lens-left::selection {
-    background-color: var(--background-dark);
-    color: var(--foreground-dark);
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 .search-with-lens-left:disabled {
@@ -82,8 +76,8 @@ input[type="url"] {
 }
 
 .search-with-lens-left:focus-visible {
-    border-color: var(--muted-foreground);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted-foreground) 50%, transparent);
+    border-color: var(--muted);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted) 50%, transparent);
 }
 
 .search-with-lens-left[aria-invalid="true"] {
@@ -93,7 +87,7 @@ input[type="url"] {
 
 /* Hover */
 .search-with-lens-left:hover {
-    background-color: color-mix(in srgb, var(--background-dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--background) 80%, transparent);
 }
 
 /*--- DATE-RIGHT ---*/
@@ -135,15 +129,14 @@ input[type="url"] {
     padding-bottom: 0.5rem;
     /* Texto */
     font-size: var(--fs-14);
-    color: inherit;
     white-space: nowrap;
 
     /* appareance */
     background-color: transparent;
-    border: 1px solid var(--muted-foreground);
+    border: 1px solid var(--border);
     border-radius: 0.375rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    color: var(--foreground-dark);
+    color: var(--foreground);
     /* Transitions */
     transition: all .2s ease-in-out;
 
@@ -162,7 +155,7 @@ input[type="url"] {
 
 /* Placeholder */
 .select-trigger[data-placeholder] {
-    color: var(--muted-foreground);
+    color: var(--muted);
 }
 
 /* SVG */
@@ -173,7 +166,7 @@ input[type="url"] {
 
 /* SVG whithout 'text-*' → color muted */
 .select-trigger svg:not([class*="text-"]) {
-    color: var(--muted-foreground);
+    color: var(--muted);
 }
 
 /* SVG without 'size-*' → tamaño 1rem */
@@ -196,7 +189,7 @@ input[type="url"] {
 
 /* Hover */
 .select-trigger:hover {
-    background-color: color-mix(in srgb, var(--background-dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--background) 80%, transparent);
 }
 
 /* Disabled */
@@ -208,8 +201,8 @@ input[type="url"] {
 
 /* Focus visible */
 .select-trigger:focus-visible {
-    border-color: var(--foreground-dark);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground-dark) 50%, transparent);
+    border-color: var(--foreground);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground) 50%, transparent);
 }
 
 .select-content {
@@ -219,11 +212,11 @@ input[type="url"] {
     margin-top: 0.25rem;
     width: 100%;
 
-    background-color: var(--dark3);
-    border: 1px solid var(--muted-foreground);
+    background-color: var(--primary);
+    border: 1px solid var(--border);
     border-radius: 0.375rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    color: var(--foreground-dark3);
+    color: var(--primary-foreground);
     /* shadow-md */
 
     animation-duration: 150ms;
@@ -254,7 +247,7 @@ input[type="url"] {
     user-select: none;
     outline: none;
     /* outline-hidden */
-    color: var(--foreground-dark);
+    color: var(--foreground);
 }
 
 .select-item svg {
@@ -264,7 +257,7 @@ input[type="url"] {
 
 /* SVG without 'text-*' → color muted */
 .select-item svg:not([class*="text-"]) {
-    color: var(--muted-foreground);
+    color: var(--muted);
 }
 
 /* SVG with-out 'size-*' 1rem */
@@ -275,8 +268,8 @@ input[type="url"] {
 
 /* Focus */
 .select-item:focus {
-    background-color: var(--dark);
-    color: var(--muted-foreground);
+    background-color: var(--primary);
+    color: var(--muted);
 }
 
 /* Disabled */
@@ -304,8 +297,8 @@ input[type="url"] {
 
 /*  Hover effect */
 .select-item:hover {
-    background-color: var(--dark);
-    color: var(--foreground-dark);
+    background-color: var(--primary);
+    color: var(--foreground);
     border-radius: 0.25rem;
 }
 
@@ -324,10 +317,10 @@ input[type="url"] {
     padding-bottom: 0.25rem; /* py-1 */
     /* appareance */
     border-radius: 0.375rem !important;
-    border: 1px solid var(--muted-foreground);
-    color: var(--foreground-dark);
+    border: 1px solid var(--border);
+    color: var(--foreground);
     background-color: transparent !important;
-    caret-color: var(--foreground-dark);
+    caret-color: var(--foreground);
     -webkit-appearance: none;
     /* delete WebKit styles */
     -moz-appearance: none;
@@ -344,12 +337,12 @@ input[type="url"] {
 }
 
 .input-glass::placeholder {
-    color: var(--muted-foreground);
+    color: var(--muted);
 }
 
 .input-glass::selection {
-    background-color: var(--background-dark);
-    color: var(--foreground-dark);
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 .input-glass:disabled {
@@ -359,8 +352,8 @@ input[type="url"] {
 }
 
 .input-glass:focus-visible {
-    border-color: var(--muted-foreground) !important;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted-foreground) 50%, transparent) !important;
+    border-color: var(--muted) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted) 50%, transparent) !important;
 }
 
 .input-glass[aria-invalid="true"] {
@@ -370,7 +363,7 @@ input[type="url"] {
 
 /* Hover */
 .input-glass:hover {
-    background-color: color-mix(in srgb, var(--background-dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--background) 80%, transparent);
 }
 /* SVG */
 .input-glass svg {
@@ -384,10 +377,10 @@ input[type="url"] {
 .input-glass:-webkit-autofill:focus,
 .input-glass:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px transparent inset !important;
-    -webkit-text-fill-color: var(--foreground-dark) !important;
+    -webkit-text-fill-color: var(--foreground) !important;
     box-shadow: 0 0 0 30px transparent inset !important;
     background-color: transparent !important;
-    caret-color: hsl(var(--foreground-dark)) !important;
+    caret-color: hsl(var(--foreground)) !important;
     transition: background-color 5000s ease-in-out 0s;
 
 }

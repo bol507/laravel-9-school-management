@@ -1,217 +1,219 @@
-
-.sidebar-menu{
-  white-space: nowrap;
-  overflow: hidden; /*hidden*/
-  border-radius: var(--default-border-radius);
-  list-style: none;
-  margin: 10px 10px 0;
-  padding: 10px;
-  background-color: var(--body-dark);
+.sidebar-menu {
+    white-space: nowrap;
+    overflow: hidden;
+    /*hidden*/
+    border-radius: var(--default-border-radius);
+    list-style: none;
+    margin: 10px 10px 0;
+    padding: 10px;
+    background-color: var(--background);
 }
-.sidebar-menu > li {
+
+.sidebar-menu>li {
     position: relative;
-    margin: 0;        
+    margin: 0;
     border-radius: var(--default-border-radius);
 }
 
-.sidebar-menu li > a {
-    display:block;
+.sidebar-menu li>a {
+    display: block;
     position: relative;
     font-weight: 500;
-    opacity: 0.6;	
+    opacity: 0.6;
     white-space: nowrap;
     align-items: center;
     line-height: 25px;
     padding: 10px;
-    border-radius: var(--default-border-radius); 
+    border-radius: var(--default-border-radius);
 }
 
 
 
-.sidebar-menu > li.header {
+.sidebar-menu>li.header {
     white-space: nowrap;
-    overflow: hidden;/*hidden*/
+    overflow: hidden;
+    /*hidden*/
     text-overflow: clip;
 }
 
 
 
-.sidebar-menu > li > a > i {
+.sidebar-menu>li>a>i {
     width: 35px;
     line-height: 20px;
     font-size: 14px;
     display: inline-block;
     vertical-align: middle;
-    color: var(--dark);
+    color: var(--primary);
     text-align: center;
     border-radius: 5px;
     margin-right: 5px;
 }
 
-.sidebar-menu > li > a > svg {
+.sidebar-menu>li>a>svg {
     display: inline-block;
     width: 24px;
     height: 24px;
     font-size: 14px;
     vertical-align: middle;
-    color: var(--dark);
+    color: var(--primary);
     text-align: center;
     margin: 0 0.625rem;
 }
 
-.dark-skin .sidebar-menu > li.active > a {
-     background: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)); 
-    color: var(--white); 
-    box-shadow: 0px 0px 12px 0px var(--theme-primary-primary); 
+.sidebar-menu>li.active>a {
+    background: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info));
+    color: var(--foreground);
+    box-shadow: 0px 0px 12px 0px var(--theme-primary-primary);
 }
 
-.dark-skin .sidebar-menu > li.active.treeview > a {
-    background: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info)); 
-    color: var(--white); 
-    box-shadow: 0px 0px 12px 0px var(--theme-primary-primary); 
+.sidebar-menu>li.active.treeview>a {
+    background: linear-gradient(45deg, var(--theme-primary-primary), var(--theme-primary-info));
+    color: var(--foreground);
+    box-shadow: 0px 0px 12px 0px var(--theme-primary-primary);
 }
 
-.dark-skin .sidebar-menu > li.active > .treeview-menu {
-    background: transparent; 
+.sidebar-menu>li.active>.treeview-menu {
+    background: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.dark-skin .sidebar-menu > li.active a {
-    color: var(--white); 
-    background-color: transparent;                        
+.sidebar-menu>li.active a {
+    color: var(--foreground);
+    background-color: transparent;
 }
 
-.dark-skin .sidebar-menu > li.active .treeview-menu li.active{
+.sidebar-menu>li.active .treeview-menu li.active {
     background-color: rgba(var(--theme-primary-primary), 0);
     color: rgba(var(--theme-primary-primary), 1);
 }
 
-.dark-skin .sidebar-menu > li.active .treeview-menu li.active a {
-    color: var(--white); 
+.sidebar-menu>li.active .treeview-menu li.active a {
+    color: var(--foreground);
 }
 
-.dark-skin .sidebar-menu > li.active.treview.treeview .treeview-menu li a {
-    color: var(--dark-text);
-}
-.sidebar-menu > li.active a > i {
-    color: --var(--theme-primary-primary); 
+.sidebar-menu>li.active.treview.treeview .treeview-menu li a {
+    color: var(--muted);
 }
 
-.sidebar-menu > li.active a > svg {
-    color: var(--white); 
+.sidebar-menu>li.active a>i {
+    color: --var(--theme-primary-primary);
 }
 
-.sidebar-menu > li.active .treeview-menu li.active {
-    background-color: var(--theme-primary-primary); 
-    color: var(--theme-primary-primary); 
+.sidebar-menu>li.active a>svg {
+    color: var(--foreground);
 }
 
-
-.sidebar-menu > li.active .treeview-menu li.active a > i {
-    color: var(--white); 
+.sidebar-menu>li.active .treeview-menu li.active {
+    background-color: var(--theme-primary-primary);
+    color: var(--theme-primary-primary);
 }
 
 
+.sidebar-menu>li.active .treeview-menu li.active a>i {
+    color: var(--foreground);
+}
 
 
 
 
 
 
-.sidebar-menu > li.user-profile > a {
-    color: var(--black); 
-    background-color: transparent !important; 
+
+
+.sidebar-menu>li.user-profile>a {
+    color: var(--black);
+    background-color: transparent !important;
     opacity: 1;
     padding: 25px;
-    display: flex;  
+    display: flex;
 }
 
-.sidebar-menu > li.user-profile .treeview-menu {
-    background-color: var(--dark); 
+.sidebar-menu>li.user-profile .treeview-menu {
+    background-color: var(--primary);
 }
 
-.sidebar-menu > li.user-profile .treeview-menu > li > a {
-    color: var(--white); 
+.sidebar-menu>li.user-profile .treeview-menu>li>a {
+    color: var(--foreground);
     opacity: 1;
     background-color: transparent;
     padding: 8px 5px 8px 30px;
 }
 
-.sidebar-menu > li.nav-devider {
+.sidebar-menu>li.nav-devider {
     height: 1px;
-    background-color: var(--dark); 
+    background-color: var(--primary);
     display: block;
     margin: 15px 0;
 }
 
-.sidebar-menu > li.header {
+.sidebar-menu>li.header {
     padding: 10px 10px;
     font-size: 12px;
-    font-weight: 500;    
-    color: var(--dark);
+    font-weight: 500;
+    color: var(--primary);
     opacity: .7;
 }
 
-.dark-skin .sidebar-menu > li.treeview.menu-open {
-    background-color: rgba(26, 35, 58, 0)  }
+.sidebar-menu>li.treeview.menu-open {
+    background-color: rgba(26, 35, 58, 0)
+}
 
 
-.sidebar-menu > li.treeview.menu-open > ul.treeview-menu {            
-    background-color: rgba(var(--body-dark,0));
-    border-radius: var(--default-border-radius); 
+.sidebar-menu>li.treeview.menu-open>ul.treeview-menu {
+    background-color: rgba(var(--background, 0));
+    border-radius: var(--default-border-radius);
 }
 
 
 
 
 .sidebar-menu:hover {
-    overflow: hidden; /*hidden*/
+    overflow: hidden;
+    /*hidden*/
 }
 
-.sidebar-menu li.treeview.menu-open > .treeview-menu {
-    display: block; 
+.sidebar-menu li.treeview.menu-open>.treeview-menu {
+    display: block;
 }
 
 
-.sidebar-menu .treeview-menu > li.active > a {
-    opacity: 1; 
+.sidebar-menu .treeview-menu>li.active>a {
+    opacity: 1;
 }
 
-.sidebar-menu .treeview-menu > li.active > a:hover {
-    opacity: 1; 
+.sidebar-menu .treeview-menu>li.active>a:hover {
+    opacity: 1;
 }
 
-.sidebar-menu .treeview-menu > li > a:hover {
-    opacity: 1; 
+.sidebar-menu .treeview-menu>li>a:hover {
+    opacity: 1;
 }
 
-.treeview-menu{
+.treeview-menu {
     display: none;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.treeview-menu .treeview-menu{
+.treeview-menu .treeview-menu {
     padding-left: 20px;
 }
 
-.treeview-menu > li {
+.treeview-menu>li {
     margin: 0;
 }
 
-.treeview-menu > li  > a{
+.treeview-menu>li>a {
     padding: 8px 5px 8px 25px;
     display: block;
     font-size: 13px;
 }
 
-.treeview-menu > li  > a > i {
+.treeview-menu>li>a>i {
     width: 20px;
     padding-right: 20px;
     padding-left: 10px;
 }
-
-
-

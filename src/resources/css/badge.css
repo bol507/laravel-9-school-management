@@ -33,7 +33,7 @@
 }
 
 .badge-default {
-    background-color: var(--dark);
+    background-color: var(--primary);
     border-color: var(--border);
-    color: var(--foreground-dark);
+    color: var(--foreground);
 }

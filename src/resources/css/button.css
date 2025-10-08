@@ -66,13 +66,18 @@
     box-shadow: 0 14px 26px -12px rgba(0, 0, 0, 0.1), 0 4px 23px 0 rgba(0, 0, 0, 0.1), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
 }
 
-.btn[class*=btn-outline-] {
-    border-color: #d5dfea;
-}
-
 .btn.btn-outline {
-    border-color: #d5dfea;
-    color: #475f7b;
+    border-color: var(--foreground);
+    color: var(--foreground);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+/*hover*/
+.btn-outline:hover,
+.btn-outline:active {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: white;
 }
 
 .btn.btn-file {
@@ -118,33 +123,31 @@ a.btn {
 }
 
 .btn-primary {
-    background-color: var(--theme-primary-primary);
-    border-color: var(--theme-primary-primary);
-    color: white;
+    background-color: var(--foreground);
+    border-color: var(--border);
+    color: var(--background);
 }
 
 .btn-primary:disabled {
-    background-color: var(--theme-primary-primary-l-20);
-    /* ligthen 20%*/
-    border-color: var(--theme-primary-primary);
+    background-color: var(--primary-disabled);
+    border-color: var(--border);
     opacity: 0.5;
 }
 
 
 
 .btn-outline.btn-primary {
-    color: var(--theme-primary-primary);
+    color: var(--primary);
     background-color: transparent;
-    border-color: var(--theme-primary-primary);
+    border-color: var(--border);
 
 }
 
 .btn-outline.btn-primary:hover,
 .btn-outline.btn-primary:active {
-    color: var(--theme-primary-primary-d-20);
-    /*darken 20*/
+    color: var(--primary-hover);
     background-color: transparent;
-    border-color: var(--theme-primary-primary-d-20);
+    border-color: var(--primary-hover);
 
 }
 
@@ -344,12 +347,7 @@ btn-info.disabled {
     border-color: var(--theme-primary-danger);
 }
 
-.btn-outline:hover,
-.btn-outline:active {
-    background-color: var(--theme-primary-danger-d-10) !important;
-    border-color: var(--theme-primary-danger-d-10) !important;
-    color: white;
-}
+
 
 .show>.btn-outline.btn-danger.dropdown-toggle {
     background-color: var(--theme-primary-danger-d-10) !important;
@@ -470,26 +468,26 @@ btn-info.disabled {
 
 /*--- Default Button ---*/
 .btn-default {
-    background-color: var(--foreground-dark);
+    background-color: var(--foreground);
     border-color: var(--border);
-    color: var(--dark-text-foreground);
+    color: var(--background);
 }
 
 /* Hover */
 .btn-default:not(:disabled):not([disabled]):hover {
-    background-color: color-mix(in srgb, var(--foreground-dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--foreground) 80%, transparent);
 }
 
 /*--- Default Outline Button ---*/
 .btn-default-outline {
-    background-color: var(--body-dark);
+    background-color: var(--background);
     border-color: var(--border);
-    color: var(--foreground-dark);
+    color: var(--foreground);
 }
 
 /* Hover */
 .btn-default-outline:not(:disabled):not([disabled]):hover {
-    background-color: color-mix(in srgb, var(--dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--surface) 80%, transparent);
 }
 
 
