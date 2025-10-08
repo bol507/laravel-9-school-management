@@ -57,10 +57,4 @@ final class EmployeeCreatorService implements EmployeeCreatorServiceInterface
             return $user;
         });
     }
-
-    private function generateEmployeeCode($numberValue)
-    {
-        $number = (int)$numberValue;
-        return 'EMP' . str_pad($number, 6, '0', STR_PAD_LEFT);
-    }
 }

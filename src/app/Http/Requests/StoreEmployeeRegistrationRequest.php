@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Form request for validating employee registration data.
+ * Ensures incoming data meets business rules before creating a new employee.
+ */
 class StoreEmployeeRegistrationRequest extends FormRequest
 {
     /**
@@ -13,6 +17,8 @@ class StoreEmployeeRegistrationRequest extends FormRequest
      */
     public function authorize()
     {
+        // Authorization logic can be added here (e.g., role checks).
+        // For now, allow all authenticated users.
         return true;
     }
 
@@ -35,12 +41,18 @@ class StoreEmployeeRegistrationRequest extends FormRequest
             'religion' => 'nullable|string|max:50',
             'date_birth' => 'required|date',
             'date_join' => 'required|date',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
         ];
     }
 
-    public function messages(){
-        return[
+    /**
+     * Get custom validation error messages.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return [
             'name.required' => 'Name is required.',
             'name.string' => 'Name must be a string.',
             'name.max' => 'Name cannot exceed 255 characters.',
@@ -67,7 +79,7 @@ class StoreEmployeeRegistrationRequest extends FormRequest
 
             'gender.required' => 'Gender is required.',
             'gender.string' => 'Gender must be a string.',
-            'gender.in' => 'Select a valid gender (male, female, other).',
+            'gender.in' => 'Select a valid gender (Male, Female, Other).',
 
             'religion.string' => 'Religion must be a string.',
             'religion.max' => 'Religion cannot exceed 50 characters.',
@@ -78,18 +90,21 @@ class StoreEmployeeRegistrationRequest extends FormRequest
             'date_join.required' => 'Date of joining is required.',
             'date_join.date' => 'The date of joining format is invalid.',
 
-            'designation_id.required' => 'Designation is required.',
-            'designation_id.exists' => 'The selected designation is not valid.',
-
             'image.mimes' => 'Image must be a file of type: jpeg, png, jpg, gif.',
             'image.max' => 'Image size cannot exceed 2MB.',
         ];
     }
 
-
-     public function validatedForDto(): array
+    /**
+     * Transform the validated request data into an array compatible with EmployeeDTO.
+     * This method maps snake_case input fields to camelCase DTO properties.
+     *
+     * @return array The mapped data ready for EmployeeDTO instantiation.
+     */
+    public function validatedForDto(): array
     {
         $data = $this->validated();
+
         return [
             'name'          => $data['name'] ?? null,
             'designationId' => $data['designation_id'] ?? null,

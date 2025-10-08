@@ -231,8 +231,8 @@
                 </div>
             </div> <!-- space-y-4 -->
             <div class="py-4 flex justify-end gap-2">
-                <button type="button" @click="$refs.employeeDialog.close()" class="btn btn-default-outline">Cancel</button>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="button" @click="$refs.employeeDialog.close()" class="btn btn-outline">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
         <button

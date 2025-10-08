@@ -203,10 +203,7 @@ Route::prefix('employees')
     ->group( function (){
         //Registration
         Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
-        Route::get('/registration/add', [EmployeeRegistrationController::class, 'create'])->name('employee.registration.add');
-        Route::post('/registration/store', [EmployeeRegistrationController::class, 'store'])->name('employee.registration.store');
-        Route::get('/registration/edit/{id}', [EmployeeRegistrationController::class , 'edit'])->name('employee.registration.edit');
-        Route::put('/registration/update/{id}', [EmployeeRegistrationController::class , 'update'])->name('employee.registration.update');
+
 
         //Salary
         Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');

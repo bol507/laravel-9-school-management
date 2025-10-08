@@ -9,7 +9,7 @@
     height: 100svh;
     min-height: 100%;
     width: var(--sidebar-width);
-    background-color: color-mix(in oklab, var(--background-dark) 50%, transparent);
+    background-color: color-mix(in oklab, var(--background) 50%, transparent);
     backdrop-filter: blur(4px);
     z-index: 810;
     -webkit-tap-highlight-color: transparent;
@@ -32,7 +32,7 @@
     right: 0;
     top: 0;
     width: 8px;
-    background-color: #ccc;
+    background-color: var(--foreground);
     border-radius: 4px;
     cursor: grab;
     transition: background-color 0.2s;
@@ -40,7 +40,7 @@
 }
 
 .scroller:hover {
-    background-color: #999;
+    background-color: var(--muted);
 }
 
 .showScroll .scroller {
@@ -62,7 +62,7 @@
 
     transition: .2s ease-out;
     width: var(--sidebar-width);
-    background-color: var(--dark3);
+    background-color: color-mix(in oklab, var(--background) 70%, transparent);
 
     /*  :is(a) {
     padding: 12px;
@@ -116,7 +116,7 @@
     min-height: 70px;
 
     :is(h3) {
-        color: var(--dark);
+        color: var(--primary);
     }
 }
 

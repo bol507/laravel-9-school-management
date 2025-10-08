@@ -10,11 +10,16 @@ import focus from '@alpinejs/focus';
 import salaryIncrease from './components/salary-increase';
 import sidebarState from './components/sidebar';
 import employee from './components/employee';
+// global store for theme
+import themeStore from './components/theme-switcher';
 
 window.Alpine = Alpine;
 
 Alpine.plugin(focus);
+//x-data
 Alpine.data('salaryIncrease', salaryIncrease);
 Alpine.data('sidebarState', sidebarState);
 Alpine.data('employee', employee);
+// accesible  $store.theme
+Alpine.store('theme', themeStore);
 Alpine.start();

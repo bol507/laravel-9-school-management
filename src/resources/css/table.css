@@ -1,37 +1,37 @@
 /* dark skin */
 .dark-skin .table {
-    color: var(--dark-text);
+    color: var(--foreground);
 }
 
 .dark-skin .table>thead.thead-light th {
 
-    background-color: var(--body-dark);
-    color: var(--dark-title);
+    background-color: var(--background);
+    color: var(--title);
 
 }
 
 .dark-skin .table>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .dark-skin .table>tr>td {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .dark-skin .table>tbody>tr>td {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .dark-skin .table>tbody>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .dark-skin .table>tfoot>tr>td {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .dark-skin .table>tfoot>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 
@@ -70,7 +70,7 @@
     box-sizing: content-box;
     padding: 0.75rem;
     vertical-align: top;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid var(--foreground);
 }
 
 .table thead.thead-light th {
@@ -80,11 +80,11 @@
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid var(--foreground);
 }
 
 .table tbody+tbody {
-    border-top: 2px solid #dee2e6;
+    border-top: 2px solid var(--foreground);
 }
 
 /* table striped */
@@ -97,7 +97,7 @@
 
 .table-bordered {
     border: 1px solid #dee2e6;
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .table-bordered th,
@@ -108,17 +108,17 @@
 
 .table-bordered>tbody>tr>td,
 .table-bordered>tbody>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .table-bordered>tfoot>tr>td,
 .table-bordered>tfoot>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .table-bordered>thead>tr>td,
 .table-bordered>thead>tr>th {
-    border-color: rgba(var(--white), 0.12);
+    border-color: rgba(var(--foreground), 0.12);
 }
 
 .table-bordered thead th,
@@ -214,16 +214,13 @@
 }
 
 .pagination-wrapper .paginate-button:hover {
-    /*
-    color: #ffffff;
-    background-color: var(--theme-primary-primary);*/
-    background-color: color-mix(in srgb, var(--dark) 50%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 50%, transparent);
     color: var(--foreground-dark);
     border: 1px solid transparent;
 }
 
 .pagination-wrapper .paginate-button.active {
-    background-color: color-mix(in srgb, var(--foreground-dark) 80%, transparent);
+    background-color: color-mix(in srgb, var(--foreground) 80%, transparent);
     color: var(--dark);
     border: 1px solid transparent;
 }
