@@ -3,21 +3,24 @@
 
 <section
     class="content"
-    x-data="employee()"
-    x-init="loadEmployees()">
+    x-data="employee"
+    x-init="loadEmployees()"
+    @edit-employee.window="editEmployee($event.detail.employee)">
 
     <div class="row">
         <div class="col-12">
             <div class="box border">
                 <div class="box-header">
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-3">
 
                         <div class="flex flex-col gap-3">
                             <h2 class="box-title">Employee Management</h2>
                             <p>Complete directory of school staff</p>
                         </div>
 
-                        <button class="btn btn-default btn-icon pull-right">
+                        <button
+                            class="btn btn-default btn-icon pull-right"
+                            @click="$refs.employeeDialog.showModal()">
                             <svg class="h-4 w-4 dark-text-foreground">
                                 <use href="{{ asset('assets/icons/icons.svg#lucide-plus') }}"></use>
                             </svg>
@@ -29,7 +32,7 @@
         </div>
     </div>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="container py-8">
 
         <div class="mb-6 flex flex-col md:flex-row gap-4">
             {{-- Search --}}
@@ -70,16 +73,16 @@
                     class="select-content"
                 >
                     <ul class="py-1">
-                    <template x-for="option in GenderOptions" :key="option">
+                    <template x-for="option in GenderOptions" :key="option.value">
                         <li>
                         <button
                             type="button"
-                            x-on:click="selectGender(option)"
+                            x-on:click="selectGender(option.value)"
                             class="select-item"
 
                         >
-                            <span x-text="option"></span>
-                            <span x-show="selectedGender === option" class="select-item-indicator">
+                            <span x-text="option.label"></span>
+                            <span x-show="selectedGender === option.value" class="select-item-indicator">
                                 <svg class="w-4 h-4">
                                     <use href="{{ asset('assets/icons/icons.svg#lucide-check') }}"></use>
                                 </svg>
@@ -105,11 +108,6 @@
         </div>
     </main>
 
-    <x-ui.dialog
-        id="deleteEmployee"
-        method="DELETE"
-        submitText="Delete"
-        title="Delete employee"
-        message="Are you sure you want to delete this employee?" />
+    @include('backend.employee.registration.partials.employee-form-alpine')
 </section>
 @endsection

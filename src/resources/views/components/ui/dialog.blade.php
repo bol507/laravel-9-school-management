@@ -23,7 +23,7 @@
                     action=""
                     method="POST"
                     class="w-100"
-                    
+
                 >
                     @csrf
                     @method($method)
@@ -39,7 +39,7 @@
                         class="btn btn-danger"
                         value="{{$submitText}}" />
                     </div>
-                   
+
                 </form>
 
             </div>

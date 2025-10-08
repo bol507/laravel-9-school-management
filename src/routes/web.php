@@ -187,8 +187,9 @@ Route::prefix('ajax')
     ])
     ->group(function (){
         Route::get('/employees', [EmployeeRegistrationController::class, 'getEmployees']);
+        Route::post('/employees', [EmployeeRegistrationController::class, 'store']);//create employee via ajax
         Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']); //view salary via ajax
-        Route::put('/employees/{id}'  ,[EmployeeSalaryController::class, 'update']); //update salary via ajax
+        Route::put('/employees/{id}'  ,[EmployeeRegistrationController::class, 'update']); //update salary via ajax
     });
 
 

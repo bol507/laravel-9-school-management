@@ -53,7 +53,6 @@ final class EmployeeUpdaterService implements EmployeeUpdaterServiceInterface
                 'religion'       => $data->religion,
                 'date_birth'     => $data->dateBirth,
                 'date_join'      => $data->dateJoin,
-                'salary'         => $data->salary,
                 'designation_id' => $data->designationId,
             ];
 

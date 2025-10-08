@@ -129,8 +129,7 @@ class EmployeeRegistrationController extends Controller
         }
     }
 
-    public function getEmployees(Request $request)
-    {
+    public function getEmployees(Request $request) {
         $perPage = (int) $request->input('limit', 5);
         $perPage = max(1, min($perPage, 100));
         $search = $request->input('search');
@@ -148,6 +147,7 @@ class EmployeeRegistrationController extends Controller
             filters: ['gender' => $gender],
         );
         $genders = Profile::genderOptions();
+        $designations = Designation::all();
 
         return response()->json([
         'employees' => $employees->items(),
@@ -161,6 +161,7 @@ class EmployeeRegistrationController extends Controller
         ],
         'search' => $search,
         'genders' => $genders,
+        'designations' => $designations,
     ]);
     }
 

@@ -211,7 +211,7 @@
                                         </div>
                                     </div> <!-- /.form-group -->
 
-                                    
+
                                     <!-- image -->
 
                                     <div class="form-group col-sm-12 col-md-3"  >
@@ -232,13 +232,13 @@
                                             <picture>
                                                 <img
                                                     id="show-image"
-                                                    src="{{ (!empty($docs->profile_data->image) ? url('upload/user_images/'.$docs->profile_data->image ) : url('upload/no_image.jpg')) }}"
+                                                    src="{{ (!empty($docs->profile_data->image) ? url('upload/user_images/'.$docs->profile_data->image ) : url('upload/no_image.jpg') }}"
                                                     alt="User Avatar"
                                                     style="width:100px; height:100px; border:1px solid #ddd">
                                             </picture>
                                         </div>
                                     </div><!-- form group -->
-                                    
+
 
 
 
