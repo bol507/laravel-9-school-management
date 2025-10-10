@@ -148,8 +148,7 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
             return $user;
     }
 
-    private function toEmployeeDTO(User $user): EmployeeDTO
-    {
+    private function toEmployeeDTO(User $user): EmployeeDTO {
         $profile = $user->profile;
         $salaryChange = $user->salaryChange->last();
 

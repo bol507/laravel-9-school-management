@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\PDF\PDF as CustomPDF;
+use App\Repositories\Contracts\EmployeeLeaveRepositoryInterface;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
 use App\Repositories\Contracts\SalaryRepositoryInterface;
 use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Repositories\EmployeeLeaveRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\SalaryRepository;
 use App\Repositories\StudentRepository;
@@ -86,6 +88,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SalaryUpdaterServiceInterface::class,
             SalaryUpdaterService::class
+        );
+
+        //LEAVE
+        $this->app->bind(
+            EmployeeLeaveRepositoryInterface::class,
+            EmployeeLeaveRepository::class
         );
     }
 

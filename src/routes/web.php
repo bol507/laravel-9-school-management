@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
 use App\Http\Controllers\Backend\Employee\EmployeeRegistrationController;
 use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\ProfileController;
@@ -190,6 +191,9 @@ Route::prefix('ajax')
         Route::post('/employees', [EmployeeRegistrationController::class, 'store']);//create employee via ajax
         Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']); //view salary via ajax
         Route::put('/employees/{id}'  ,[EmployeeRegistrationController::class, 'update']); //update salary via ajax
+        //leaves
+        Route::get('/leaves', [EmployeeLeaveController::class,'getLeaves']);
+        Route::get('/leaves/{id}', [EmployeeLeaveController::class,'edit']);
     });
 
 
@@ -204,9 +208,10 @@ Route::prefix('employees')
         //Registration
         Route::get('/registration',[EmployeeRegistrationController::class, 'index'])->name('employee.registration.view');
 
-
         //Salary
         Route::get('/salary',[EmployeeSalaryController::class, 'index'])->name('employee.salary.view');
+
+
 
 
 
