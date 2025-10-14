@@ -2,26 +2,65 @@
 
 namespace App\Http\Controllers\Backend\Employee;
 
+use App\DTO\EmployeeLeaveDTO;
 use App\Http\Controllers\Controller;
 use App\Models\LeaveStatus;
 use App\Models\LeaveType;
 use App\Repositories\Contracts\EmployeeLeaveRepositoryInterface;
+use App\Services\Contracts\EmployeeLeaveCreatorServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class EmployeeLeaveController extends Controller {
+class EmployeeLeaveController extends Controller
+{
 
-    private EmployeeLeaveRepositoryInterface $repository;
 
-    public function __construct(EmployeeLeaveRepositoryInterface $repository) {
-        $this->repository = $repository;
+
+    public function __construct(
+        private EmployeeLeaveRepositoryInterface $repository,
+        private EmployeeLeaveCreatorServiceInterface $creator,
+    ){}
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:users,id',
+            'leave_type_id' => 'required|exists:leave_types,id',
+            'date_start' => 'required|date|after_or_equal:today',
+            'date_end' => 'required|date|after_or_equal:date_start',
+            'reason' => 'nullable|string|max:500',
+        ]);
+
+        try {
+            $this->creator->execute($validated);
+
+            return response()->json([
+                'message' => 'Leave created successfully',
+            ], 201);
+
+        } catch (\RuntimeException $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            Log::error('Error creating leave: ' . $e->getMessage());
+            return response()->json(['error' => 'Error create leave, Please try again'], 500);
+        }
     }
 
-    public function edit($id){
-        $leave = $this->repository->findById($id);
-        return response()->json(['leave' => $leave]);
+    public function getLeaveByEmployee($id)
+    {
+        $leaveDTOs = $this->repository->findByEmployeeId($id);
+        $types = LeaveType::all();
+        $statuses = LeaveStatus::all();
+
+        return response()->json([
+            'leaves' => $leaveDTOs,
+            'types' => $types,
+            'statuses' => $statuses,
+        ]);
     }
 
-    public function getLeaves(Request $request){
+    public function getLeaves(Request $request)
+    {
         $perPage = (int) $request->input('limit', 6);
         $perPage = max(1, min($perPage, 100));
         $search = $request->input('search');

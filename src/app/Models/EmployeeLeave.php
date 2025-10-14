@@ -19,15 +19,15 @@ class EmployeeLeave extends Model
         'leave_type_id',
         'leave_status_id',
         'reason',
-        'start_date',
-        'end_date',
+        'date_start',
+        'date_end',
         'applied_at',
         'approved_by',
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'date_start' => 'date',
+        'date_end' => 'date',
         'applied_at' => 'datetime',
     ];
 
@@ -36,7 +36,7 @@ class EmployeeLeave extends Model
     }
 
     public function type(){
-        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
+        return $this->belongsTo(LeaveType::class, 'leave_type_id');
     }
 
     public function status(): BelongsTo

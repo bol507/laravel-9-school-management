@@ -13,12 +13,14 @@ use App\Repositories\EmployeeRepository;
 use App\Repositories\SalaryRepository;
 use App\Repositories\StudentRepository;
 use App\Services\Contracts\EmployeeCreatorServiceInterface;
+use App\Services\Contracts\EmployeeLeaveCreatorServiceInterface;
 use App\Services\Contracts\EmployeeUpdaterServiceInterface;
 use App\Services\Contracts\ImageUploaderInterface;
 use App\Services\Contracts\SalaryUpdaterServiceInterface;
 use App\Services\Contracts\StudentCreatorServiceInterface;
 use App\Services\Contracts\StudentUpdaterServiceInterface;
 use App\Services\EmployeeCreatorService;
+use App\Services\EmployeeLeaveCreatorService;
 use App\Services\EmployeeUpdaterService;
 use App\Services\ImgBbUploaderService;
 use App\Services\SalaryUpdaterService;
@@ -94,6 +96,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             EmployeeLeaveRepositoryInterface::class,
             EmployeeLeaveRepository::class
+        );
+
+        $this->app->bind(
+            EmployeeLeaveCreatorServiceInterface::class,
+            EmployeeLeaveCreatorService::class
         );
     }
 

@@ -75,7 +75,7 @@ export default () => {
                 this.initGenderFormOptions(genderOptions);
                 this.initDesignationFormOptions(designationOptions);
             } catch (err) {
-                console.error('Error loading genders:', err);
+                console.error('Error loading selects:', err);
                 this.initGenderOptions([]);
                 this.initGenderFormOptions([]);
                 this.initDesignationFormOptions([]);

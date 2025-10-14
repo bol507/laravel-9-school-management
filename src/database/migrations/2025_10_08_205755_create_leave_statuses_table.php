@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('leave_statuses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-             $table->string('name');
-             $table->string('code')->unique();
-             $table->string('color')->default('gray');
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('color')->default('gray');
+            $table->boolean('is_final');
             $table->timestamps();
             $table->softDeletes();
         });

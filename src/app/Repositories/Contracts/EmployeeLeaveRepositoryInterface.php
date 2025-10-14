@@ -20,4 +20,6 @@ interface EmployeeLeaveRepositoryInterface {
         string $orderBy = 'created_at',
         string $orderDirection = 'desc'
     ): LengthAwarePaginator;
+    public function findByEmployeeId(string $id): Collection;
+    public function create(array $data): EmployeeLeave;
 }

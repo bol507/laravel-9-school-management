@@ -109,7 +109,7 @@
 </section>
 
 <div
-    x-data="leave"
+    x-data="leave()"
     x-init="init()"
     @open-leave-dialog.window="openLeaveDialog($event.detail.employee)">
 
