@@ -48,17 +48,25 @@
                 {{-- Actions --}}
                 <div class="flex gap-1 shrink-0">
                     <button
+                        @click="$dispatch('open-leave-dialog', { employee })"
+                        class="h-8 w-8 rounded-md bg-accent flex items-center justify-center"
+                        title="Leave">
+                        <svg class="h-4 w-4">
+                            <use href="{{ asset('assets/icons/icons.svg#lucide-calendar-days') }}"></use>
+                        </svg>
+                    </button>
+                    <button
                         @click="$dispatch('edit-employee', {employee})"
-                        class="h-8 w-8 rounded-md hover:bg-accent flex items-center justify-center"
-                        title="Editar">
+                        class="h-8 w-8 rounded-md bg-accent flex items-center justify-center"
+                        title="Edit">
                         <svg  class="h-4 w-4">
                             <use href="{{ asset('assets/icons/icons.svg#lucide-pencil') }}"></use>
                         </svg>
                     </button>
                     <button
                         @click="deleteEmployee()"
-                        class="h-8 w-8 rounded-md hover:bg-destructive/10 text-destructive flex items-center justify-center"
-                        title="Eliminar">
+                        class="h-8 w-8 rounded-md bg-accent text-destructive flex items-center justify-center"
+                        title="Delete">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
                             <path d="M3 6h18" />
                             <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />

@@ -4,19 +4,27 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\PDF\PDF as CustomPDF;
+use App\Queries\EmployeeLeave\Contracts\EmployeeLeaveQueryBuilderInterface;
+use App\Queries\EmployeeLeave\EmployeeLeaveQueryBuilder;
+use App\Repositories\Contracts\EmployeeLeaveRepositoryInterface;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
 use App\Repositories\Contracts\SalaryRepositoryInterface;
 use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Repositories\EmployeeLeaveRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\SalaryRepository;
 use App\Repositories\StudentRepository;
 use App\Services\Contracts\EmployeeCreatorServiceInterface;
+use App\Services\Contracts\EmployeeLeaveCreatorServiceInterface;
+use App\Services\Contracts\EmployeeLeaveServiceInterface;
 use App\Services\Contracts\EmployeeUpdaterServiceInterface;
 use App\Services\Contracts\ImageUploaderInterface;
 use App\Services\Contracts\SalaryUpdaterServiceInterface;
 use App\Services\Contracts\StudentCreatorServiceInterface;
 use App\Services\Contracts\StudentUpdaterServiceInterface;
 use App\Services\EmployeeCreatorService;
+use App\Services\EmployeeLeaveCreatorService;
+use App\Services\EmployeeLeaveService;
 use App\Services\EmployeeUpdaterService;
 use App\Services\ImgBbUploaderService;
 use App\Services\SalaryUpdaterService;
@@ -86,6 +94,27 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SalaryUpdaterServiceInterface::class,
             SalaryUpdaterService::class
+        );
+
+        //LEAVE
+        $this->app->bind(
+            EmployeeLeaveRepositoryInterface::class,
+            EmployeeLeaveRepository::class
+        );
+
+        $this->app->bind(
+            EmployeeLeaveCreatorServiceInterface::class,
+            EmployeeLeaveCreatorService::class
+        );
+
+        $this->app->bind(
+            EmployeeLeaveServiceInterface::class,
+            EmployeeLeaveService::class
+        );
+        //builder
+        $this->app->bind(
+            EmployeeLeaveQueryBuilderInterface::class,
+            EmployeeLeaveQueryBuilder::class
         );
     }
 

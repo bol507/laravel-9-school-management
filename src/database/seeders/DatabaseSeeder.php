@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             ExamTypeSeeder::class,
             FeeCategorySeeder::class,
             DesignationSeeder::class,
+            LeaveTypeSeeder::class,
+            LeaveStatusSeeder::class,
         ]);
     }
 }

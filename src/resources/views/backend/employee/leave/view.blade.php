@@ -56,13 +56,13 @@
                     class="select-trigger"
                     :aria-expanded="openGender">
 
-                    <svg class="h-4 w-4 mr-2">
-                        <use href="{{ asset('assets/icons/icons.svg#lucide-filter') }}"></use>
+                    <svg  class="h-4 w-4 mr-2">
+                    <use href="{{ asset('assets/icons/icons.svg#lucide-filter') }}"></use>
                     </svg>
 
                     <span x-text="getGenderText('Gender')"></span>
 
-                    <svg class="h-4 w-4 opacity-50">
+                    <svg  class="h-4 w-4 opacity-50" >
                         <use href="{{ asset('assets/icons/icons.svg#lucide-chevron-down') }}"></use>
                     </svg>
                 </button>
@@ -70,23 +70,26 @@
                 <div
                     x-show="openGender"
                     x-transition
-                    class="select-content">
+                    class="select-content"
+                >
                     <ul class="py-1">
-                        <template x-for="option in GenderOptions" :key="option.value">
-                            <li>
-                                <button
-                                    type="button"
-                                    x-on:click="selectGender(option.value)"
-                                    class="select-item">
-                                    <span x-text="option.label"></span>
-                                    <span x-show="selectedGender === option.value" class="select-item-indicator">
-                                        <svg class="w-4 h-4">
-                                            <use href="{{ asset('assets/icons/icons.svg#lucide-check') }}"></use>
-                                        </svg>
-                                    </span>
-                                </button>
-                            </li>
-                        </template>
+                    <template x-for="option in GenderOptions" :key="option.value">
+                        <li>
+                        <button
+                            type="button"
+                            x-on:click="selectGender(option.value)"
+                            class="select-item"
+
+                        >
+                            <span x-text="option.label"></span>
+                            <span x-show="selectedGender === option.value" class="select-item-indicator">
+                                <svg class="w-4 h-4">
+                                    <use href="{{ asset('assets/icons/icons.svg#lucide-check') }}"></use>
+                                </svg>
+                            </span>
+                        </button>
+                        </li>
+                    </template>
                     </ul>
                 </div>
             </div>
@@ -107,12 +110,4 @@
 
     @include('backend.employee.registration.partials.employee-form-alpine')
 </section>
-
-<div
-    x-data="leave()"
-    x-init="init()"
-    @open-leave-dialog.window="openLeaveDialog($event.detail.employee)">
-
-    @include('backend.employee.registration.partials.employee-leave-dialog')
-</div>
 @endsection

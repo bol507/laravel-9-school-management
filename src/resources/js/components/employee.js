@@ -38,6 +38,7 @@ export default () => {
             gender: null,
             designation_id: null,
         },
+        selectedEmployeeForLeave: null,
 
         // Image preview
         currentImageUrl: null,
@@ -74,7 +75,7 @@ export default () => {
                 this.initGenderFormOptions(genderOptions);
                 this.initDesignationFormOptions(designationOptions);
             } catch (err) {
-                console.error('Error loading genders:', err);
+                console.error('Error loading selects:', err);
                 this.initGenderOptions([]);
                 this.initGenderFormOptions([]);
                 this.initDesignationFormOptions([]);
@@ -170,6 +171,23 @@ export default () => {
         },
 
         /**
+         * Preview selected image in the form.
+         *
+         * @param {Event} event - File input change event
+         */
+        previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('show-image').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                this.employeeForm.image = file;
+            }
+        },
+
+        /**
          * Submit the employee form (create or update).
          */
         async saveEmployee() {
@@ -208,22 +226,7 @@ export default () => {
             }
         },
 
-        /**
-         * Preview selected image in the form.
-         *
-         * @param {Event} event - File input change event
-         */
-        previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    document.getElementById('show-image').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                this.employeeForm.image = file;
-            }
-        },
+
 
         /**
          * Populate the form with employee data for editing.
@@ -263,6 +266,8 @@ export default () => {
                 this.$refs.employeeDialog.showModal();
             });
         },
+
+
 
         /**
          * Format a date string for display (e.g., "Jan 5, 2024").

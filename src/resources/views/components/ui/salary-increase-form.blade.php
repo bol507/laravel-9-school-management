@@ -23,9 +23,9 @@
                 @csrf
                     <div class="row">
                         <div class="space-y-2 col-6">
-                            <label class="control-label" for="present_salary">Present salary</label>
+                            <label for="present_salary">Present salary</label>
                             <input
-                                class="form-control"
+                                class="input-glass"
                                 id="present-salary"
                                 name="present_salary"
                                 disabled
@@ -33,9 +33,9 @@
                             >
                         </div>
                         <div class="space-y-2 col-6">
-                            <label class="control-label" for="new-salary">New salary</label>
+                            <label for="new-salary">New salary</label>
                             <input
-                                class="form-control"
+                                class="input-glass"
                                 id="new-salary"
                                 disabled
                                 x-model="newSalary"
@@ -45,9 +45,9 @@
 
                     <div class="row">
                         <div class="space-y-2 col-6">
-                            <label class="control-label" for="increment-salary">Increment</label>
+                            <label for="increment-salary">Increment</label>
                             <input
-                                class="form-control"
+                                class="input-glass"
                                 id="increment-salary"
                                 step="0.01"
                                 placeholder="0.00"
@@ -57,9 +57,9 @@
                             >
                         </div>
                         <div class="space-y-2 col-6">
-                            <label class="control-label" for="increment-percentage">Percentage increment</label>
+                            <label for="increment-percentage">Percentage increment</label>
                             <input
-                                class="form-control"
+                                class="input-glass"
                                 id="increment-percentage"
                                 step="0.01"
                                 placeholder="0.00"
@@ -72,10 +72,10 @@
 
                     <div class="row">
                         <div class="space-y-2 col-12">
-                            <label class="control-label" for="effective-date">Effective date</label>
+                            <label for="effective-date">Effective date</label>
                             <input
                                 type="date"
-                                class="form-control date-right"
+                                class="input-glass"
                                 id="effective-date"
                                 x-model="effectiveDate"
                                 name="effective_date"

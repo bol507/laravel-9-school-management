@@ -1,0 +1,92 @@
+[data-theme="dark"] {
+
+    --background: #1a233a;
+    --foreground: #d5e2fb;
+
+    --muted: #8a99b5;
+    --title: #bdd1f8;
+    --surface: #272f49;
+    --surface-foreground: #bdd1f8;
+    --primary: #475f7b;
+    --primary-foreground: #bdd1f8;
+    --primary-disabled: #3a4b66;
+    --border: #475f7b;
+    --accent: #475f7b;
+    --accent-foreground: #bdd1f8;
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: #bdd1f8;
+
+    --primary-hover: #5a7090;
+}
+
+[data-theme="light"] {
+    --background: #ffffff;
+    --foreground: #1a233a;
+    --muted: #64748b;
+    --title: #1e293b;
+    --surface: #f8fafc;
+    --surface-foreground: #1a233a;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --primary-disabled: #94a3b8;
+    --border: #cbd5e1;
+    --accent: #3b82f6;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --primary-hover: #2563eb;
+}
+
+[data-theme="blue"] {
+  --background: #0f172a;
+  --foreground: #e0f2fe;
+  --muted: #94a3b8;
+  --title: #bae6fd;
+  --surface: #1e293b;
+  --surface-foreground: #bae6fd;
+  --primary: #38bdf8;
+  --primary-foreground: #0f172a;
+  --primary-disabled: #7dd3fc;
+  --border: #38bdf8;
+  --accent: #38bdf8;
+  --accent-foreground: #0f172a;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #f8fafc;
+  --primary-hover: #7dd3fc;
+}
+
+[data-theme="green"] {
+  --background: #0c0f0e;
+  --foreground: #dcfce7;
+  --muted: #94a3b8;
+  --title: #a7f3d0;
+  --surface: #1a1f1d;
+  --surface-foreground: #a7f3d0;
+  --primary: #22c55e;
+  --primary-foreground: #0c0f0e;
+  --primary-disabled: #86efac;
+  --border: #22c55e;
+  --accent: #22c55e;
+  --accent-foreground: #0c0f0e;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #f0fdf4;
+  --primary-hover: #86efac;
+}
+
+[data-theme="black"] {
+  --background: #000000;
+  --foreground: #e2e8f0;
+  --muted: #94a3b8;
+  --title: #f1f5f9;
+  --surface: #0f0f0f;
+  --surface-foreground: #e2e8f0;
+  --primary: #64748b;
+  --primary-foreground: #f1f5f9;
+  --primary-disabled: #334155;
+  --primary-hover: #5a7090;
+  --border: #1e293b;
+  --accent: #64748b;
+  --accent-foreground: #f1f5f9;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #f8fafc;
+}
