@@ -61,6 +61,7 @@ export default () => {
                 const { data } = await axios.get(`/ajax/leaves/employee/${id}`);
 
                 this.leaves = data.leaves;
+                this.pagination.initPagination(data.pagination);
                 this.loadSelects(data.types, data.statuses);
             } catch (err) {
                 console.error('Error loading leave ', err);

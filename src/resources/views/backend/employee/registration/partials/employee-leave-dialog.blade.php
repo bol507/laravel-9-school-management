@@ -15,33 +15,53 @@
             <template x-if="isLoading">
                 <p>Loading permissions...</p>
             </template>
+            <div class="max-h-96 overflow-y-auto pr-2">
+                <template x-if="!isLoading && leaves.length === 0">
+                    <div class="text-center py-8">
+                        <svg class="w-12 h-12 mx-auto text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="mt-2 text-muted-foreground">No permits found</p>
+                    </div>
+                </template>
 
-            <template x-if="!isLoading && leaves.length === 0">
-                <p class="foreground">There are no registered permits.</p>
-            </template>
-
-            <div class="space-y-3" x-show="!isLoading">
-                <template x-for="leave in leaves" :key="leave.id">
-                    <div class="border rounded p-3">
-                        <div class="flex justify-between items-center">
-                            <span class="font-medium foreground" x-text="leave.type"></span>
-                            <span
+                <template x-for="leave in paginatedLeaves" :key="leave.id">
+                    <div class="group flex gap-3 p-3 rounded-lg border hover:bg-accent/30 transition-colors">
+                        <!-- Estado visual (ícono + color) -->
+                        <div class="flex flex-col items-center pt-0.5">
+                            <div
+                                class="w-2 h-2 rounded-full"
                                 :class="{
-                                    'px-2 py-1 rounded-full': true,
-                                    'bg-green-100 text-green-800': leave.status === 'approved',
-                                    'bg-yellow-100 text-yellow-800': leave.status === 'pending',
-                                    'bg-red-100 text-red-800': leave.status === 'rejected',
-                                    'bg-gray-100 text-gray-800': !['approved','pending','rejected'].includes(leave.status)
-                                }"
-                                x-text="leave.status">
-                            </span>
+            'bg-green-500': leave.status === 'approved',
+            'bg-yellow-500': leave.status === 'pending',
+            'bg-red-500': leave.status === 'rejected',
+            'bg-gray-400': !['approved','pending','rejected'].includes(leave.status)
+          }">
+                            </div>
+                            <div class="w-px h-full bg-border mt-1"></div>
                         </div>
-                        <p class="text-sm foreground" x-text="leave.dateStart + ' – ' + leave.dateEnd"></p>
-                        <p class="foreground" x-show="leave.reason" x-text="leave.reason"></p>
+
+                        <!-- Contenido -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start">
+                                <span class="font-medium text-foreground" x-text="leave.type"></span>
+                                <span
+                                    class="px-2 py-0.5 rounded-full text-xs font-medium"
+                                    :class="{
+              'bg-green-100 text-green-800': leave.status === 'approved',
+              'bg-yellow-100 text-yellow-800': leave.status === 'pending',
+              'bg-red-100 text-red-800': leave.status === 'rejected',
+              'bg-gray-100 text-gray-800': !['approved','pending','rejected'].includes(leave.status)
+            }"
+                                    x-text="leave.status">
+                                </span>
+                            </div>
+                            <p class="text-sm text-muted-foreground mt-1" x-text="formatDateRange(leave.dateStart, leave.dateEnd)"></p>
+                            <p x-show="leave.reason" class="text-sm mt-1 text-foreground line-clamp-2" x-text="leave.reason"></p>
+                        </div>
                     </div>
                 </template>
             </div>
-
             {{-- Form --}}
             <div class="border-t pt-4 mt-4">
                 <h3 class="text-xl mb-3">Add New Leave</h3>
@@ -136,7 +156,7 @@
                         class="btn btn-primary"
                         :disabled="isSubmitting"
                         @click="submitLeaveForm()">
-                        <template x-if="!isSubmitting" >
+                        <template x-if="!isSubmitting">
                             <span>Add Leave</span>
                         </template>
                         <template x-if="isSubmitting">

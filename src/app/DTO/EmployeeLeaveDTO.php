@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\DTO\Traits\DateParsingTrait;
+use App\Models\EmployeeLeave;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
@@ -36,5 +37,25 @@ final class EmployeeLeaveDTO
         $this->dateStart = $this->parseDate($data['dateStart']);
         $this->dateEnd = $this->parseDate($data['dateEnd']);
         $this->appliedAt = $this->parseDate($data['appliedAt'] ?? null);
+    }
+
+    public static function fromModel(EmployeeLeave $leave): self
+    {
+        return new self(self::map($leave));
+    }
+
+    private static function map(EmployeeLeave $l): array
+    {
+        return [
+            'id'         => $l->id,
+            'employeeId' => $l->employee_id,
+            'type'       => $l->type?->code  ?? 'unknown',
+            'status'     => $l->status?->code ?? 'pending',
+            'reason'     => $l->reason,
+            'dateStart'  => $l->date_start->toISOString(),
+            'dateEnd'    => $l->date_end->toISOString(),
+            'appliedAt'  => $l->applied_at?->toDateTimeString(),
+            'approvedBy' => $l->approved_by,
+        ];
     }
 }

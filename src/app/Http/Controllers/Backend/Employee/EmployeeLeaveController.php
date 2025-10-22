@@ -6,8 +6,12 @@ use App\DTO\EmployeeLeaveDTO;
 use App\Http\Controllers\Controller;
 use App\Models\LeaveStatus;
 use App\Models\LeaveType;
+use App\Queries\EmployeeLeave\EmployeeLeaveFilters;
+use App\Queries\EmployeeLeave\EmployeeLeaveQueryBuilder;
 use App\Repositories\Contracts\EmployeeLeaveRepositoryInterface;
 use App\Services\Contracts\EmployeeLeaveCreatorServiceInterface;
+use App\Services\Contracts\EmployeeLeaveServiceInterface;
+use Database\Seeders\EmployeeLeaveSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -18,11 +22,11 @@ class EmployeeLeaveController extends Controller
 
     public function __construct(
         private EmployeeLeaveRepositoryInterface $repository,
+        private EmployeeLeaveServiceInterface $service,
         private EmployeeLeaveCreatorServiceInterface $creator,
     ){}
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
             'employee_id' => 'required|exists:users,id',
             'leave_type_id' => 'required|exists:leave_types,id',
@@ -46,21 +50,30 @@ class EmployeeLeaveController extends Controller
         }
     }
 
-    public function getLeaveByEmployee($id)
-    {
-        $leaveDTOs = $this->repository->findByEmployeeId($id);
-        $types = LeaveType::all();
-        $statuses = LeaveStatus::all();
+    public function getLeaveByEmployee(Request $request, $id) {
+        $perPage = (int) $request->input('limit', 6);
+        $perPage = max(1, min($perPage, 100));
+
+        $paginator = EmployeeLeaveQueryBuilder::make()
+            ->forEmployee($id)
+            ->orderBy('date_start', 'desc')
+            ->paginate($perPage);
+        //map to DTOs
+        $dtoCollection = $paginator
+            ->getCollection()
+            ->map(fn($l) => EmployeeLeaveDTO::fromModel($l));
+
+        $paginator->setCollection($dtoCollection);
 
         return response()->json([
-            'leaves' => $leaveDTOs,
-            'types' => $types,
-            'statuses' => $statuses,
+            'leaves'     => $dtoCollection,
+            'pagination' => $paginator->jsonSerialize(),
+            'types'      => LeaveType::all(),
+            'statuses'   => LeaveStatus::all(),
         ]);
     }
 
-    public function getLeaves(Request $request)
-    {
+    /*public function getLeaves(Request $request) {
         $perPage = (int) $request->input('limit', 6);
         $perPage = max(1, min($perPage, 100));
         $search = $request->input('search');
@@ -91,5 +104,5 @@ class EmployeeLeaveController extends Controller
             'types' => $types,
             'statuses' => $statuses,
         ]);
-    }
+    }*/
 }

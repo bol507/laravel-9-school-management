@@ -192,7 +192,7 @@ Route::prefix('ajax')
         Route::get('/employees/{id}',  [EmployeeSalaryController::class,'show']); //view salary via ajax
         Route::put('/employees/{id}'  ,[EmployeeRegistrationController::class, 'update']); //update salary via ajax
         //leaves
-        Route::get('/leaves', [EmployeeLeaveController::class,'getLeaves']);
+        //Route::get('/leaves', [EmployeeLeaveController::class,'getLeaves']);
         Route::get('/leaves/employee/{id}', [EmployeeLeaveController::class , 'getLeaveByEmployee']);
         Route::post('/leaves', [EmployeeLeaveController::class, 'store']);
     });

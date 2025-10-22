@@ -10,16 +10,10 @@ use Illuminate\Support\Collection;
 interface EmployeeLeaveRepositoryInterface {
 
     public function all() : Collection;
-    public function findById(string $id): ?EmployeeLeave;
+    public function find(string $id): ?EmployeeLeave;
     public function findOrFail(string $id): EmployeeLeave;
-    public function findDTOOrFail(string $id): EmployeeLeaveDTO;
-    public function paginate(
-        int $perPage = 10,
-        ?string $search = null,
-        array $filters = [],
-        string $orderBy = 'created_at',
-        string $orderDirection = 'desc'
-    ): LengthAwarePaginator;
-    public function findByEmployeeId(string $id): Collection;
+    public function findByEmployee(string $id): Collection;
     public function create(array $data): EmployeeLeave;
+    public function update(EmployeeLeave $leave, array $raw): EmployeeLeave;
+    public function delete(EmployeeLeave $leave): bool;
 }
