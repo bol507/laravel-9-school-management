@@ -66,7 +66,6 @@ class EmployeeLeaveController extends Controller
         $paginator->setCollection($dtoCollection);
 
         return response()->json([
-            'leaves'     => $dtoCollection,
             'pagination' => $paginator->jsonSerialize(),
             'types'      => LeaveType::all(),
             'statuses'   => LeaveStatus::all(),

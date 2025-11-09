@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LeaveStatus extends Model
 {
-    use HasFactory,HasUuids,SoftDeletes;
-    protected $keytype = 'string';
+    use HasFactory, HasUuids, SoftDeletes;
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [
