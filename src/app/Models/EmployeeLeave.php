@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EmployeeLeave extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
-    protected $keytype = 'string';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [

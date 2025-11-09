@@ -16,7 +16,7 @@
                 <p>Loading permissions...</p>
             </template>
             <div class="max-h-96 overflow-y-auto pr-2">
-                <template x-if="!isLoading && leaves.length === 0">
+                <template x-if="!isLoading && pagintation.data === 0">
                     <div class="text-center py-8">
                         <svg class="w-12 h-12 mx-auto text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -25,18 +25,18 @@
                     </div>
                 </template>
 
-                <template x-for="leave in paginatedLeaves" :key="leave.id">
+                <template x-for="leave in pagination.data" :key="leave.id">
                     <div class="group flex gap-3 p-3 rounded-lg border hover:bg-accent/30 transition-colors">
                         <!-- Estado visual (ícono + color) -->
                         <div class="flex flex-col items-center pt-0.5">
                             <div
                                 class="w-2 h-2 rounded-full"
                                 :class="{
-            'bg-green-500': leave.status === 'approved',
-            'bg-yellow-500': leave.status === 'pending',
-            'bg-red-500': leave.status === 'rejected',
-            'bg-gray-400': !['approved','pending','rejected'].includes(leave.status)
-          }">
+                                    'bg-green-500': leave.status === 'approved',
+                                    'bg-yellow-500': leave.status === 'pending',
+                                    'bg-red-500': leave.status === 'rejected',
+                                    'bg-gray-400': !['approved','pending','rejected'].includes(leave.status)
+                                }">
                             </div>
                             <div class="w-px h-full bg-border mt-1"></div>
                         </div>
